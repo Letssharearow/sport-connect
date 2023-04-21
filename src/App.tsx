@@ -22,6 +22,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import UserProfileForm from "./components/UserProfileForm";
 
 setupIonicReact();
 
@@ -38,6 +39,9 @@ const App: React.FC = () => (
         <Route path="/message/:id">
            <ViewMessage />
         </Route>
+          <Route path="/test">
+              <UserProfileForm></UserProfileForm>
+          </Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
