@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Sport Treff",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
