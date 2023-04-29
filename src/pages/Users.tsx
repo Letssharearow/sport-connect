@@ -8,20 +8,22 @@ import {
     IonList,
     IonPage,
     IonRefresher,
-    IonRefresherContent, IonRouterLink, IonRow,
+    IonRefresherContent, IonRow,
     IonTitle,
     IonToolbar,
     useIonViewWillEnter
 } from '@ionic/react';
 import './Home.css';
+import {getUser} from "../data/users";
+import {User} from "../data/models";
 
 const Home: React.FC = () => {
 
-    const [categories, setCategories] = useState<Enums[]>([]);
+    const [user, setUser] = useState<User[]>([]);
 
     useIonViewWillEnter(() => {
-        const msgs = getCategories();
-        setCategories(msgs);
+        const user = getUser();
+        setUser(user);
     });
 
     const refresh = (e: CustomEvent) => {
@@ -35,13 +37,12 @@ const Home: React.FC = () => {
             <IonHeader collapse="fade">
                 <IonToolbar>
                     <IonRow>
-                        <IonCol itemType="a">
-                            <IonTitle>Kategorien</IonTitle>
-                            <IonCardSubtitle>Wählen Sie alle Kategorien, für die Sie Leute suchen</IonCardSubtitle>
+                        <IonCol>
+                            <IonTitle>Coole Leute</IonTitle>
+                            <IonCardSubtitle>Wählen Sie alle Leute, mit denen Sie gerne aktiv werden
+                                wollen</IonCardSubtitle>
                         </IonCol>
-                        <IonRouterLink routerLink="/users">
-                            <IonButton>Weiter</IonButton>
-                        </IonRouterLink>
+                        <IonButton>Weiter</IonButton>
                     </IonRow>
                 </IonToolbar>
             </IonHeader>
@@ -59,7 +60,7 @@ const Home: React.FC = () => {
                 </IonHeader>
 
                 <IonList>
-                    {categories.map(m => <CategoryComponent key={m} message={m}/>)}
+                    {user.map(m => <CategoryComponent key={m.id} message={m.name}/>)}
                 </IonList>
             </IonContent>
         </IonPage>

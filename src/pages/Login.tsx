@@ -18,7 +18,7 @@ function Login() {
     const [isOpen, setIsOpen] = useState(false);
 
     const dispatch = useDispatch();
-    dispatch(setUserState('test'));
+    // dispatch(setUserState('test'));
 
     const userData = useSelector((state: any) => state.userData);
     console.log('userData', userData);
@@ -97,7 +97,7 @@ function Login() {
 
                 <p style={{fontSize: "medium"}}>
                     Don't want to sign u? <> </>
-                    <IonRouterLink routerLink="/signup">
+                    <IonRouterLink routerLink="/categories">
                         <a href="">Skip Sign up!</a>
                     </IonRouterLink>
                 </p>
