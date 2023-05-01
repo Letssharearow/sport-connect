@@ -1,6 +1,6 @@
 import CategoryComponent from '../components/CategoryComponent';
 import {useEffect, useState} from 'react';
-import {Enums, getCategories} from '../data/enums';
+import {Enums, getCategories, Page} from '../data/enums';
 import {
     IonButton, IonCardSubtitle, IonCol,
     IonContent,
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
                             <IonTitle>Kategorien</IonTitle>
                             <IonCardSubtitle>Wählen Sie alle Kategorien, für die Sie Leute suchen</IonCardSubtitle>
                         </IonCol>
-                        <IonRouterLink routerLink="/users">
+                        <IonRouterLink routerLink={Page.menue}>
                             <IonButton>Weiter</IonButton>
                         </IonRouterLink>
                     </IonRow>

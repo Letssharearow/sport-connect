@@ -21,10 +21,8 @@ function Login() {
     // dispatch(setUserState('test'));
 
     const userData = useSelector((state: any) => {
-        console.log('state', state);
         return state.userData
     });
-    console.log('userData', userData);
 
     const handleLogin = async () => {
         //validate inputs code not shown
@@ -33,7 +31,6 @@ function Login() {
             password: password,
         };
         const res = await login(email, password);
-        console.log('res', res);
         setIsOpen(true)
     };
 

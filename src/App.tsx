@@ -1,12 +1,12 @@
 import {Redirect, Route} from 'react-router-dom';
 import {
-    IonApp,
+    IonApp, IonHeader,
     IonIcon,
     IonLabel,
     IonRouterOutlet,
     IonTabBar,
     IonTabButton,
-    IonTabs,
+    IonTabs, IonTitle, IonToolbar,
     setupIonicReact
 } from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
@@ -36,13 +36,20 @@ import './theme/variables.css';
 import UserProfileForm from "./components/UserProfileForm";
 import {Page} from "./data/enums";
 import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
+import {useSelector} from "react-redux";
+import {State} from "./data/models";
+import Menue from "./pages/Menue";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-    <IonApp>
-        <IonReactRouter>
-            <IonTabs>
+const App: React.FC = () => {
+
+    const isLoggedIn = useSelector<{ datasetSlice: State }>((state) => state.datasetSlice.user) !== undefined;
+
+    console.log('isLoggedIn', isLoggedIn);
+    return (
+        <IonApp>
+            <IonReactRouter>
                 <IonRouterOutlet>
                     <Redirect exact path="/" to={Page.login}/>
                     {/*
@@ -51,35 +58,16 @@ const App: React.FC = () => (
           Use the component prop when your component depends on the RouterComponentProps passed in automatically.
         */}
                     <Route path={Page.login} render={() => <Login/>} exact={true}/>
-                    <Route path={Page.signup} render={() => <div>hallo</div>} exact={true}/>
+                    <Route path={Page.signup} render={() => <SignUp/>} exact={true}/>
+                    <Route path={Page.categories} render={() => <Home/>} exact={true}/>
+                    <Route path={Page.menue} render={() => <Menue/>} exact={true}/>
+                    <Route path={Page.profile} render={() => <Login/>} exact={true}/>
                     <Route path={Page.users} render={() => <Home/>} exact={true}/>
-                    <Route path={Page.profile} render={() => <div>div div div div div </div>} exact={true}/>
+                    <Route path={Page.contacts} render={() => <div>div div div div div </div>} exact={true}/>
                 </IonRouterOutlet>
-
-                <IonTabBar slot="bottom">
-                    <IonTabButton tab="home" href={Page.login}>
-                        <IonIcon icon={playCircle}/>
-                        <IonLabel>Listen now</IonLabel>
-                    </IonTabButton>
-
-                    <IonTabButton tab="radio" href={Page.signup}>
-                        <IonIcon icon={radio}/>
-                        <IonLabel>Radio</IonLabel>
-                    </IonTabButton>
-
-                    <IonTabButton tab="library" href={Page.users}>
-                        <IonIcon icon={library}/>
-                        <IonLabel>Library</IonLabel>
-                    </IonTabButton>
-
-                    <IonTabButton tab="search" href={Page.profile}>
-                        <IonIcon icon={search}/>
-                        <IonLabel>Search</IonLabel>
-                    </IonTabButton>
-                </IonTabBar>
-            </IonTabs>
-        </IonReactRouter>
-    </IonApp>
-);
+            </IonReactRouter>
+        </IonApp>
+    );
+}
 
 export default App;
