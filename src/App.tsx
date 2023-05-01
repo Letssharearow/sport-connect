@@ -35,7 +35,6 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import UserProfileForm from "./components/UserProfileForm";
 import {Page} from "./data/enums";
-import Menue from "./pages/Menue";
 import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
 
 setupIonicReact();
@@ -45,26 +44,37 @@ const App: React.FC = () => (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
-                    <Redirect exact path="/" to={Page.profile}/>
-                    <Route path={Page.profile} render={() => <Home/>} exact={true}/>
-                    <Route path={Page.users} render={() => <Users/>} exact={true}/>
-                    <Route path={Page.contacts} render={() => <SignUp/>} exact={true}/>
+                    <Redirect exact path="/" to={Page.login}/>
+                    {/*
+          Use the render method to reduce the number of renders your component will have due to a route change.
+
+          Use the component prop when your component depends on the RouterComponentProps passed in automatically.
+        */}
+                    <Route path={Page.login} render={() => <Login/>} exact={true}/>
+                    <Route path={Page.signup} render={() => <div>hallo</div>} exact={true}/>
+                    <Route path={Page.users} render={() => <Home/>} exact={true}/>
+                    <Route path={Page.profile} render={() => <div>div div div div div </div>} exact={true}/>
                 </IonRouterOutlet>
 
                 <IonTabBar slot="bottom">
-                    <IonTabButton tab="profile" href={Page.profile}>
-                        <IonIcon icon={accessibilityOutline}/>
-                        <IonLabel>Account</IonLabel>
+                    <IonTabButton tab="home" href={Page.login}>
+                        <IonIcon icon={playCircle}/>
+                        <IonLabel>Listen now</IonLabel>
                     </IonTabButton>
 
-                    <IonTabButton tab="users" href={Page.users}>
-                        <IonIcon icon={globe}/>
-                        <IonLabel>Neue Leute</IonLabel>
+                    <IonTabButton tab="radio" href={Page.signup}>
+                        <IonIcon icon={radio}/>
+                        <IonLabel>Radio</IonLabel>
                     </IonTabButton>
 
-                    <IonTabButton tab="contacts" href={Page.contacts}>
-                        <IonIcon icon={chatbubbles}/>
-                        <IonLabel>Chats</IonLabel>
+                    <IonTabButton tab="library" href={Page.users}>
+                        <IonIcon icon={library}/>
+                        <IonLabel>Library</IonLabel>
+                    </IonTabButton>
+
+                    <IonTabButton tab="search" href={Page.profile}>
+                        <IonIcon icon={search}/>
+                        <IonLabel>Search</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>

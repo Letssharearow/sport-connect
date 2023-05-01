@@ -1,5 +1,5 @@
 import CategoryComponent from '../components/CategoryComponent';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Enums, getCategories} from '../data/enums';
 import {
     IonButton, IonCardSubtitle, IonCol,
@@ -13,16 +13,17 @@ import {
     IonToolbar,
     useIonViewWillEnter
 } from '@ionic/react';
-import './Home.css';
 
 const Home: React.FC = () => {
 
     const [categories, setCategories] = useState<Enums[]>([]);
 
-    useIonViewWillEnter(() => {
+
+    useEffect(() => {
         const msgs = getCategories();
+        console.log('msgs', msgs);
         setCategories(msgs);
-    });
+    }, [])
 
     const refresh = (e: CustomEvent) => {
         setTimeout(() => {
@@ -31,7 +32,7 @@ const Home: React.FC = () => {
     };
 
     return (
-        <IonPage id="home-page">
+        <div id="home-page">
             <IonHeader collapse="fade">
                 <IonToolbar>
                     <IonRow>
@@ -62,7 +63,7 @@ const Home: React.FC = () => {
                     {categories.map(m => <CategoryComponent key={m} message={m}/>)}
                 </IonList>
             </IonContent>
-        </IonPage>
+        </div>
     );
 };
 
