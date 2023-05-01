@@ -1,9 +1,19 @@
 import {Redirect, Route} from 'react-router-dom';
-import {IonApp, IonRouterOutlet, setupIonicReact} from '@ionic/react';
+import {
+    IonApp,
+    IonIcon,
+    IonLabel,
+    IonRouterOutlet,
+    IonTabBar,
+    IonTabButton,
+    IonTabs,
+    setupIonicReact
+} from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import Users from "./pages/Users";
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -24,34 +34,40 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import UserProfileForm from "./components/UserProfileForm";
-import Users from "./pages/Users";
 import {Page} from "./data/enums";
+import Menue from "./pages/Menue";
+import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
 
 setupIonicReact();
 
 const App: React.FC = () => (
     <IonApp>
         <IonReactRouter>
-            <IonRouterOutlet>
-                <Route path="/" exact={true}>
-                    <Redirect to={Page.login}/>
-                </Route>
-                <Route path={Page.categories} exact={true}>
-                    <Home/>
-                </Route>
-                <Route path={Page.users} exact={true}>
-                    <Users/>
-                </Route>
-                <Route path="/test">
-                    <UserProfileForm></UserProfileForm>
-                </Route>
-                <Route path={Page.login}>
-                    <Login></Login>
-                </Route>
-                <Route path={Page.signup}>
-                    <SignUp></SignUp>
-                </Route>
-            </IonRouterOutlet>
+            <IonTabs>
+                <IonRouterOutlet>
+                    <Redirect exact path="/" to={Page.profile}/>
+                    <Route path={Page.profile} render={() => <Home/>} exact={true}/>
+                    <Route path={Page.users} render={() => <Users/>} exact={true}/>
+                    <Route path={Page.contacts} render={() => <SignUp/>} exact={true}/>
+                </IonRouterOutlet>
+
+                <IonTabBar slot="bottom">
+                    <IonTabButton tab="profile" href={Page.profile}>
+                        <IonIcon icon={accessibilityOutline}/>
+                        <IonLabel>Account</IonLabel>
+                    </IonTabButton>
+
+                    <IonTabButton tab="users" href={Page.users}>
+                        <IonIcon icon={globe}/>
+                        <IonLabel>Neue Leute</IonLabel>
+                    </IonTabButton>
+
+                    <IonTabButton tab="contacts" href={Page.contacts}>
+                        <IonIcon icon={chatbubbles}/>
+                        <IonLabel>Chats</IonLabel>
+                    </IonTabButton>
+                </IonTabBar>
+            </IonTabs>
         </IonReactRouter>
     </IonApp>
 );

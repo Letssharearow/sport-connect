@@ -30,4 +30,5 @@ export enum Page {
     categories = "/categories",
     users = "/users",
     profile = "/profile",
+    contacts = "/contacts",
 }

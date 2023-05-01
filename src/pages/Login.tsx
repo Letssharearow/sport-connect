@@ -20,7 +20,10 @@ function Login() {
     const dispatch = useDispatch();
     // dispatch(setUserState('test'));
 
-    const userData = useSelector((state: any) => state.userData);
+    const userData = useSelector((state: any) => {
+        console.log('state', state);
+        return state.userData
+    });
     console.log('userData', userData);
 
     const handleLogin = async () => {

@@ -8,8 +8,14 @@ export interface User {
     id: number;
 }
 
+export interface UserData {
+    email: string,
+    password: string,
+}
+
 export interface State {
-    user: User;
+    user?: User;
+    userData?: UserData;
     lastPage: string;
     currentPage: string;
 }

@@ -3,14 +3,19 @@ import {createRoot} from 'react-dom/client';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import {configureStore} from '@reduxjs/toolkit'
+
 import {Provider} from 'react-redux';
-import {createStore} from 'redux'
-import {reducer} from "./redux/reducers";
+import datasetSlice from "./redux/reducers";
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 
-const store = createStore(reducer);
+const store = configureStore({
+    reducer: {
+        datasetSlice
+    }
+});
 
 root.render(
     <React.StrictMode>
