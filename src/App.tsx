@@ -39,6 +39,7 @@ import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, se
 import {useSelector} from "react-redux";
 import {State} from "./data/models";
 import Menue from "./pages/Menue";
+import Profile from "./pages/Profile";
 
 setupIonicReact();
 
@@ -61,8 +62,8 @@ const App: React.FC = () => {
                     <Route path={Page.signup} render={() => <SignUp/>} exact={true}/>
                     <Route path={Page.categories} render={() => <Home/>} exact={true}/>
                     <Route path={Page.menue} render={() => <Menue/>} exact={true}/>
-                    <Route path={Page.profile} render={() => <Login/>} exact={true}/>
-                    <Route path={Page.users} render={() => <Home/>} exact={true}/>
+                    <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
+                    <Route path={Page.users} render={() => <Users/>} exact={true}/>
                     <Route path={Page.contacts} render={() => <div>div div div div div </div>} exact={true}/>
                 </IonRouterOutlet>
             </IonReactRouter>

@@ -1,5 +1,5 @@
 import CategoryComponent from '../components/CategoryComponent';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Enums, getCategories} from '../data/enums';
 import {
     IonButton, IonCardSubtitle, IonCol,
@@ -13,21 +13,50 @@ import {
     IonToolbar,
     useIonViewWillEnter
 } from '@ionic/react';
-import {getUser} from "../data/users";
+import {getUsers} from "../data/users";
 import {User} from "../data/models";
+import UserItem from "../components/UserItem";
 
-const Users: React.FC = () => {
+const Home: React.FC = () => {
 
     const [user, setUser] = useState<User[]>([]);
 
-    useIonViewWillEnter(() => {
-        const user = getUser();
+    useEffect(() => {
+        const user = getUsers();
         setUser(user);
-    });
+    }, []);
+
+    const refresh = (e: CustomEvent) => {
+        setTimeout(() => {
+            e.detail.complete();
+        }, 3000);
+    };
 
     return (
-        <div>JAHA</div>
+        <>
+            <IonHeader collapse="fade">
+                <IonToolbar>
+                    <IonRow>
+                        <IonCol>
+                            <IonTitle>Coole Leute</IonTitle>
+                            <IonCardSubtitle>Wählen Sie alle Leute, mit denen Sie gerne aktiv werden
+                                wollen</IonCardSubtitle>
+                        </IonCol>
+                        <IonButton>Weiter</IonButton>
+                    </IonRow>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent fullscreen>
+                <IonRefresher slot="fixed" onIonRefresh={refresh}>
+                    <IonRefresherContent></IonRefresherContent>
+                </IonRefresher>
+
+                <IonList>
+                    {user.map(m => <UserItem key={m.id} user={m}/>)}
+                </IonList>
+            </IonContent>
+        </>
     );
 };
 
-export default Users;
+export default Home;

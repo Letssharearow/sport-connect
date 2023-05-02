@@ -33,3 +33,9 @@ export enum Page {
     contacts = "/contacts",
     menue = "/menue",
 }
+
+export enum Gender {
+    male = "m",
+    female = "w",
+    divers = "d",
+}

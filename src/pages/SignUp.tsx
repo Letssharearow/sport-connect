@@ -10,28 +10,23 @@ import {
     IonInput,
     IonSelect,
     IonSelectOption,
-    IonButton
+    IonButton, IonRow, IonCol, useIonRouter
 } from '@ionic/react';
+import {Page} from "../data/enums";
 
 const SignUp = () => {
-    const [name, setName] = useState('');
-    const [age, setAge] = useState('');
-    const [gender, setGender] = useState('');
-
-    const handleNameChange = (event: any) => {
-        setName(event.target.value);
-    };
-
-    const handleAgeChange = (event: any) => {
-        setAge(event.target.value);
-    };
-
-    const handleGenderChange = (event: any) => {
-        setGender(event.target.value);
-    };
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleSubmit = () => {
         // Handle form submission here
+        goToPage(Page.profile);
+    };
+
+    const router = useIonRouter();
+
+    const goToPage = (route: Page) => {
+        router.push(route, 'root', 'replace');
     };
 
     return (
@@ -42,25 +37,33 @@ const SignUp = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <IonList>
-                    <IonItem>
-                        <IonLabel position="stacked">Name</IonLabel>
-                        <IonInput type="text" value={name} onIonChange={handleNameChange}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel position="stacked">Age</IonLabel>
-                        <IonInput type="number" value={age} onIonChange={handleAgeChange}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel position="stacked">Gender</IonLabel>
-                        <IonSelect value={gender} onIonChange={handleGenderChange}>
-                            <IonSelectOption value="male">Male</IonSelectOption>
-                            <IonSelectOption value="female">Female</IonSelectOption>
-                            <IonSelectOption value="other">Other</IonSelectOption>
-                        </IonSelect>
-                    </IonItem>
-                </IonList>
-                <IonButton expand="block" onClick={handleSubmit}>Submit</IonButton>
+                <IonRow>
+                    <IonCol>
+                        <IonItem>
+                            <IonLabel position="floating"> Email</IonLabel>
+                            <IonInput
+                                type="email"
+                                value={email}
+                                onIonChange={(e) => setEmail(e.detail.value!)}
+                            >
+                            </IonInput>
+                        </IonItem>
+                    </IonCol>
+                </IonRow>
+                <IonRow>
+                    <IonCol>
+                        <IonItem>
+                            <IonLabel position="floating"> Password</IonLabel>
+                            <IonInput
+                                type="password"
+                                value={password}
+                                onIonChange={(e) => setPassword(e.detail.value!)}
+                            >
+                            </IonInput>
+                        </IonItem>
+                    </IonCol>
+                </IonRow>
+                <IonButton expand="block" onClick={handleSubmit}>Register</IonButton>
             </IonContent>
         </>
     );
