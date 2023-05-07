@@ -6,7 +6,6 @@ import {
     IonContent,
     IonList,
     IonItem,
-    IonLabel,
     IonInput,
     IonSelect,
     IonSelectOption,
@@ -20,7 +19,7 @@ const SignUp = () => {
 
     const handleSubmit = () => {
         // Handle form submission here
-        goToPage(Page.profile);
+        goToPage(Page.login);
     };
 
     const router = useIonRouter();
@@ -40,8 +39,9 @@ const SignUp = () => {
                 <IonRow>
                     <IonCol>
                         <IonItem>
-                            <IonLabel position="floating"> Email</IonLabel>
                             <IonInput
+                                labelPlacement="floating"
+                                label="Email"
                                 type="email"
                                 value={email}
                                 onIonChange={(e) => setEmail(e.detail.value!)}
@@ -53,8 +53,9 @@ const SignUp = () => {
                 <IonRow>
                     <IonCol>
                         <IonItem>
-                            <IonLabel position="floating"> Password</IonLabel>
                             <IonInput
+                                labelPlacement="floating"
+                                label="Password"
                                 type="password"
                                 value={password}
                                 onIonChange={(e) => setPassword(e.detail.value!)}

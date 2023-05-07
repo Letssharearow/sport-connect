@@ -1,4 +1,4 @@
-import {State, UserData} from "../../data/models";
+import {State, User, UserData} from "../../data/models";
 import {Page} from "../../data/enums";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
@@ -16,11 +16,14 @@ export const datasetSlice = createSlice({
     reducers: {
         setSomething: (state: State, action: PayloadAction<UserData>) => {
             state.userData = action.payload;
+        },
+        setUser: (state: State, action: PayloadAction<User>) => {
+            state.user = action.payload;
         }
     }
 })
 
-export const {setSomething} = datasetSlice.actions
+export const {setSomething, setUser} = datasetSlice.actions
 
 export default datasetSlice.reducer
 

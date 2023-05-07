@@ -40,7 +40,7 @@ const Home: React.FC = () => {
                             <IonTitle>Kategorien</IonTitle>
                             <IonCardSubtitle>Wählen Sie alle Kategorien, für die Sie Leute suchen</IonCardSubtitle>
                         </IonCol>
-                        <IonRouterLink routerLink={Page.menue}>
+                        <IonRouterLink routerLink={Page.profile}>
                             <IonButton>Weiter</IonButton>
                         </IonRouterLink>
                     </IonRow>

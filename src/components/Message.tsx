@@ -1,7 +1,7 @@
 import {
     IonCard,
     IonItem,
-    IonLabel, IonText,
+    IonText,
 } from '@ionic/react';
 import './MessageListItem.css';
 import {Enums} from "../data/enums";

@@ -12,12 +12,16 @@ import {
     IonSelectOption,
     IonButton, useIonRouter
 } from '@ionic/react';
-import {Page} from "../data/enums";
+import {Gender, Page} from "../data/enums";
+import {useDispatch} from "react-redux";
+import {setUser} from "../redux/reducers";
 
 const Profile = () => {
     const [name, setName] = useState('');
-    const [age, setAge] = useState('');
-    const [gender, setGender] = useState('');
+    const [age, setAge] = useState<number>();
+    const [gender, setGender] = useState<Gender>();
+
+    const dispatch = useDispatch();
 
     const handleNameChange = (event: any) => {
         setName(event.target.value);
@@ -33,7 +37,14 @@ const Profile = () => {
 
     const handleSubmit = () => {
         // Handle form submission here
-        goToPage(Page.menue);
+        dispatch(setUser({
+            id: 0,
+            age: age ?? 0,
+            categories: [],
+            gender: gender ?? Gender.divers,
+            name: name ?? '',
+            description: ''
+        }))
     };
 
     const router = useIonRouter();

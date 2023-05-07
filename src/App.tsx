@@ -38,7 +38,6 @@ import {Page} from "./data/enums";
 import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
 import {useSelector} from "react-redux";
 import {State} from "./data/models";
-import Menue from "./pages/Menue";
 import Profile from "./pages/Profile";
 import './App.css'
 import User from "./pages/User";
@@ -73,7 +72,7 @@ const App: React.FC = () => {
 
 
                     {
-                        isLoggedIn ? <IonTabBar></IonTabBar> : <IonTabBar slot="bottom">
+                        isLoggedIn ? <IonTabBar slot="bottom">
                             <IonTabButton tab="profile" href={Page.profile}>
                                 <IonIcon icon={accessibilityOutline}/>
                                 <IonLabel>Profil</IonLabel>
@@ -88,7 +87,7 @@ const App: React.FC = () => {
                                 <IonIcon icon={chatbubbles}/>
                                 <IonLabel>Chats</IonLabel>
                             </IonTabButton>
-                        </IonTabBar>
+                        </IonTabBar> : <IonTabBar></IonTabBar>
                     }
 
                 </IonTabs>

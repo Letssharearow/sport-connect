@@ -55,8 +55,9 @@ function Login() {
         <IonRow>
             <IonCol>
                 <IonItem>
-                    <IonLabel position="floating"> Email</IonLabel>
                     <IonInput
+                        labelPlacement="floating"
+                        label="Email"
                         type="email"
                         value={email}
                         onIonChange={(e) => setEmail(e.detail.value!)}
@@ -68,8 +69,9 @@ function Login() {
         <IonRow>
             <IonCol>
                 <IonItem>
-                    <IonLabel position="floating"> Password</IonLabel>
                     <IonInput
+                        labelPlacement="floating"
+                        label="Password"
                         type="password"
                         value={password}
                         onIonChange={(e) => setPassword(e.detail.value!)}

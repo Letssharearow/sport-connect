@@ -31,7 +31,6 @@ export enum Page {
     users = "/users",
     profile = "/profile",
     contacts = "/contacts",
-    menue = "/menue",
 }
 
 export enum Gender {
