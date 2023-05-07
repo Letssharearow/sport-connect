@@ -1,6 +1,6 @@
 import CategoryComponent from '../components/CategoryComponent';
 import {useEffect, useState} from 'react';
-import {Enums, getCategories} from '../data/enums';
+import {Category, getCategories} from '../data/category';
 import {
     IonButton, IonCardSubtitle, IonCol,
     IonContent,

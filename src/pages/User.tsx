@@ -12,7 +12,7 @@ import {
     IonSelectOption,
     IonButton, useIonRouter, IonText, IonFooter, IonTextarea, IonButtons, IonFabButton
 } from '@ionic/react';
-import {Page} from "../data/enums";
+import {Page} from "../data/category";
 import {useParams} from "react-router";
 import {getUser} from "../data/users";
 
@@ -44,7 +44,12 @@ const User = () => {
 
     return (
         <>
-            <IonContent class="ion-padding">
+            <div className="ion-padding" style={{
+                height: '100%',
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between"
+            }}>
                 <IonList>
                     <IonItem>
                         <IonLabel position="stacked">Name</IonLabel>
@@ -59,26 +64,28 @@ const User = () => {
                         <IonText>{user?.gender}</IonText>
                     </IonItem>
                 </IonList>
-                <IonList>
-                    {messagesComponents}
-                </IonList>
-                {!hasMessages && <IonButton fill="outline" class="" expand="block"
-                                            onClick={sendWelcomeMessage}>{defaultMessage}</IonButton>}
-                {hasMessages &&
-                    <IonFooter>
-                        <IonToolbar>
-                            <IonTextarea autoGrow rows={1} placeholder="Senden" class="ion-text-center">
-                            </IonTextarea>
-                            <IonButtons slot="end">
-                                <IonFabButton size="small">test
-                                </IonFabButton>
-                                <IonFabButton size="small">test
-                                </IonFabButton>
-                            </IonButtons>
-                        </IonToolbar>
-                    </IonFooter>
-                }
-            </IonContent>
+                <div>
+                    <IonList>
+                        {messagesComponents}
+                    </IonList>
+                    {!hasMessages ? <IonButton fill="outline" class="" expand="block"
+                                               onClick={sendWelcomeMessage}>{defaultMessage}</IonButton> :
+
+                        <IonFooter>
+                            <IonToolbar>
+                                <IonTextarea autoGrow rows={1} placeholder="Senden" class="ion-text-center">
+                                </IonTextarea>
+                                <IonButtons slot="end">
+                                    <IonFabButton size="small">test
+                                    </IonFabButton>
+                                    <IonFabButton size="small">test
+                                    </IonFabButton>
+                                </IonButtons>
+                            </IonToolbar>
+                        </IonFooter>
+                    }
+                </div>
+            </div>
         </>
     );
 };

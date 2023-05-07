@@ -10,7 +10,7 @@ import {
     setupIonicReact
 } from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
-import Home from './pages/Home';
+import CategorySelection from './pages/CategorySelection';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Users from "./pages/Users";
@@ -34,13 +34,14 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import UserProfileForm from "./components/UserProfileForm";
-import {Page} from "./data/enums";
+import {Page} from "./data/category";
 import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
 import {useSelector} from "react-redux";
 import {State} from "./data/models";
 import Profile from "./pages/Profile";
 import './App.css'
 import User from "./pages/User";
+import React from "react";
 
 setupIonicReact();
 
@@ -64,7 +65,7 @@ const App: React.FC = () => {
                         <Redirect exact path="/" to={Page.login}/>
                         <Route path={Page.login} render={() => <Login/>} exact={true}/>
                         <Route path={Page.signup} render={() => <SignUp/>} exact={true}/>
-                        <Route path={Page.categories} render={() => <Home/>} exact={true}/>
+                        <Route path={Page.categories} render={() => <CategorySelection/>} exact={true}/>
                         <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
                         <Route path={Page.users} render={() => <Users/>} exact={true}/>
                         {/*{isLoggedIn ? <Redirect to={Page.profile} path={Page.login} exact/> : null}*/}

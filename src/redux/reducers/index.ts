@@ -1,5 +1,5 @@
 import {State, User, UserData} from "../../data/models";
-import {Page} from "../../data/enums";
+import {Gender, Page} from "../../data/category";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
@@ -17,8 +17,17 @@ export const datasetSlice = createSlice({
         setSomething: (state: State, action: PayloadAction<UserData>) => {
             state.userData = action.payload;
         },
-        setUser: (state: State, action: PayloadAction<User>) => {
-            state.user = action.payload;
+        setUser: (state: State, action: PayloadAction<Partial<User>>) => {
+            state.user = {
+                ...{
+                    id: 0,
+                    age: 0,
+                    categories: [],
+                    gender: Gender.divers,
+                    name: '',
+                    description: ''
+                }, ...action.payload
+            };
         }
     }
 })

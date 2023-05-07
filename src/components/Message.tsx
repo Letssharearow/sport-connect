@@ -4,7 +4,7 @@ import {
     IonText,
 } from '@ionic/react';
 import './MessageListItem.css';
-import {Enums} from "../data/enums";
+import {Category} from "../data/category";
 import {useState} from "react";
 import {Message as MessageModel} from "../data/models";
 

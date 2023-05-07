@@ -11,7 +11,7 @@ import {
     IonSelectOption,
     IonButton, IonRow, IonCol, useIonRouter
 } from '@ionic/react';
-import {Page} from "../data/enums";
+import {Page} from "../data/category";
 
 const SignUp = () => {
     const [email, setEmail] = useState("");

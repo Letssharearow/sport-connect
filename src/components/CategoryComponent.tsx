@@ -3,22 +3,25 @@ import {
     IonLabel,
 } from '@ionic/react';
 import './MessageListItem.css';
-import {Enums} from "../data/enums";
+import {Category} from "../data/category";
 import {useState} from "react";
 
 interface MessageListItemProps {
-    message: string;
+    category: Category;
+    isSelected: boolean;
+    togglSelected: (category: Category) => void;
 }
 
-const CategoryComponent: React.FC<MessageListItemProps> = ({message}) => {
+const CategoryComponent: React.FC<MessageListItemProps> = ({category, isSelected, togglSelected}) => {
 
-    const [isSelected, setIsSelected] = useState<boolean>();
 
     return (
-        <IonItem onClick={() => setIsSelected((isSelected) => !isSelected)} detail={false}>
+        <IonItem onClick={() => {
+            togglSelected(category)
+        }} detail={false}>
             <IonLabel className="ion-text-wrap ion-padding"
                       style={{backgroundColor: isSelected ? "#437738" : "#777"}}>
-                <h2>{message}</h2>
+                <h2>{category}</h2>
             </IonLabel>
         </IonItem>
     );

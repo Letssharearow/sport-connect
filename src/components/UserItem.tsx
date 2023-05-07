@@ -3,7 +3,7 @@ import {
     IonLabel,
 } from '@ionic/react';
 import './MessageListItem.css';
-import {Enums} from "../data/enums";
+import {Category} from "../data/category";
 import {useState} from "react";
 import {User} from "../data/models";
 

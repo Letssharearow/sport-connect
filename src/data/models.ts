@@ -1,7 +1,7 @@
-import {Enums, Gender} from "./enums";
+import {Category, Gender} from "./category";
 
 export interface User {
-    categories: Enums[];
+    categories: Category[];
     name: string;
     age: number;
     description: string;
