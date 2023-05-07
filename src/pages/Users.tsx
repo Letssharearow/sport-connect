@@ -42,7 +42,6 @@ const Home: React.FC = () => {
                             <IonCardSubtitle>Wählen Sie alle Leute, mit denen Sie gerne aktiv werden
                                 wollen</IonCardSubtitle>
                         </IonCol>
-                        <IonButton>Weiter</IonButton>
                     </IonRow>
                 </IonToolbar>
             </IonHeader>

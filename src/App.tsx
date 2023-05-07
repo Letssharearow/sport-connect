@@ -40,6 +40,8 @@ import {useSelector} from "react-redux";
 import {State} from "./data/models";
 import Menue from "./pages/Menue";
 import Profile from "./pages/Profile";
+import './App.css'
+import User from "./pages/User";
 
 setupIonicReact();
 
@@ -51,21 +53,45 @@ const App: React.FC = () => {
     return (
         <IonApp>
             <IonReactRouter>
-                <IonRouterOutlet>
-                    <Redirect exact path="/" to={Page.login}/>
-                    {/*
-          Use the render method to reduce the number of renders your component will have due to a route change.
 
-          Use the component prop when your component depends on the RouterComponentProps passed in automatically.
-        */}
-                    <Route path={Page.login} render={() => <Login/>} exact={true}/>
-                    <Route path={Page.signup} render={() => <SignUp/>} exact={true}/>
-                    <Route path={Page.categories} render={() => <Home/>} exact={true}/>
-                    <Route path={Page.menue} render={() => <Menue/>} exact={true}/>
-                    <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
-                    <Route path={Page.users} render={() => <Users/>} exact={true}/>
-                    <Route path={Page.contacts} render={() => <div>div div div div div </div>} exact={true}/>
-                </IonRouterOutlet>
+                <IonTabs>
+                    <IonRouterOutlet>
+                        <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
+                        <Route path={Page.users} render={() => <Users/>} exact={true}/>
+                        <Route path={Page.contacts} render={() => <div>Hier fehlt noch was</div>} exact={true}/>
+                        <Route path="/users/:id">
+                            <User/>
+                        </Route>
+                        <Redirect exact path="/" to={Page.login}/>
+                        <Route path={Page.login} render={() => <Login/>} exact={true}/>
+                        <Route path={Page.signup} render={() => <SignUp/>} exact={true}/>
+                        <Route path={Page.categories} render={() => <Home/>} exact={true}/>
+                        <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
+                        <Route path={Page.users} render={() => <Users/>} exact={true}/>
+                        {/*{isLoggedIn ? <Redirect to={Page.profile} path={Page.login} exact/> : null}*/}
+                    </IonRouterOutlet>
+
+
+                    {
+                        isLoggedIn ? <IonTabBar></IonTabBar> : <IonTabBar slot="bottom">
+                            <IonTabButton tab="profile" href={Page.profile}>
+                                <IonIcon icon={accessibilityOutline}/>
+                                <IonLabel>Profil</IonLabel>
+                            </IonTabButton>
+
+                            <IonTabButton tab="users" href={Page.users}>
+                                <IonIcon icon={globe}/>
+                                <IonLabel>Entdecke</IonLabel>
+                            </IonTabButton>
+
+                            <IonTabButton tab="contacts" href={Page.contacts}>
+                                <IonIcon icon={chatbubbles}/>
+                                <IonLabel>Chats</IonLabel>
+                            </IonTabButton>
+                        </IonTabBar>
+                    }
+
+                </IonTabs>
             </IonReactRouter>
         </IonApp>
     );

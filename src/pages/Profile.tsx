@@ -63,7 +63,7 @@ const Profile = () => {
                         </IonSelect>
                     </IonItem>
                 </IonList>
-                <IonButton expand="block" onClick={handleSubmit}>Submit</IonButton>
+                <IonButton expand="block" onClick={handleSubmit}>Aktualisieren</IonButton>
             </IonContent>
         </>
     );

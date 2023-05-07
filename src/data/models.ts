@@ -20,3 +20,8 @@ export interface State {
     lastPage: string;
     currentPage: string;
 }
+
+export interface Message {
+    isFromMe: boolean;
+    value: string;
+}

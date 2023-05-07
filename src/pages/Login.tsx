@@ -34,7 +34,7 @@ function Login() {
         setIsOpen(true)
     };
 
-    return (<IonContent>
+    return (<IonContent style={{height: '100vh'}}>
 
         <IonHeader>
             <IonToolbar>

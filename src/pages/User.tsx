@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
     IonHeader,
     IonToolbar,
@@ -10,24 +10,33 @@ import {
     IonInput,
     IonSelect,
     IonSelectOption,
-    IonButton, useIonRouter, IonText
+    IonButton, useIonRouter, IonText, IonFooter, IonTextarea, IonButtons, IonFabButton
 } from '@ionic/react';
 import {Page} from "../data/enums";
 import {useParams} from "react-router";
 import {getUser} from "../data/users";
 
-import {User as UserInterface} from "../data/models"
+import {User as UserInterface, Message as MessageInterface} from "../data/models"
+import message from "../components/Message";
+import Message from "../components/Message";
 
+const defaultMessage = "Hey, Lust zusammen Sport zu machen?";
 const User = () => {
 
-    const handleSubmit = () => {
+    const [messages, setMessages] = useState<MessageInterface[]>([])
 
-    }
+    let messagesComponents = useMemo(() => {
+        return messages.map(message => <Message message={message}/>)
+    }, [messages])
+
+    const sendWelcomeMessage = useCallback(() => {
+        setMessages((messagesOld) => [...messagesOld, {value: defaultMessage, isFromMe: true}])
+    }, [messagesComponents])
+
+    const hasMessages = messages.length > 0;
 
     const params = useParams<{ id: string }>();
-
     const [user, setUser] = useState<UserInterface>();
-
     useEffect(() => {
         setUser(getUser(Number(params.id)))
     })
@@ -50,7 +59,25 @@ const User = () => {
                         <IonText>{user?.gender}</IonText>
                     </IonItem>
                 </IonList>
-                <IonButton expand="block" onClick={handleSubmit}>chat</IonButton>
+                <IonList>
+                    {messagesComponents}
+                </IonList>
+                {!hasMessages && <IonButton fill="outline" class="" expand="block"
+                                            onClick={sendWelcomeMessage}>{defaultMessage}</IonButton>}
+                {hasMessages &&
+                    <IonFooter>
+                        <IonToolbar>
+                            <IonTextarea autoGrow rows={1} placeholder="Senden" class="ion-text-center">
+                            </IonTextarea>
+                            <IonButtons slot="end">
+                                <IonFabButton size="small">test
+                                </IonFabButton>
+                                <IonFabButton size="small">test
+                                </IonFabButton>
+                            </IonButtons>
+                        </IonToolbar>
+                    </IonFooter>
+                }
             </IonContent>
         </>
     );
