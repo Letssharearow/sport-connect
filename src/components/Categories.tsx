@@ -5,13 +5,20 @@ import {
 } from '@ionic/react';
 import {addOrRemove} from "../utils/functions";
 
-const Categories: React.FC<{ categories: Category[] }> = ({categories}) => {
+interface MessageListItemProps {
+    categories: Category[];
+}
+
+
+const Categories: React.FC<MessageListItemProps> = ({categories}) => {
     return (
         <IonList>
-            {categories.map(cat => <CategoryComponent isSelected={categories.includes(cat)}
-                                                      togglSelected={(cat) => addOrRemove(categories, cat)}
-                                                      key={cat}
-                                                      category={cat}/>)}
+            {categories.map(cat => {
+                return (<CategoryComponent isSelected={false}
+                                           togglSelected={(cat) => void 0}
+                                           key={cat}
+                                           category={cat}/>);
+            })}
         </IonList>
     );
 };

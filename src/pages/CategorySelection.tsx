@@ -32,27 +32,15 @@ const CategorySelection: React.FC = () => {
         setCategories(msgs);
     }, [])
 
-    const refresh = (e: CustomEvent) => {
-        setTimeout(() => {
-            e.detail.complete();
-        }, 3000);
-    };
-
     const onSubmit = () => {
         dispatch(setUser({categories: selectedCategories}))
     };
 
     const categoriesRendered = useMemo(() => {
-        console.log('useMemo', useMemo);
         return categories.map(cat => {
             return (<CategoryComponent isSelected={selectedCategories.includes(cat)}
                                        togglSelected={(cat) => {
-                                           setSelectedCategories((cats) => {
-                                                   let categories1 = addOrRemove([...cats], cat);
-                                                   console.log('categories1', categories1);
-
-                                                   return categories1;
-                                               }
+                                           setSelectedCategories((cats) => addOrRemove([...cats], cat)
                                            )
                                        }}
                                        key={cat}
@@ -76,9 +64,6 @@ const CategorySelection: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                <IonRefresher slot="fixed" onIonRefresh={refresh}>
-                    <IonRefresherContent/>
-                </IonRefresher>
 
                 <IonHeader collapse="condense">
                     <IonToolbar>
@@ -89,7 +74,15 @@ const CategorySelection: React.FC = () => {
                 </IonHeader>
 
                 <IonList>
-                    {categoriesRendered}
+                    {categories.map(cat => {
+                        return (<CategoryComponent isSelected={selectedCategories.includes(cat)}
+                                                   togglSelected={(cat) => {
+                                                       setSelectedCategories((cats) => addOrRemove([...cats], cat)
+                                                       )
+                                                   }}
+                                                   key={cat}
+                                                   category={cat}/>);
+                    })}
                 </IonList>
             </IonContent>
         </div>

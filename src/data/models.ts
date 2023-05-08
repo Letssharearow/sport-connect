@@ -1,7 +1,7 @@
 import {Category, Gender} from "./category";
 
 export interface User {
-    categories: Category[];
+    categories?: Category[];
     name: string;
     age: number;
     description: string;
@@ -19,6 +19,10 @@ export interface State {
     userData?: UserData;
     lastPage: string;
     currentPage: string;
+}
+
+export interface IRootState {
+    datasetSlice: State;
 }
 
 export interface Message {
