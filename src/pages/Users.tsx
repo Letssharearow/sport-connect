@@ -14,17 +14,14 @@ import {
     useIonViewWillEnter
 } from '@ionic/react';
 import {getUsers} from "../data/users";
-import {User} from "../data/models";
+import {IRootState, User} from "../data/models";
 import UserItem from "../components/UserItem";
+import {useSelector} from "react-redux";
 
 const Home: React.FC = () => {
 
-    const [user, setUser] = useState<User[]>([]);
-
-    useEffect(() => {
-        const user = getUsers();
-        setUser(user);
-    }, []);
+    const usersState = useSelector((state: IRootState) => state.datasetSlice.users);
+    const [users, setUsers] = useState<User[]>(usersState);
 
     const refresh = (e: CustomEvent) => {
         setTimeout(() => {
@@ -51,7 +48,7 @@ const Home: React.FC = () => {
                 </IonRefresher>
 
                 <IonList>
-                    {user.map(m => <UserItem key={m.id} user={m}/>)}
+                    {users.map(m => <UserItem key={m.id} user={m}/>)}
                 </IonList>
             </IonContent>
         </>

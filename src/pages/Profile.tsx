@@ -21,6 +21,7 @@ import {
     AccordionGroupChangeEventDetail
 } from "@ionic/core/dist/types/components/accordion-group/accordion-group-interface";
 import {IonInputCustomEvent, IonSelectCustomEvent} from "@ionic/core/dist/types/components";
+import UserAttributes from "../components/UserAttributes";
 
 const Profile = () => {
     const userState = useSelector((state: IRootState) => state.datasetSlice.user)
@@ -65,37 +66,11 @@ const Profile = () => {
         }
     };
 
-    console.log('user', user, userState);
     return (
         <>
             <IonContent class="ion-padding">
-                <IonList>
-                    <IonItem>
-                        <IonLabel position="stacked">Name</IonLabel>
-                        <IonInput type="text" value={user?.name} onIonChange={handleNameChange}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel position="stacked">Age</IonLabel>
-                        <IonInput type="number" value={user?.age} onIonChange={handleAgeChange}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonSelect label="Gender" value={user?.gender}
-                                   onIonChange={handleGenderChange}>
-                            <IonSelectOption value="male">Male</IonSelectOption>
-                            <IonSelectOption value="female">Female</IonSelectOption>
-                            <IonSelectOption value="other">Other</IonSelectOption>
-                        </IonSelect>
-                    </IonItem>
-                </IonList>
-                <br/>
-                <div className="ion-text-center">
-                    <IonText color="dark">Deine Sportarten</IonText>
-                    <br/>
-                    <br/>
-                    {/*TODO: Fix styling*/}
-                    <Categories categories={user?.categories ?? []}/>
-                    <IonButton fill="outline" routerLink={Page.categories}>Anpassen</IonButton>
-                </div>
+                <UserAttributes handleAgeChange={handleAgeChange} user={user} handleGenderChange={handleGenderChange}
+                                handleNameChange={handleNameChange} isThisUser/>
                 <br/>
                 <IonButton expand="block" onClick={handleSubmit}>Aktualisieren</IonButton>
             </IonContent>

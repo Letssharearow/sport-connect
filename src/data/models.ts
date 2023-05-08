@@ -16,6 +16,7 @@ export interface UserData {
 
 export interface State {
     user?: User;
+    users: User[];
     userData?: UserData;
     lastPage: string;
     currentPage: string;
