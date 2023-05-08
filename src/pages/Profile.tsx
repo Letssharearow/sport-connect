@@ -10,7 +10,7 @@ import {
     IonInput,
     IonSelect,
     IonSelectOption,
-    IonButton, useIonRouter, InputChangeEventDetail, SelectChangeEventDetail
+    IonButton, useIonRouter, InputChangeEventDetail, SelectChangeEventDetail, IonText
 } from '@ionic/react';
 import {Gender, Page} from "../data/category";
 import {useDispatch, useSelector} from "react-redux";
@@ -65,7 +65,7 @@ const Profile = () => {
         }
     };
 
-    console.log('user', user);
+    console.log('user', user, userState);
     return (
         <>
             <IonContent class="ion-padding">
@@ -87,7 +87,16 @@ const Profile = () => {
                         </IonSelect>
                     </IonItem>
                 </IonList>
-                <Categories categories={user?.categories ?? []}/>
+                <br/>
+                <div className="ion-text-center">
+                    <IonText color="dark">Deine Sportarten</IonText>
+                    <br/>
+                    <br/>
+                    {/*TODO: Fix styling*/}
+                    <Categories categories={user?.categories ?? []}/>
+                    <IonButton fill="outline" routerLink={Page.categories}>Anpassen</IonButton>
+                </div>
+                <br/>
                 <IonButton expand="block" onClick={handleSubmit}>Aktualisieren</IonButton>
             </IonContent>
         </>

@@ -2,11 +2,11 @@ import {Category, Gender} from "./category";
 
 export interface User {
     categories?: Category[];
-    name: string;
-    age: number;
-    description: string;
-    id: number;
-    gender: Gender;
+    name?: string;
+    age?: number;
+    description?: string;
+    id?: number;
+    gender?: Gender;
 }
 
 export interface UserData {

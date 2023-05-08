@@ -19,14 +19,8 @@ export const datasetSlice = createSlice({
         },
         setUser: (state: State, action: PayloadAction<Partial<User>>) => {
             state.user = {
-                ...{
-                    id: 0,
-                    age: 0,
-                    categories: [],
-                    gender: Gender.divers,
-                    name: '',
-                    description: ''
-                }, ...action.payload
+                ...state.user
+                , ...action.payload
             };
         }
     }
