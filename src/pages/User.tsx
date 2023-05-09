@@ -1,29 +1,22 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
-    IonHeader,
     IonToolbar,
-    IonTitle,
-    IonContent,
     IonList,
-    IonItem,
-    IonLabel,
-    IonInput,
-    IonSelect,
-    IonSelectOption,
-    IonButton, useIonRouter, IonText, IonFooter, IonTextarea, IonButtons, IonFabButton
+    IonButton, IonFooter, IonTextarea, IonButtons, IonFabButton
 } from '@ionic/react';
-import {Page} from "../data/category";
 import {useParams} from "react-router";
-import {getUser} from "../data/users";
 
-import {User as UserInterface, Message as MessageInterface} from "../data/models"
-import message from "../components/Message";
+import {User as UserInterface, Message as MessageInterface, IRootState} from "../data/models"
 import Message from "../components/Message";
+import UserAttributes from "../components/UserAttributes";
+import {useSelector} from "react-redux";
 
-const defaultMessage = "Hey, Lust zusammen Sport zu machen?";
+const defaultMessage = "Hey, lust zusammen Sport zu machen?";
 const User = () => {
 
+    const messagesState = useSelector((state: IRootState) => state.datasetSlice.chats);
     const [messages, setMessages] = useState<MessageInterface[]>([])
+    const [message, setMessage] = useState<string>("")
 
     let messagesComponents = useMemo(() => {
         return messages.map(message => <Message message={message}/>)
@@ -33,13 +26,19 @@ const User = () => {
         setMessages((messagesOld) => [...messagesOld, {value: defaultMessage, isFromMe: true}])
     }, [messagesComponents])
 
+    const sendMessage = () => {
+        setMessages((messagesOld) => [...messagesOld, {value: message, isFromMe: true}]);
+        setMessage('');
+    }
+
     const hasMessages = messages.length > 0;
 
     const params = useParams<{ id: string }>();
     const [user, setUser] = useState<UserInterface>();
     useEffect(() => {
-        setUser(getUser(Number(params.id)))
-    })
+        let id = Number(params.id);
+        setMessages(messagesState.find(m => m.userId === id)?.messages ?? []);
+    }, [])
 
 
     return (
@@ -50,20 +49,9 @@ const User = () => {
                 flexDirection: "column",
                 justifyContent: "space-between"
             }}>
-                <IonList>
-                    <IonItem>
-                        <IonLabel position="stacked">Name</IonLabel>
-                        <IonText>{user?.name}</IonText>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel position="stacked">Age</IonLabel>
-                        <IonText>{user?.age}</IonText>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel position="stacked">Gender</IonLabel>
-                        <IonText>{user?.gender}</IonText>
-                    </IonItem>
-                </IonList>
+                <div>
+                    <UserAttributes isThisUser={false} user={user}/>
+                </div>
                 <div>
                     <IonList>
                         {messagesComponents}
@@ -73,12 +61,13 @@ const User = () => {
 
                         <IonFooter>
                             <IonToolbar>
-                                <IonTextarea autoGrow rows={1} placeholder="Senden" class="ion-text-center">
+                                <IonTextarea value={message} inputmode="text"
+                                             onIonInput={(e) => setMessage(e.target.value ?? '')}
+                                             autoGrow
+                                             rows={1} placeholder="Senden" class="ion-text-center">
                                 </IonTextarea>
                                 <IonButtons slot="end">
-                                    <IonFabButton size="small">test
-                                    </IonFabButton>
-                                    <IonFabButton size="small">test
+                                    <IonFabButton onClick={sendMessage} size="small">test
                                     </IonFabButton>
                                 </IonButtons>
                             </IonToolbar>

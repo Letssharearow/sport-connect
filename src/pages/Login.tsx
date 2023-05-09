@@ -8,7 +8,7 @@ import {
 } from "@ionic/react";
 import {personCircle} from "ionicons/icons";
 import {useState} from "react";
-import {login} from "../utils/firebaseConfig";
+import {getDocuments, login, saveDoc} from "../utils/firebaseConfig";
 import {setUserState} from "../redux/actions";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -17,21 +17,12 @@ function Login() {
     const [password, setPassword] = useState("test");
     const [isOpen, setIsOpen] = useState(false);
 
-    const dispatch = useDispatch();
-    // dispatch(setUserState('test'));
-
-    const userData = useSelector((state: any) => {
-        return state.userData
-    });
-
     const handleLogin = async () => {
-        //validate inputs code not shown
-        const loginData = {
-            email: email,
-            password: password,
-        };
+        console.log('email password', email, password);
         const res = await login(email, password);
-        setIsOpen(true)
+        setIsOpen(true);
+        await saveDoc();
+        await getDocuments();
     };
 
     return (<IonContent style={{height: '100vh'}}>
@@ -60,7 +51,7 @@ function Login() {
                         label="Email"
                         type="email"
                         value={email}
-                        onIonChange={(e) => setEmail(e.detail.value!)}
+                        onIonInput={(e) => setEmail(e.detail.value!)}
                     >
                     </IonInput>
                 </IonItem>
@@ -74,7 +65,7 @@ function Login() {
                         label="Password"
                         type="password"
                         value={password}
-                        onIonChange={(e) => setPassword(e.detail.value!)}
+                        onIonInput={(e) => setPassword(e.detail.value!)}
                     >
                     </IonInput>
                 </IonItem>

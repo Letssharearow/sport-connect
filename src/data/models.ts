@@ -5,7 +5,7 @@ export interface User {
     name?: string;
     age?: number;
     description?: string;
-    id?: number;
+    uid?: string;
     gender?: Gender;
 }
 
@@ -14,9 +14,15 @@ export interface UserData {
     password: string,
 }
 
+export interface Chat {
+    userId: number;
+    messages: Message[];
+}
+
 export interface State {
     user?: User;
     users: User[];
+    chats: Chat[];
     userData?: UserData;
     lastPage: string;
     currentPage: string;

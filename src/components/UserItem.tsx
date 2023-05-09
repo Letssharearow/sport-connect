@@ -17,7 +17,7 @@ const UserItem: React.FC<MessageListItemProps> = ({user}) => {
 
 
     return (
-        <IonItem routerLink={`/users/${user.id}`} detail={false}>
+        <IonItem routerLink={`/users/${user.uid}`} detail={false}>
             <IonLabel className="ion-text-wrap ion-padding"
                       style={{backgroundColor: isSelected ? "#437738" : "#777"}}>
                 <h2>{user.name}</h2>
