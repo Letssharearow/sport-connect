@@ -24,6 +24,7 @@ export interface State {
     users: User[];
     chats: Chat[];
     userData?: UserData;
+    toast?: Toast;
     lastPage: string;
     currentPage: string;
 }
@@ -35,4 +36,14 @@ export interface IRootState {
 export interface Message {
     isFromMe: boolean;
     value: string;
+}
+
+type Position = "bottom" | "middle" | "top";
+
+export interface Toast {
+    message: string;
+    duration?: number;
+    position?: Position;
+    color?: string;
+    isOpen?: boolean;
 }

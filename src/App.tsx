@@ -6,7 +6,7 @@ import {
     IonRouterOutlet,
     IonTabBar,
     IonTabButton,
-    IonTabs, IonTitle, IonToolbar,
+    IonTabs, IonTitle, IonToast, IonToolbar,
     setupIonicReact
 } from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
@@ -36,20 +36,20 @@ import './theme/variables.css';
 import UserProfileForm from "./components/UserProfileForm";
 import {Page} from "./data/category";
 import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
-import {useSelector} from "react-redux";
-import {State} from "./data/models";
+import {useDispatch, useSelector} from "react-redux";
+import {IRootState} from "./data/models";
 import Profile from "./pages/Profile";
 import './App.css'
 import User from "./pages/User";
-import React from "react";
+import React, {useState} from "react";
+import {dismissToast} from "./redux/reducers";
+import ToastComponent from './components/ToastComponent';
 
 setupIonicReact();
 
 const App: React.FC = () => {
+    const isLoggedIn = useSelector((state: IRootState) => state.datasetSlice.user) !== undefined;
 
-    const isLoggedIn = useSelector<{ datasetSlice: State }>((state) => state.datasetSlice.user) !== undefined;
-
-    console.log('isLoggedIn', isLoggedIn);
     return (
         <IonApp>
             <IonReactRouter>
@@ -93,6 +93,7 @@ const App: React.FC = () => {
 
                 </IonTabs>
             </IonReactRouter>
+            <ToastComponent/>)
         </IonApp>
     );
 }

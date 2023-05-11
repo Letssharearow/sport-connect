@@ -9,17 +9,26 @@ import {
     IonInput,
     IonSelect,
     IonSelectOption,
-    IonButton, IonRow, IonCol, useIonRouter
+    IonButton, IonRow, IonCol, useIonRouter, IonToast
 } from '@ionic/react';
 import {Page} from "../data/category";
+import {useDispatch, useSelector} from "react-redux";
+import {setToast} from "../redux/reducers";
+import {register} from "../utils/firebaseConfig";
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+
 
     const handleSubmit = () => {
-        // Handle form submission here
-        goToPage(Page.login);
+        register(email, password).then(r => {
+            dispatch(setToast({message: "registered"}))
+            goToPage(Page.login)
+        }).catch(err => {
+            dispatch(setToast({message: err.message}))
+        })
     };
 
     const router = useIonRouter();

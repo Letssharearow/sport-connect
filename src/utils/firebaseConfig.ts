@@ -51,7 +51,7 @@ export async function register(username: string, password: string) {
         return true;
     } catch (err) {
         console.log('err', err);
-        return false;
+        throw(err);
     }
 }
 

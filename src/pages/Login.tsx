@@ -7,22 +7,19 @@ import {
     IonToolbar, useIonToast
 } from "@ionic/react";
 import {personCircle} from "ionicons/icons";
-import {useState} from "react";
-import {getDocuments, login, saveDoc} from "../utils/firebaseConfig";
-import {setUserState} from "../redux/actions";
+import React, {useEffect, useState} from "react";
+import {login} from "../utils/firebaseConfig";
 import {useDispatch, useSelector} from "react-redux";
 
 function Login() {
     const [email, setEmail] = useState("test@gmail.com");
     const [password, setPassword] = useState("test");
-    const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
 
     const handleLogin = async () => {
-        console.log('email password', email, password);
         const res = await login(email, password);
-        setIsOpen(true);
-        await saveDoc();
-        await getDocuments();
+        // await saveDoc();
+        // await getDocuments();
     };
 
     return (<IonContent style={{height: '100vh'}}>
@@ -96,13 +93,6 @@ function Login() {
                 </p>
             </IonCol>
         </IonRow>
-
-        <IonToast
-            isOpen={isOpen}
-            message="This toast will close in 5 seconds"
-            onDidDismiss={() => setIsOpen(false)}
-            duration={5000}
-        />
 
     </IonContent>)
 }
