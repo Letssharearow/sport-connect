@@ -9,7 +9,8 @@ import {getDatabase} from "firebase/database";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import {onValue, ref} from "firebase/database";
 import {getFirestore} from "firebase/firestore";
-import {collection, addDoc, deleteDoc, getDoc, getDocs} from "firebase/firestore";
+import {collection, addDoc, deleteDoc, getDoc, getDocs, doc, setDoc} from "firebase/firestore";
+import {Category, Gender} from "../data/category";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -35,12 +36,13 @@ const db = getFirestore(app);
 
 export async function login(username: string, password: string) {
     try {
+        console.log('username password', username, password)
         const res = await signInWithEmailAndPassword(auth, username, password);
         console.log('res', res);
         return true;
     } catch (err) {
         console.log('err', err);
-        return false;
+        throw(err);
     }
 }
 
@@ -55,21 +57,27 @@ export async function register(username: string, password: string) {
     }
 }
 
-export async function saveDoc() {
+export async function saveDoc(data: any) {
     try {
-        const docRef = await addDoc(collection(db, "todos"), {
-            todo: 'todo',
-        });
+        const docRef = await addDoc(collection(db, "users"), data);
         console.log("Document written with ID: ", docRef.id);
     } catch (e) {
         console.error("Error adding document: ", e);
     }
+}
 
+export async function setSingleDoc(id: string, data: any) {
+    try {
+        const docRef = await setDoc(doc(db, "users/" + id), data);
+        console.log("Document written with ID: ", docRef);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
 }
 
 export async function getDocuments() {
     try {
-        const docRef = await getDocs(collection(db, 'todos')).then((querySnapshot) => {
+        const docRef = await getDocs(collection(db, 'users')).then((querySnapshot) => {
             const newData = querySnapshot.docs
                 .map((doc) => ({...doc.data(), id: doc.id}));
             console.log(newData);
@@ -78,5 +86,12 @@ export async function getDocuments() {
     } catch (e) {
         console.error("Error adding document: ", e);
     }
+}
 
+export async function getDocument(id: string) {
+    try {
+        return getDoc(doc(db, 'users/' + id)).then((querySnapshot) => querySnapshot.data())
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
 }

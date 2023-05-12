@@ -48,7 +48,7 @@ import ToastComponent from './components/ToastComponent';
 setupIonicReact();
 
 const App: React.FC = () => {
-    const isLoggedIn = useSelector((state: IRootState) => state.datasetSlice.user) !== undefined;
+    const isLoggedIn = useSelector((state: IRootState) => state.datasetSlice.user?.name) !== undefined;
 
     return (
         <IonApp>

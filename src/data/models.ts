@@ -1,4 +1,5 @@
 import {Category, Gender} from "./category";
+import {Color} from "@ionic/core";
 
 export interface User {
     categories?: Category[];
@@ -44,6 +45,6 @@ export interface Toast {
     message: string;
     duration?: number;
     position?: Position;
-    color?: string;
+    color?: Color;
     isOpen?: boolean;
 }

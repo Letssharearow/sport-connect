@@ -4,22 +4,31 @@ import {
     IonContent,
     IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonRouterLink, IonRow,
     IonTitle, IonToast,
-    IonToolbar, useIonToast
+    IonToolbar, useIonRouter, useIonToast
 } from "@ionic/react";
 import {personCircle} from "ionicons/icons";
 import React, {useEffect, useState} from "react";
-import {login} from "../utils/firebaseConfig";
+import {getDocument, getDocuments, login, saveDoc, setSingleDoc} from "../utils/firebaseConfig";
 import {useDispatch, useSelector} from "react-redux";
+import {setToast} from "../redux/reducers";
+import {Category, Gender, Page} from "../data/category";
 
 function Login() {
-    const [email, setEmail] = useState("test@gmail.com");
-    const [password, setPassword] = useState("test");
+    const [email, setEmail] = useState("testuser3@gamil.com");
+    const [password, setPassword] = useState("test123");
     const dispatch = useDispatch();
 
+    const router = useIonRouter();
+    const goToPage = (route: Page) => {
+        router.push(route, 'root', 'replace');
+    };
+
+
     const handleLogin = async () => {
-        const res = await login(email, password);
-        // await saveDoc();
-        // await getDocuments();
+        login(email, password).then(() => {
+            dispatch(setToast({message: "logged in", color: "success"}))
+            goToPage(Page.profile);
+        }).catch(err => dispatch(setToast({message: err.message, color: "danger"})));
     };
 
     return (<IonContent style={{height: '100vh'}}>

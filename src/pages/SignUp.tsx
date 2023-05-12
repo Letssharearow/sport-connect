@@ -24,15 +24,14 @@ const SignUp = () => {
 
     const handleSubmit = () => {
         register(email, password).then(r => {
-            dispatch(setToast({message: "registered"}))
+            dispatch(setToast({message: "registered", color: "success"}))
             goToPage(Page.login)
         }).catch(err => {
-            dispatch(setToast({message: err.message}))
+            dispatch(setToast({message: err.message, color: "danger"}))
         })
     };
 
     const router = useIonRouter();
-
     const goToPage = (route: Page) => {
         router.push(route, 'root', 'replace');
     };
