@@ -6,7 +6,8 @@ import {
 import './MessageListItem.css';
 import {Category} from "../data/category";
 import {useState} from "react";
-import {Message as MessageModel} from "../data/models";
+import {IRootState, Message as MessageModel} from "../data/models";
+import {useSelector} from "react-redux";
 
 interface MessageProps {
     message: MessageModel;
@@ -14,8 +15,10 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({message}) => {
 
+    const uid = useSelector((state: IRootState) => state.datasetSlice.user?.uid);
+
     return (
-        <IonItem color={message.isFromMe ? "primary" : "secondary"}>
+        <IonItem color={message.uid === uid ? "primary" : "secondary"}>
 
             <IonText style={{padding: 3}}
                      color="light">{message.value}</IonText>

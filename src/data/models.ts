@@ -8,6 +8,7 @@ export interface User {
     description?: string;
     uid?: string;
     gender?: Gender;
+    chats?: Chat[];
 }
 
 export interface UserData {
@@ -16,18 +17,15 @@ export interface UserData {
 }
 
 export interface Chat {
-    userId: number;
+    userId: string;
     messages: Message[];
 }
 
 export interface State {
     user?: User;
     users: User[];
-    chats: Chat[];
     userData?: UserData;
     toast?: Toast;
-    lastPage: string;
-    currentPage: string;
 }
 
 export interface IRootState {
@@ -35,7 +33,7 @@ export interface IRootState {
 }
 
 export interface Message {
-    isFromMe: boolean;
+    uid: string;
     value: string;
 }
 

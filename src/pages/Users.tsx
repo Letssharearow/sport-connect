@@ -17,10 +17,9 @@ import {IRootState, User} from "../data/models";
 import UserItem from "../components/UserItem";
 import {useSelector} from "react-redux";
 
-const Home: React.FC = () => {
+const Users: React.FC = () => {
 
     const usersState = useSelector((state: IRootState) => state.datasetSlice.users);
-    const [users, setUsers] = useState<User[]>(usersState);
 
     const refresh = (e: CustomEvent) => {
         setTimeout(() => {
@@ -43,15 +42,15 @@ const Home: React.FC = () => {
             </IonHeader>
             <IonContent fullscreen>
                 <IonRefresher slot="fixed" onIonRefresh={refresh}>
-                    <IonRefresherContent></IonRefresherContent>
+                    <IonRefresherContent/>
                 </IonRefresher>
 
                 <IonList>
-                    {users.map(m => <UserItem key={m.uid} user={m}/>)}
+                    {usersState.map(m => <UserItem key={m.uid} user={m}/>)}
                 </IonList>
             </IonContent>
         </>
     );
 };
 
-export default Home;
+export default Users;

@@ -12,11 +12,13 @@ import {getDocument, getDocuments, login, saveDoc, setSingleDoc} from "../utils/
 import {useDispatch, useSelector} from "react-redux";
 import {setToast} from "../redux/reducers";
 import {Category, Gender, Page} from "../data/category";
+import {loginAction} from "../redux/asyncActions";
+import {AppDispatch} from "../index";
 
 function Login() {
     const [email, setEmail] = useState("testuser3@gamil.com");
     const [password, setPassword] = useState("test123");
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const router = useIonRouter();
     const goToPage = (route: Page) => {
@@ -25,7 +27,7 @@ function Login() {
 
 
     const handleLogin = async () => {
-        login(email, password).then(() => {
+        dispatch(loginAction({email, password})).then(() => {
             dispatch(setToast({message: "logged in", color: "success"}))
             goToPage(Page.profile);
         }).catch(err => dispatch(setToast({message: err.message, color: "danger"})));

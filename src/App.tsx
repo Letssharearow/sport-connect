@@ -33,7 +33,6 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import UserProfileForm from "./components/UserProfileForm";
 import {Page} from "./data/category";
 import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
 import {useDispatch, useSelector} from "react-redux";
@@ -44,11 +43,13 @@ import User from "./pages/User";
 import React, {useState} from "react";
 import {dismissToast} from "./redux/reducers";
 import ToastComponent from './components/ToastComponent';
+import {useLoading} from "./hooks/useLoading";
 
 setupIonicReact();
 
 const App: React.FC = () => {
-    const isLoggedIn = useSelector((state: IRootState) => state.datasetSlice.user?.name) !== undefined;
+    const isLoggedIn = useSelector((state: IRootState) => state.datasetSlice.user?.name) !== undefined || true;
+    useLoading();
 
     return (
         <IonApp>

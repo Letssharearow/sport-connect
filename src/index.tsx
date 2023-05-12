@@ -17,6 +17,8 @@ const store = configureStore({
     }
 });
 
+export type AppDispatch = typeof store.dispatch
+
 root.render(
     <React.StrictMode>
         <Provider store={store}>

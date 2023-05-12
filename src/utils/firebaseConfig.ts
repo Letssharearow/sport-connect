@@ -5,12 +5,8 @@ import "firebase/database"
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
-import {getDatabase} from "firebase/database";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth";
-import {onValue, ref} from "firebase/database";
-import {getFirestore} from "firebase/firestore";
-import {collection, addDoc, deleteDoc, getDoc, getDocs, doc, setDoc} from "firebase/firestore";
-import {Category, Gender} from "../data/category";
+import {addDoc, collection, doc, getDoc, getDocs, getFirestore, setDoc} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -39,7 +35,7 @@ export async function login(username: string, password: string) {
         console.log('username password', username, password)
         const res = await signInWithEmailAndPassword(auth, username, password);
         console.log('res', res);
-        return true;
+        return res.user.uid;
     } catch (err) {
         console.log('err', err);
         throw(err);
@@ -77,12 +73,10 @@ export async function setSingleDoc(id: string, data: any) {
 
 export async function getDocuments() {
     try {
-        const docRef = await getDocs(collection(db, 'users')).then((querySnapshot) => {
-            const newData = querySnapshot.docs
-                .map((doc) => ({...doc.data(), id: doc.id}));
-            console.log(newData);
-        })
-        console.log('docRef', docRef);
+        return await getDocs(collection(db, 'users')).then((querySnapshot) =>
+            querySnapshot.docs
+                .map((doc) => ({...doc.data(), uid: doc.id}))
+        );
     } catch (e) {
         console.error("Error adding document: ", e);
     }

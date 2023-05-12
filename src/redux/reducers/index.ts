@@ -2,14 +2,14 @@ import {Message, State, Toast, User, UserData} from "../../data/models";
 import {Category, Gender, Page} from "../../data/category";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {build} from "ionicons/icons";
+import {fetchUser, fetchUsers, loginAction} from '../asyncActions'
+import {updateArray} from "../../utils/functions";
 
 export const initialState: State = {
     user: {},
     users: [],
-    chats: [],
     userData: undefined,
-    currentPage: Page.login,
-    lastPage: Page.login,
 }
 
 export const datasetSlice = createSlice({
@@ -34,7 +34,31 @@ export const datasetSlice = createSlice({
             }
         }
 
-    }
+    },
+    extraReducers: (builder => {
+        builder.addCase(fetchUsers.fulfilled, (state, {payload}) => {
+            console.log('fetchUsers', payload);
+            if (payload) {
+                state.users = (payload as User[]);
+            }
+        }).addCase(fetchUser.fulfilled, (state, {payload}) => {
+            console.log('fetchUser', payload);
+            if (payload) {
+                let newUsers = updateArray(state.users, payload, 'uid');
+                if (newUsers) {
+                    state.users = newUsers;
+                }
+            }
+        })
+            .addCase(loginAction.fulfilled, (state, {payload}) => {
+                console.log('loginAction', payload);
+                if (payload && state.user) {
+                    let find = state.users.find(u => u.uid === payload);
+                    state.user = find ?? {uid: payload};
+                }
+            })
+    })
+
 })
 
 export const {setSomething, setUser, setToast, dismissToast} = datasetSlice.actions
