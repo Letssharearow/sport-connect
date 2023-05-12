@@ -24,7 +24,6 @@ const CategorySelection: React.FC = () => {
 
     const dispatch = useDispatch();
     const userCategories = useSelector((state: IRootState) => state.datasetSlice.user?.categories);
-    console.log('userCategories', userCategories);
     const [categories, setCategories] = useState<Category[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<Category[]>(userCategories ?? []);
 

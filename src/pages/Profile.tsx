@@ -31,7 +31,6 @@ const Profile = () => {
 
 
     const handleNameChange = (event: IonInputCustomEvent<InputChangeEventDetail>) => {
-        console.log('event', event);
         setLocalUser((user) => {
             return user && event.target.value && typeof event.target.value === "string" ? {
                 ...user,

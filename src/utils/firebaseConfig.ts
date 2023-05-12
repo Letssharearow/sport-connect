@@ -32,12 +32,12 @@ const db = getFirestore(app);
 
 export async function login(username: string, password: string) {
     try {
-        console.log('username password', username, password)
+        console.debug('username password', username, password)
         const res = await signInWithEmailAndPassword(auth, username, password);
-        console.log('res', res);
+        console.debug('res', res);
         return res.user.uid;
     } catch (err) {
-        console.log('err', err);
+        console.error('err', err);
         throw(err);
     }
 }
@@ -45,10 +45,10 @@ export async function login(username: string, password: string) {
 export async function register(username: string, password: string) {
     try {
         const res = await createUserWithEmailAndPassword(auth, username, password);
-        console.log('res', res);
+        console.debug('res', res);
         return true;
     } catch (err) {
-        console.log('err', err);
+        console.error('err', err);
         throw(err);
     }
 }
@@ -56,7 +56,7 @@ export async function register(username: string, password: string) {
 export async function saveDoc(data: any) {
     try {
         const docRef = await addDoc(collection(db, "users"), data);
-        console.log("Document written with ID: ", docRef.id);
+        console.debug("Document written with ID: ", docRef.id);
     } catch (e) {
         console.error("Error adding document: ", e);
     }
@@ -65,7 +65,7 @@ export async function saveDoc(data: any) {
 export async function setSingleDoc(id: string, data: any) {
     try {
         const docRef = await setDoc(doc(db, "users/" + id), data);
-        console.log("Document written with ID: ", docRef);
+        console.debug("Document written with ID: ", docRef);
     } catch (e) {
         console.error("Error adding document: ", e);
     }

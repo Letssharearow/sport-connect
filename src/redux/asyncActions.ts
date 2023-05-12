@@ -23,7 +23,7 @@ export const sendMessage = createAsyncThunk('user/message', async ({
                                                                        to
                                                                    }: { messages: Message[], from: User, to: User }, {getState}) => {
 
-    console.log('user/message');
+    console.debug('user/message');
     if (from && to && from.uid && from.chats && to.chats && to.uid && messages && messages.length > 0) {
         try {
             await setSingleDoc(from.uid, {
@@ -46,7 +46,7 @@ export const loginAction = createAsyncThunk('user/login', async ({
                                                                      password, email
                                                                  }: { email: string, password: string }, {getState}) => {
 
-    console.log('user/login');
+    console.debug('user/login');
     try {
         return await login(email, password);
     } catch (e) {
