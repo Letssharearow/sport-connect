@@ -48,7 +48,9 @@ import {useLoading} from "./hooks/useLoading";
 setupIonicReact();
 
 const App: React.FC = () => {
-    const isLoggedIn = useSelector((state: IRootState) => state.datasetSlice.user?.name) !== undefined || true;
+    const user = useSelector((state: IRootState) => state.datasetSlice.user);
+    const isProfileSetup = user?.categories && user?.categories.length > 0;
+    const isLoggedIn = user?.uid;
     useLoading();
 
     return (
@@ -69,12 +71,12 @@ const App: React.FC = () => {
                         <Route path={Page.categories} render={() => <CategorySelection/>} exact={true}/>
                         <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
                         <Route path={Page.users} render={() => <Users/>} exact={true}/>
-                        {/*{isLoggedIn ? <Redirect to={Page.profile} path={Page.login} exact/> : null}*/}
+                        {/*{isProfileSetup ? <Redirect to={Page.profile} path={Page.login} exact/> : null}*/}
                     </IonRouterOutlet>
 
 
                     {
-                        isLoggedIn ? <IonTabBar slot="bottom">
+                        isProfileSetup ? <IonTabBar slot="bottom">
                             <IonTabButton tab="profile" href={Page.profile}>
                                 <IonIcon icon={accessibilityOutline}/>
                                 <IonLabel>Profil</IonLabel>
@@ -85,7 +87,7 @@ const App: React.FC = () => {
                                 <IonLabel>Entdecke</IonLabel>
                             </IonTabButton>
 
-                            <IonTabButton tab="contacts" href={Page.contacts}>
+                            <IonTabButton tab="contacts" href={isLoggedIn ? Page.contacts : Page.login}>
                                 <IonIcon icon={chatbubbles}/>
                                 <IonLabel>Chats</IonLabel>
                             </IonTabButton>

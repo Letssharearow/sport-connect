@@ -24,15 +24,17 @@ export const sendMessage = createAsyncThunk('user/message', async ({
                                                                    }: { messages: Message[], from: User, to: User }, {getState}) => {
 
     console.debug('user/message');
-    if (from && to && from.uid && from.chats && to.chats && to.uid && messages && messages.length > 0) {
+    if (from && to && from.uid && to.uid && messages && messages.length > 0) {
         try {
+            const chatFrom = {userId: to.uid, messages};
             await setSingleDoc(from.uid, {
                 ...from,
-                chats: updateArray(from.chats, {userId: to.uid, messages}, 'userId')
+                chats: from.chats ? updateArray(from.chats, chatFrom, 'userId') : [chatFrom]
             } as User)
+            const chatTo = {userId: from.uid, messages};
             await setSingleDoc(to.uid, {
                 ...to,
-                chats: updateArray(to.chats, {userId: from.uid, messages}, 'userId')
+                chats: to.chats ? updateArray(to.chats, chatTo, 'userId') : [chatTo]
             } as User)
         } catch (e) {
             throw(e);

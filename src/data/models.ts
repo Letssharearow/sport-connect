@@ -37,7 +37,7 @@ export interface Message {
     value: string;
 }
 
-type Position = "bottom" | "middle" | "top";
+export type Position = "bottom" | "middle" | "top";
 
 export interface Toast {
     message: string;

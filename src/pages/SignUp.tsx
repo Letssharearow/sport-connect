@@ -40,7 +40,7 @@ const SignUp = () => {
         <>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Registration</IonTitle>
+                    <IonTitle class="ion-text-center">Registration</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>

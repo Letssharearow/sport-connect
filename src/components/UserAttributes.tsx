@@ -23,12 +23,12 @@ const UserAttributes: React.FC<Props> = ({
     return <>
         <IonList>
             <IonItem>
-                <IonLabel position="stacked">Name</IonLabel>
-                <IonInput readonly={!isThisUser} type="text" value={user?.name} onIonChange={handleNameChange}/>
+                <IonInput labelPlacement="floating" label="Name" readonly={!isThisUser} type="text" value={user?.name}
+                          onIonChange={handleNameChange}/>
             </IonItem>
             <IonItem>
-                <IonLabel position="stacked">Age</IonLabel>
-                <IonInput readonly={!isThisUser} type="number" value={user?.age} onIonChange={handleAgeChange}/>
+                <IonInput labelPlacement="floating" label="Age" readonly={!isThisUser} type="number" value={user?.age}
+                          onIonChange={handleAgeChange}/>
             </IonItem>
             <IonItem>
                 <IonSelect disabled={!isThisUser} label="Gender" value={user?.gender}

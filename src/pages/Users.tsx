@@ -20,6 +20,7 @@ import {useSelector} from "react-redux";
 const Users: React.FC = () => {
 
     const usersState = useSelector((state: IRootState) => state.datasetSlice.users);
+    const userState = useSelector((state: IRootState) => state.datasetSlice.user);
 
     const refresh = (e: CustomEvent) => {
         setTimeout(() => {
@@ -33,9 +34,7 @@ const Users: React.FC = () => {
                 <IonToolbar>
                     <IonRow>
                         <IonCol>
-                            <IonTitle>Coole Leute</IonTitle>
-                            <IonCardSubtitle>Wählen Sie alle Leute, mit denen Sie gerne aktiv werden
-                                wollen</IonCardSubtitle>
+                            <IonTitle class="ion-text-center">Coole Leute</IonTitle>
                         </IonCol>
                     </IonRow>
                 </IonToolbar>
@@ -46,7 +45,8 @@ const Users: React.FC = () => {
                 </IonRefresher>
 
                 <IonList>
-                    {usersState.map(m => <UserItem key={m.uid} user={m}/>)}
+                    {usersState.filter(u => u.categories?.find(cat => userState?.categories?.includes(cat))).map(m =>
+                        <UserItem key={m.uid} user={m}/>)}
                 </IonList>
             </IonContent>
         </>

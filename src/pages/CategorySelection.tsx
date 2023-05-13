@@ -6,19 +6,20 @@ import {
     IonCardSubtitle,
     IonCol,
     IonContent,
-    IonHeader,
+    IonHeader, IonIcon,
     IonList,
     IonRefresher,
     IonRefresherContent,
     IonRouterLink,
     IonRow,
     IonTitle,
-    IonToolbar
+    IonToolbar, useIonRouter
 } from '@ionic/react';
 import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../redux/reducers";
 import {addOrRemove} from "../utils/functions";
 import {IRootState} from "../data/models";
+import {chevronForwardOutline} from "ionicons/icons";
 
 const CategorySelection: React.FC = () => {
 
@@ -32,9 +33,15 @@ const CategorySelection: React.FC = () => {
         const msgs = getCategories();
         setCategories(msgs); //TODO: move categories here
     }, [])
+    const disabled = selectedCategories.length <= 0;
 
+    const router = useIonRouter();
+    const goToPage = (route: Page) => {
+        router.push(route, 'root', 'replace');
+    };
     const onSubmit = () => {
-        dispatch(setUser({categories: selectedCategories}))
+        dispatch(setUser({categories: selectedCategories}));
+        goToPage(Page.profile);
     };
 
     return (
@@ -43,12 +50,11 @@ const CategorySelection: React.FC = () => {
                 <IonToolbar>
                     <IonRow>
                         <IonCol itemType="a">
-                            <IonTitle>Kategorien</IonTitle>
-                            <IonCardSubtitle>Wählen Sie alle Kategorien, für die Sie Leute suchen</IonCardSubtitle>
+                            <IonTitle class="ion-text-center">Kategorien</IonTitle>
                         </IonCol>
-                        <IonRouterLink routerLink={Page.profile}>
-                            <IonButton onClick={onSubmit}>Weiter</IonButton>
-                        </IonRouterLink>
+                        <IonButton disabled={disabled} onClick={onSubmit}>
+                            <IonIcon icon={chevronForwardOutline}/>
+                        </IonButton>
                     </IonRow>
                 </IonToolbar>
             </IonHeader>

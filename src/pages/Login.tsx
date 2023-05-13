@@ -14,11 +14,13 @@ import {setToast} from "../redux/reducers";
 import {Category, Gender, Page} from "../data/category";
 import {loginAction} from "../redux/asyncActions";
 import {AppDispatch} from "../index";
+import {IRootState} from "../data/models";
 
 function Login() {
     const [email, setEmail] = useState("testuser3@gamil.com");
     const [password, setPassword] = useState("test123");
     const dispatch = useDispatch<AppDispatch>();
+    const user = useSelector((state: IRootState) => state.datasetSlice.user);
 
     const router = useIonRouter();
     const goToPage = (route: Page) => {
@@ -27,21 +29,26 @@ function Login() {
 
 
     const handleLogin = async () => {
-        dispatch(loginAction({email, password})).then(() => {
-            dispatch(setToast({message: "logged in", color: "success"}))
-            goToPage(Page.profile);
-        }).catch(err => dispatch(setToast({message: err.message, color: "danger"})));
+        dispatch(loginAction({email, password})).then((e) => {
+            if (e.meta?.requestStatus === 'fulfilled') {
+                if (user?.categories && user?.categories.length > 0) {
+                    goToPage(Page.profile);
+                } else {
+                    goToPage(Page.categories);
+                }
+            }
+        })
     };
 
     return (<IonContent style={{height: '100vh'}}>
 
         <IonHeader>
             <IonToolbar>
-                <IonTitle>Login</IonTitle>
+                <IonTitle class="ion-text-center">Login</IonTitle>
             </IonToolbar>
         </IonHeader>
 
-        <IonRow>
+        <IonRow class="ion-text-center">
             <IonCol>
                 <IonIcon
                     style={{fontSize: "70px", color: "#0040ff"}}

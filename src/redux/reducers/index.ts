@@ -1,16 +1,24 @@
-import {Message, State, Toast, User, UserData} from "../../data/models";
+import {Message, Position, State, Toast, User, UserData} from "../../data/models";
 import {Category, Gender, Page} from "../../data/category";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {build} from "ionicons/icons";
 import {fetchUser, fetchUsers, loginAction} from '../asyncActions'
 import {updateArray} from "../../utils/functions";
+import {Color} from "@ionic/core";
 
 export const initialState: State = {
     user: {},
     users: [],
     userData: undefined,
 }
+const getDefaultToast = (message: string, color?: Color) => ({
+    duration: 5000,
+    position: "bottom" as Position,
+    isOpen: true,
+    message,
+    color,
+});
 
 export const datasetSlice = createSlice({
     name: 'datasets',
@@ -26,7 +34,7 @@ export const datasetSlice = createSlice({
             };
         },
         setToast: (state: State, action: PayloadAction<Toast>) => {
-            state.toast = {duration: 5000, position: "bottom", isOpen: true, ...action.payload};
+            state.toast = getDefaultToast(action.payload.message, action.payload.color);
         },
         dismissToast: (state: State) => {
             if (state.toast) {
@@ -55,7 +63,12 @@ export const datasetSlice = createSlice({
                 if (payload && state.user) {
                     let find = state.users.find(u => u.uid === payload);
                     state.user = find ?? {uid: payload};
+                    state.toast = getDefaultToast('logged in', "success");
                 }
+            })
+            .addCase(loginAction.rejected, (state, {error}) => {
+                console.debug('loginAction', error);
+                state.toast = getDefaultToast(error.message ?? 'Error', "danger");
             })
     })
 
