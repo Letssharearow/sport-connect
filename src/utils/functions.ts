@@ -18,3 +18,7 @@ export function updateArray<T>(array: Array<T>, value: T, key: keyof T) {
     }
     return null;
 }
+
+export const isDispatchFulfilled = (event: any) => {
+    return event.meta?.requestStatus === 'fulfilled';
+}

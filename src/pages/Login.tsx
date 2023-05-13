@@ -15,6 +15,7 @@ import {Category, Gender, Page} from "../data/category";
 import {loginAction} from "../redux/asyncActions";
 import {AppDispatch} from "../index";
 import {IRootState} from "../data/models";
+import {isDispatchFulfilled} from "../utils/functions";
 
 function Login() {
     const [email, setEmail] = useState("testuser3@gamil.com");
@@ -30,7 +31,7 @@ function Login() {
 
     const handleLogin = async () => {
         dispatch(loginAction({email, password})).then((e) => {
-            if (e.meta?.requestStatus === 'fulfilled') {
+            if (isDispatchFulfilled(e)) {
                 if (user?.categories && user?.categories.length > 0) {
                     goToPage(Page.profile);
                 } else {

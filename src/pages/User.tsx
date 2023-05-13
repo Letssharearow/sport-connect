@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
     IonToolbar,
     IonList,
-    IonButton, IonFooter, IonTextarea, IonButtons, IonFabButton, IonIcon
+    IonButton, IonFooter, IonTextarea, IonButtons, IonFabButton, IonIcon, IonInfiniteScroll
 } from '@ionic/react';
 import {useParams} from "react-router";
 
@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchUser, sendMessage} from "../redux/asyncActions";
 import {AppDispatch} from "../index";
 import {refreshOutline, sendOutline} from "ionicons/icons";
+import {isDispatchFulfilled} from "../utils/functions";
 
 const defaultMessage = "Hey, lust zusammen Sport zu machen?";
 const User = () => {
@@ -40,7 +41,16 @@ const User = () => {
                 to: user,
                 from: userState,
                 messages: [...messages, {uid: userState.uid, value: message}]
-            }))
+            })).then((e) => {
+                if (isDispatchFulfilled(e)) {
+                    setMessages((oldMessages) => {
+                        return userState && userState.uid ? ([...oldMessages, {
+                            uid: userState.uid,
+                            value: message
+                        }]) : oldMessages;
+                    })
+                }
+            })
         }
     }, [dispatch, user, userState, messages])
 
@@ -73,13 +83,15 @@ const User = () => {
                 flexDirection: "column",
                 justifyContent: "space-between"
             }}>
-                <div>
+                <div style={{height: '45%', overflow: 'scroll'}}>
                     <UserAttributes isThisUser={false} user={user}/>
                 </div>
-                <div>
+                <div style={{height: '45%', overflow: 'scroll'}}>
                     <IonList>
                         {messagesComponents}
                     </IonList>
+                </div>
+                <div>
                     {!hasMessages ? <IonFooter><IonToolbar>
                             <IonButtons slot="start">
                                 <IonFabButton onClick={refreshMessages} size="small"><IonIcon

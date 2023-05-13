@@ -13,10 +13,10 @@ interface MessageListItemProps {
 const Categories: React.FC<MessageListItemProps> = ({categories}) => {
     return (
         <IonList>
-            {categories.map(cat => {
+            {categories.map((cat, index) => {
                 return (<CategoryComponent isSelected={false}
                                            togglSelected={(cat) => void 0}
-                                           key={cat}
+                                           key={index}
                                            category={cat}/>);
             })}
         </IonList>

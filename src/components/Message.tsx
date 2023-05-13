@@ -17,8 +17,15 @@ const Message: React.FC<MessageProps> = ({message}) => {
 
     const uid = useSelector((state: IRootState) => state.datasetSlice.user?.uid);
 
+    const isFromMe = message.uid === uid;
     return (
-        <IonItem color={message.uid === uid ? "primary" : "secondary"}>
+        <IonItem style={{
+            width: '90%',
+            margin: '3px',
+            marginLeft: isFromMe ? 'auto' : '10px',
+            marginRight: isFromMe ? '10px' : 'auto'
+        }}
+                 color={isFromMe ? "primary" : "secondary"}>
 
             <IonText style={{padding: 3}}
                      color="light">{message.value}</IonText>
