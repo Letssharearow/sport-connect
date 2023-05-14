@@ -3,13 +3,13 @@ import {
     IonLabel,
 } from '@ionic/react';
 import './MessageListItem.css';
-import {Category} from "../data/category";
+import {Enums} from "../data/enums";
 import {useState} from "react";
 
 interface MessageListItemProps {
-    category: Category;
+    category: Enums;
     isSelected: boolean;
-    togglSelected: (category: Category) => void;
+    togglSelected: (category: Enums) => void;
 }
 
 const CategoryComponent: React.FC<MessageListItemProps> = ({category, isSelected, togglSelected}) => {

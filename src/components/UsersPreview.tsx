@@ -14,16 +14,17 @@ import {User} from "../data/models";
 export interface Props {
     users: User[];
     refresh: (e: CustomEvent) => void;
+    heading: string;
 }
 
-export const UsersPreview = ({users, refresh}: Props) => {
+export const UsersPreview = ({users, refresh, heading}: Props) => {
 
     return <>
         <IonHeader collapse="fade">
             <IonToolbar>
                 <IonRow>
                     <IonCol>
-                        <IonTitle class="ion-text-center">Coole Leute</IonTitle>
+                        <IonTitle class="ion-text-center">{heading}</IonTitle>
                     </IonCol>
                 </IonRow>
             </IonToolbar>

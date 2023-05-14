@@ -1,20 +1,28 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {getDocument, getDocuments, login, saveDoc, setSingleDoc} from "../utils/firebaseConfig";
-import {IRootState, Message, User} from "../data/models";
+import {getDocument, getDocuments, login, setSingleDoc} from "../utils/firebaseConfig";
+import {Chat, Message, User} from "../data/models";
 import {updateArray} from "../utils/functions";
+import {Endpoint} from "../data/enums";
 
 export const fetchUsers = createAsyncThunk('users', async (args, {getState}) => {
     console.debug('fetchUser',);
-    let documents = await getDocuments();
+    let documents = await getDocuments(Endpoint.users);
     console.debug('documents', documents);
     return documents;
 });
 
 export const fetchUser = createAsyncThunk('user', async (uid: string, {getState}) => {
     console.debug('fetchUser',);
-    let document = await getDocument(uid);
+    let document = await getDocument(Endpoint.users, uid);
     console.debug('documents', document);
     return document as User;
+});
+
+export const fetchChatsFromUser = createAsyncThunk('user/chats', async (uid: string, {getState}) => {
+    console.debug('fetchChatsFromUser',);
+    let document = await getDocument(Endpoint.chats, uid);
+    console.debug('documents', document);
+    return document as { chats: Chat[] };
 });
 
 export const sendMessage = createAsyncThunk('user/message', async ({
@@ -27,15 +35,9 @@ export const sendMessage = createAsyncThunk('user/message', async ({
     if (from && to && from.uid && to.uid && messages && messages.length > 0) {
         try {
             const chatFrom = {userId: to.uid, messages};
-            await setSingleDoc(from.uid, {
-                ...from,
-                chats: from.chats ? updateArray(from.chats, chatFrom, 'userId') : [chatFrom]
-            } as User)
+            await setSingleDoc(Endpoint.chats, from.uid, {chats: from.chats ? updateArray(from.chats, chatFrom, 'userId') : [chatFrom]})
             const chatTo = {userId: from.uid, messages};
-            await setSingleDoc(to.uid, {
-                ...to,
-                chats: to.chats ? updateArray(to.chats, chatTo, 'userId') : [chatTo]
-            } as User)
+            await setSingleDoc(Endpoint.chats, to.uid, {chats: to.chats ? updateArray(to.chats, chatTo, 'userId') : [chatTo]})
         } catch (e) {
             throw(e);
         }

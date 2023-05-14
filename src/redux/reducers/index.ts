@@ -1,9 +1,7 @@
-import {Message, Position, State, Toast, User, UserData} from "../../data/models";
-import {Category, Gender, Page} from "../../data/category";
+import {Position, State, Toast, User, UserData} from "../../data/models";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {build} from "ionicons/icons";
-import {fetchUser, fetchUsers, loginAction} from '../asyncActions'
+import {fetchChatsFromUser, fetchUser, fetchUsers, loginAction} from '../asyncActions'
 import {updateArray} from "../../utils/functions";
 import {Color} from "@ionic/core";
 
@@ -56,6 +54,11 @@ export const datasetSlice = createSlice({
                 if (newUsers) {
                     state.users = newUsers;
                 }
+            }
+        }).addCase(fetchChatsFromUser.fulfilled, (state, {payload}) => {
+            console.debug('fetchChatsFromUser', payload);
+            if (payload && state.user) {
+                state.user.chats = payload.chats;
             }
         })
             .addCase(loginAction.fulfilled, (state, {payload}) => {

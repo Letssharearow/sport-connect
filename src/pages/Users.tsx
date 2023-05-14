@@ -16,7 +16,7 @@ const Users: React.FC = () => {
     };
 
     return (
-        <UsersPreview users={filteredUsers} refresh={refresh}/>
+        <UsersPreview heading="Coole Leute" users={filteredUsers} refresh={refresh}/>
     );
 };
 

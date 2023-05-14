@@ -1,17 +1,13 @@
-import CategoryComponent from '../components/CategoryComponent';
-import {useEffect, useState} from 'react';
-import {Category, getCategories} from '../data/category';
+import {useState} from 'react';
 import {
-    IonButton, IonCardSubtitle, IonCol,
+    IonCardSubtitle, IonCol,
     IonContent,
     IonHeader,
     IonList,
-    IonPage,
     IonRefresher,
     IonRefresherContent, IonRow,
     IonTitle,
     IonToolbar,
-    useIonViewWillEnter
 } from '@ionic/react';
 import {IRootState, User} from "../data/models";
 import UserItem from "../components/UserItem";

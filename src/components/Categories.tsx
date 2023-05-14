@@ -1,12 +1,12 @@
 import CategoryComponent from '../components/CategoryComponent';
-import {Category,} from '../data/category';
+import {Enums,} from '../data/enums';
 import {
     IonList,
 } from '@ionic/react';
 import {addOrRemove} from "../utils/functions";
 
 interface MessageListItemProps {
-    categories: Category[];
+    categories: Enums[];
 }
 
 

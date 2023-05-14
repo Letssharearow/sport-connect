@@ -33,7 +33,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import {Page} from "./data/category";
+import {Page} from "./data/enums";
 import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {IRootState} from "./data/models";
@@ -44,6 +44,7 @@ import React, {useState} from "react";
 import {dismissToast} from "./redux/reducers";
 import ToastComponent from './components/ToastComponent';
 import {useLoading} from "./hooks/useLoading";
+import Contacts from "./pages/Contacts";
 
 setupIonicReact();
 
@@ -61,7 +62,7 @@ const App: React.FC = () => {
                     <IonRouterOutlet>
                         <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
                         <Route path={Page.users} render={() => <Users/>} exact={true}/>
-                        <Route path={Page.contacts} render={() => <div>Hier fehlt noch was</div>} exact={true}/>
+                        <Route path={Page.contacts} render={() => <Contacts/>} exact={true}/>
                         <Route path="/users/:id">
                             <User/>
                         </Route>

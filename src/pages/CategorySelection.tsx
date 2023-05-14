@@ -1,6 +1,6 @@
 import CategoryComponent from '../components/CategoryComponent';
 import {useEffect, useMemo, useState} from 'react';
-import {Category, getCategories, Page} from '../data/category';
+import {Enums, getCategories, Page} from '../data/enums';
 import {
     IonButton,
     IonCardSubtitle,
@@ -25,8 +25,8 @@ const CategorySelection: React.FC = () => {
 
     const dispatch = useDispatch();
     const userCategories = useSelector((state: IRootState) => state.datasetSlice.user?.categories);
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [selectedCategories, setSelectedCategories] = useState<Category[]>(userCategories ?? []);
+    const [categories, setCategories] = useState<Enums[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<Enums[]>(userCategories ?? []);
 
 
     useEffect(() => {

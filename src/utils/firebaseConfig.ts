@@ -7,6 +7,7 @@ import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import {addDoc, collection, doc, getDoc, getDocs, getFirestore, setDoc} from "firebase/firestore";
+import {Endpoint} from "../data/enums";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -53,39 +54,43 @@ export async function register(username: string, password: string) {
     }
 }
 
-export async function saveDoc(data: any) {
+export async function saveDoc(endpoint: Endpoint, data: any) {
     try {
-        const docRef = await addDoc(collection(db, "users"), data);
+        const docRef = await addDoc(collection(db, endpoint), data);
         console.debug("Document written with ID: ", docRef.id);
     } catch (e) {
         console.error("Error adding document: ", e);
+        throw(e);
     }
 }
 
-export async function setSingleDoc(id: string, data: any) {
+export async function setSingleDoc(endpoint: Endpoint, id: string, data: any) {
     try {
-        const docRef = await setDoc(doc(db, "users/" + id), data);
+        const docRef = await setDoc(doc(db, endpoint + "/" + id), data);
         console.debug("Document written with ID: ", docRef);
     } catch (e) {
         console.error("Error adding document: ", e);
+        throw(e);
     }
 }
 
-export async function getDocuments() {
+export async function getDocuments(endpoint: Endpoint) {
     try {
-        return await getDocs(collection(db, 'users')).then((querySnapshot) =>
+        return await getDocs(collection(db, endpoint)).then((querySnapshot) =>
             querySnapshot.docs
                 .map((doc) => ({...doc.data(), uid: doc.id}))
         );
     } catch (e) {
         console.error("Error adding document: ", e);
+        throw(e);
     }
 }
 
-export async function getDocument(id: string) {
+export async function getDocument(endpoint: Endpoint, id: string) {
     try {
-        return getDoc(doc(db, 'users/' + id)).then((querySnapshot) => querySnapshot.data())
+        return getDoc(doc(db, endpoint + '/' + id)).then((querySnapshot) => querySnapshot.data())
     } catch (e) {
         console.error("Error adding document: ", e);
+        throw(e);
     }
 }

@@ -1,8 +1,8 @@
-import {Category, Gender} from "./category";
+import {Enums, Gender} from "./enums";
 import {Color} from "@ionic/core";
 
 export interface User {
-    categories?: Category[];
+    categories?: Enums[];
     name?: string;
     age?: number;
     description?: string;

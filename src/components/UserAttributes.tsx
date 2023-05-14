@@ -1,6 +1,6 @@
 import {IonButton, IonInput, IonItem, IonLabel, IonList, IonSelect, IonSelectOption, IonText} from "@ionic/react";
 import Categories from "./Categories";
-import {Page} from "../data/category";
+import {Gender, Page} from "../data/enums";
 import React from "react";
 import {User} from "../data/models";
 
@@ -33,9 +33,9 @@ const UserAttributes: React.FC<Props> = ({
             <IonItem>
                 <IonSelect disabled={!isThisUser} label="Gender" value={user?.gender}
                            onIonChange={handleGenderChange}>
-                    <IonSelectOption value="male">Male</IonSelectOption>
-                    <IonSelectOption value="female">Female</IonSelectOption>
-                    <IonSelectOption value="other">Other</IonSelectOption>
+                    <IonSelectOption value={Gender.male}>Male</IonSelectOption>
+                    <IonSelectOption value={Gender.female}>Female</IonSelectOption>
+                    <IonSelectOption value={Gender.divers}>Other</IonSelectOption>
                 </IonSelect>
             </IonItem>
         </IonList>

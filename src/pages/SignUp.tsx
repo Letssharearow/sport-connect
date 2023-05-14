@@ -11,7 +11,7 @@ import {
     IonSelectOption,
     IonButton, IonRow, IonCol, useIonRouter, IonToast
 } from '@ionic/react';
-import {Page} from "../data/category";
+import {Page} from "../data/enums";
 import {useDispatch, useSelector} from "react-redux";
 import {setToast} from "../redux/reducers";
 import {register} from "../utils/firebaseConfig";

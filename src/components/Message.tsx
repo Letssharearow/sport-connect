@@ -4,7 +4,7 @@ import {
     IonText,
 } from '@ionic/react';
 import './MessageListItem.css';
-import {Category} from "../data/category";
+import {Enums} from "../data/enums";
 import {useState} from "react";
 import {IRootState, Message as MessageModel} from "../data/models";
 import {useSelector} from "react-redux";
@@ -23,7 +23,8 @@ const Message: React.FC<MessageProps> = ({message}) => {
             width: '90%',
             margin: '3px',
             marginLeft: isFromMe ? 'auto' : '10px',
-            marginRight: isFromMe ? '10px' : 'auto'
+            marginRight: isFromMe ? '10px' : 'auto',
+            borderRadius: '10px'
         }}
                  color={isFromMe ? "primary" : "secondary"}>
 
