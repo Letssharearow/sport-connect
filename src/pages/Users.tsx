@@ -1,6 +1,8 @@
 import {IRootState} from "../data/models";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {UsersPreview} from "../components/UsersPreview";
+import {AppDispatch} from "../index";
+import {fetchUsers} from "../redux/asyncActions";
 
 const Users: React.FC = () => {
 
@@ -9,10 +11,10 @@ const Users: React.FC = () => {
 
     const filteredUsers = usersState.filter(u => u.categories?.find(cat => userState?.categories?.includes(cat)));
 
+    const dispatch = useDispatch<AppDispatch>();
+
     const refresh = (e: CustomEvent) => {
-        setTimeout(() => {
-            e.detail.complete();
-        }, 3000);
+        dispatch(fetchUsers()).then(() => e.detail.complete());
     };
 
     return (
