@@ -60,6 +60,9 @@ export const datasetSlice = createSlice({
             if (payload && state.user) {
                 state.user.chats = payload.chats;
             }
+        }).addCase(fetchChatsFromUser.rejected, (state, {error}) => {
+            console.debug('fetchChatsFromUserError', error);
+            state.toast = getDefaultToast(error.message ?? 'Error', "danger");
         })
             .addCase(loginAction.fulfilled, (state, {payload}) => {
                 console.debug('loginAction', payload);

@@ -18,6 +18,14 @@ export const fetchUser = createAsyncThunk('user', async (uid: string, {getState}
     return document as User;
 });
 
+export const writeUser = createAsyncThunk('user/write', async (user: User, {getState}) => {
+    console.debug('user/write',);
+    if (user.uid) {
+        let document = await setSingleDoc(Endpoint.users, user.uid, user);
+        console.debug('documents', document);
+    }
+});
+
 export const fetchChatsFromUser = createAsyncThunk('user/chats', async (uid: string, {getState}) => {
     console.debug('fetchChatsFromUser',);
     let document = await getDocument(Endpoint.chats, uid);

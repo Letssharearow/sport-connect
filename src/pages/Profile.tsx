@@ -22,12 +22,15 @@ import {
 } from "@ionic/core/dist/types/components/accordion-group/accordion-group-interface";
 import {IonInputCustomEvent, IonSelectCustomEvent} from "@ionic/core/dist/types/components";
 import UserAttributes from "../components/UserAttributes";
+import {writeUser} from "../redux/asyncActions";
+import {AppDispatch} from "../index";
+import {isDispatchFulfilled} from "../utils/functions";
 
 const Profile = () => {
     const userState = useSelector((state: IRootState) => state.datasetSlice.user)
     const [user, setLocalUser] = useState<User | undefined>(userState);
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
 
     const handleNameChange = (event: IonInputCustomEvent<InputChangeEventDetail>) => {
@@ -59,9 +62,13 @@ const Profile = () => {
 
     const handleSubmit = () => {
         if (user) {
-            dispatch(setUser(
-                user
-            ))
+            dispatch(writeUser(user)).then(e => {
+                if (isDispatchFulfilled(e)) {
+                    dispatch(setUser(
+                        user
+                    ))
+                }
+            })
         }
     };
 

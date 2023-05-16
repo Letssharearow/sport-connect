@@ -10,7 +10,7 @@ import {User as UserInterface, Message as MessageInterface, IRootState} from "..
 import Message from "../components/Message";
 import UserAttributes from "../components/UserAttributes";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchUser, sendMessage} from "../redux/asyncActions";
+import {fetchChatsFromUser, fetchUser, sendMessage} from "../redux/asyncActions";
 import {AppDispatch} from "../index";
 import {refreshOutline, sendOutline} from "ionicons/icons";
 import {isDispatchFulfilled} from "../utils/functions";
@@ -57,7 +57,7 @@ const User = () => {
 
     const refreshMessages = useCallback(() => {
         if (user?.uid) {
-            dispatch(fetchUser(user.uid));
+            dispatch(fetchChatsFromUser(user.uid));
         }
     }, [dispatch, user])
 
@@ -71,8 +71,8 @@ const User = () => {
     useEffect(() => {
         let id = params.id;
         setUser(users.find(u => u.uid === id))
-        setMessages(user?.chats?.find(m => m.userId === userState?.uid)?.messages ?? []);
-    }, [users, user])
+        setMessages(userState?.chats?.find(m => m.userId === userState?.uid)?.messages ?? []);
+    }, [users, userState])
 
     //    border: 3px solid black;
     //     border-radius: 20px;
