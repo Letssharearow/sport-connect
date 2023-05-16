@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
     IonToolbar,
     IonList,
-    IonButton, IonFooter, IonTextarea, IonButtons, IonFabButton, IonIcon, IonInfiniteScroll
+    IonButton, IonFooter, IonTextarea, IonButtons, IonFabButton, IonIcon
 } from '@ionic/react';
 import {useParams} from "react-router";
 
@@ -74,24 +74,41 @@ const User = () => {
         setMessages(user?.chats?.find(m => m.userId === userState?.uid)?.messages ?? []);
     }, [users, user])
 
-
+    //    border: 3px solid black;
+    //     border-radius: 20px;
     return (
         <>
             <div className="ion-padding" style={{
                 height: '100%',
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
+                backgroundColor: 'darkgreen'
             }}>
-                <div style={{height: '45%', overflow: 'scroll'}}>
-                    <UserAttributes isThisUser={false} user={user}/>
+                <div style={{
+                    height: '100%',
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    padding: 3,
+                }}>
+
+                    <div style={{
+                        height: '49.5%', overflow: 'scroll', border: '3px solid black',
+                        borderRadius: '20px',
+                    }}>
+                        <UserAttributes isThisUser={false} user={user}/>
+                    </div>
+                    <div style={{
+                        height: '49.5%', overflow: 'scroll', border: '3px solid black',
+                        borderRadius: '20px',
+                    }}>
+                        <IonList>
+                            {messagesComponents}
+                        </IonList>
+                    </div>
                 </div>
-                <div style={{height: '45%', overflow: 'scroll'}}>
-                    <IonList>
-                        {messagesComponents}
-                    </IonList>
-                </div>
-                <div>
+                <div style={{border: '3px solid black'}}>
                     {!hasMessages ? <IonFooter><IonToolbar>
                             <IonButtons slot="start">
                                 <IonFabButton onClick={refreshMessages} size="small"><IonIcon
