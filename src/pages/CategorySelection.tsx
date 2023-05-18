@@ -46,18 +46,9 @@ const CategorySelection: React.FC = () => {
     };
 
     return (
-        <div id="home-page">
-            <HeaderWithArrows hasBackArrow={false} header="Kategorien" onForwardButton={onSubmit}/>
-            <IonContent fullscreen>
-
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">
-                            Inbox
-                        </IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-
+        <>
+            <HeaderWithArrows hasBackArrow={false} header="Kategorien" onForwardButton={onSubmit} page={Page.profile}/>
+            <IonContent>
                 <IonList>
                     {categories.map(cat => {
                         return (<CategoryComponent isSelected={selectedCategories.includes(cat)}
@@ -70,7 +61,7 @@ const CategorySelection: React.FC = () => {
                     })}
                 </IonList>
             </IonContent>
-        </div>
+        </>
     );
 };
 

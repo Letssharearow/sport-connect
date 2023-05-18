@@ -1,4 +1,14 @@
-import {IonButton, IonInput, IonItem, IonLabel, IonList, IonSelect, IonSelectOption, IonText} from "@ionic/react";
+import {
+    IonButton,
+    IonInput,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonRouterLink,
+    IonSelect,
+    IonSelectOption,
+    IonText
+} from "@ionic/react";
 import Categories from "./Categories";
 import {Gender, Page} from "../data/category";
 import React from "react";
@@ -44,9 +54,12 @@ const UserAttributes: React.FC<Props> = ({
                 isThisUser && <IonText color="dark">Deine Sportarten</IonText>
             }
             {/*TODO: Fix styling*/}
-            <Categories categories={user?.categories ?? []}/>
+            <Categories showAddIcon={false} categories={user?.categories ?? []}/>
             {
-                isThisUser && <IonButton fill="outline" routerLink={Page.categories}>Anpassen</IonButton>
+                isThisUser &&
+                <IonRouterLink routerLink={Page.categories}>
+                    <IonButton fill="outline">Anpassen</IonButton>
+                </IonRouterLink>
             }
         </div>
     </>;

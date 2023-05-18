@@ -12,16 +12,20 @@ import CategoryIcon from "./CategoryIcon";
 interface Props {
     category: Category;
     isSelected: boolean;
+    showAddIcon?: boolean;
     togglSelected: (category: Category) => void;
 }
 
-const CategoryComponent: React.FC<Props> = ({category, isSelected, togglSelected}) => {
+const CategoryComponent: React.FC<Props> = ({category, isSelected, togglSelected, showAddIcon = true}) => {
 
 
     return (
         <IonItem onClick={() => {
             togglSelected(category)
-        }} color={isSelected ? "dark" : "light"} detail={false}>
+        }} className="ion-margin" color={isSelected ? "dark" : "light"} detail={false}
+                 lines="none"
+                 style={{border: "1px solid var(--ion-color-dark)", borderRadius: "4px"}}
+        >
 
             <IonGrid>
                 <IonRow>
@@ -34,7 +38,7 @@ const CategoryComponent: React.FC<Props> = ({category, isSelected, togglSelected
                 </IonRow>
             </IonGrid>
             {
-                !isSelected &&
+                !isSelected && showAddIcon &&
                 <IonButton slot="end" fill="clear" size="small">
                     <IonIcon slot="end" size="large" icon={isSelected ? add : addOutline}/>
                 </IonButton>

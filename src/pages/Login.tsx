@@ -41,82 +41,84 @@ function Login() {
         })
     };
 
-    return (<IonContent style={{height: '100vh'}}>
+    return (
+        <>
+            <IonHeader>
+                <IonToolbar>
+                    <IonTitle class="ion-text-center">Login</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent style={{height: '100vh'}}>
 
-        <IonHeader>
-            <IonToolbar>
-                <IonTitle class="ion-text-center">Login</IonTitle>
-            </IonToolbar>
-        </IonHeader>
-
-        <IonRow class="ion-text-center">
-            <IonCol>
-                <IonIcon
-                    style={{fontSize: "70px", color: "#0040ff"}}
-                    icon={personCircle}
-                />
-            </IonCol>
-        </IonRow>
+                <IonRow class="ion-text-center">
+                    <IonCol>
+                        <IonIcon
+                            style={{fontSize: "70px", color: "#0040ff"}}
+                            icon={personCircle}
+                        />
+                    </IonCol>
+                </IonRow>
 
 
-        <IonRow>
-            <IonCol>
-                <IonItem>
-                    <IonInput
-                        labelPlacement="floating"
-                        label="Email"
-                        type="email"
-                        value={email}
-                        onIonInput={(e) => setEmail(e.detail.value!)}
-                    >
-                    </IonInput>
-                </IonItem>
-            </IonCol>
-        </IonRow>
-        <IonRow>
-            <IonCol>
-                <IonItem>
-                    <IonInput
-                        labelPlacement="floating"
-                        label="Password"
-                        type="password"
-                        value={password}
-                        onIonInput={(e) => setPassword(e.detail.value!)}
-                    >
-                    </IonInput>
-                </IonItem>
-            </IonCol>
-        </IonRow>
+                <IonRow>
+                    <IonCol>
+                        <IonItem>
+                            <IonInput
+                                labelPlacement="floating"
+                                label="Email"
+                                type="email"
+                                value={email}
+                                onIonInput={(e) => setEmail(e.detail.value!)}
+                            >
+                            </IonInput>
+                        </IonItem>
+                    </IonCol>
+                </IonRow>
+                <IonRow>
+                    <IonCol>
+                        <IonItem>
+                            <IonInput
+                                labelPlacement="floating"
+                                label="Password"
+                                type="password"
+                                value={password}
+                                onIonInput={(e) => setPassword(e.detail.value!)}
+                            >
+                            </IonInput>
+                        </IonItem>
+                    </IonCol>
+                </IonRow>
 
-        <IonRow>
-            <IonCol>
-                <p style={{fontSize: "small"}}>
-                    Indem Sie auf LOGIN klicken, stimmen Sie unseren <IonRouterLink
-                    routerLink={Page.policy}>
-                    <a href="">Richtlinien</a>
-                </IonRouterLink> zu!
-                </p>
-                <IonButton expand="block" onClick={handleLogin}>
-                    Login
-                </IonButton>
+                <IonRow>
+                    <IonCol>
+                        <p style={{fontSize: "small"}}>
+                            Indem Sie auf LOGIN klicken, stimmen Sie unseren <IonRouterLink
+                            routerLink={Page.policy}>
+                            <a href="">Richtlinien</a>
+                        </IonRouterLink> zu!
+                        </p>
+                        <IonButton expand="block" onClick={handleLogin}>
+                            Login
+                        </IonButton>
 
-                <p style={{fontSize: "medium"}}>
-                    Don't have an account? <> </>
-                    <IonRouterLink routerLink={Page.signup}>
-                        <a href="">Sign up!</a>
-                    </IonRouterLink>
-                </p>
+                        <p style={{fontSize: "medium"}}>
+                            Don't have an account? <> </>
+                            <IonRouterLink routerLink={Page.signup}>
+                                <a href="">Sign up!</a>
+                            </IonRouterLink>
+                        </p>
 
-                <p style={{fontSize: "medium"}}>
-                    Don't want to sign u? <> </>
-                    <IonRouterLink routerLink={Page.categories}>
-                        <a href="">Skip Sign up!</a>
-                    </IonRouterLink>
-                </p>
-            </IonCol>
-        </IonRow>
+                        <p style={{fontSize: "medium"}}>
+                            Don't want to sign u? <> </>
+                            <IonRouterLink routerLink={Page.categories}>
+                                <a href="">Skip Sign up!</a>
+                            </IonRouterLink>
+                        </p>
+                    </IonCol>
+                </IonRow>
 
-    </IonContent>)
+            </IonContent>
+        </>)
 }
 
 export default Login
