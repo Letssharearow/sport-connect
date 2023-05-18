@@ -11,11 +11,11 @@ import {
     IonSelectOption,
     IonButton, IonRow, IonCol, useIonRouter, IonToast
 } from '@ionic/react';
-import {Page} from "../data/enums";
+import {Page} from "../data/category";
 import {useDispatch, useSelector} from "react-redux";
 import {setToast} from "../redux/reducers";
 import {register} from "../utils/firebaseConfig";
-import {BackArrowHeader} from "../components/BackArrowHeader";
+import {HeaderWithArrows} from "../components/HeaderWithArrows";
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ const SignUp = () => {
 
     return (
         <>
-            <BackArrowHeader header="Registration"/>
+            <HeaderWithArrows header="Registration"/>
             <IonContent>
                 <IonRow>
                     <IonCol>

@@ -2,7 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {getDocument, getDocuments, login, setSingleDoc} from "../utils/firebaseConfig";
 import {Chat, Message, User} from "../data/models";
 import {updateArray} from "../utils/functions";
-import {Endpoint} from "../data/enums";
+import {Endpoint} from "../data/category";
 
 export const fetchUsers = createAsyncThunk('users', async (args, {getState}) => {
     console.debug('fetchUser',);

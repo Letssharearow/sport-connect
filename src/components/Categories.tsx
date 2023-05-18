@@ -1,16 +1,16 @@
 import CategoryComponent from '../components/CategoryComponent';
-import {Enums,} from '../data/enums';
+import {Category,} from '../data/category';
 import {
     IonList,
 } from '@ionic/react';
 import {addOrRemove} from "../utils/functions";
 
-interface MessageListItemProps {
-    categories: Enums[];
+interface Props {
+    categories: Category[];
 }
 
 
-const Categories: React.FC<MessageListItemProps> = ({categories}) => {
+const Categories: React.FC<Props> = ({categories}) => {
     return (
         <IonList>
             {categories.map((cat, index) => {

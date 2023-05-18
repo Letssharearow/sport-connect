@@ -3,15 +3,15 @@ import {
     IonLabel,
 } from '@ionic/react';
 import './MessageListItem.css';
-import {Enums} from "../data/enums";
+import {Category} from "../data/category";
 import {useState} from "react";
 import {User} from "../data/models";
 
-interface MessageListItemProps {
+interface Props {
     user: User;
 }
 
-const UserItem: React.FC<MessageListItemProps> = ({user}) => {
+const UserItem: React.FC<Props> = ({user}) => {
 
     const [isSelected, setIsSelected] = useState<boolean>();
 

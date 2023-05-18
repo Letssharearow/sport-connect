@@ -13,7 +13,7 @@ interface Props {
     message: MessageModel;
 }
 
-const Message: React.FC<Props> = ({message}) => {
+const CategoryIcon: React.FC<Props> = ({message}) => {
 
     const uid = useSelector((state: IRootState) => state.datasetSlice.user?.uid);
 
@@ -34,4 +34,4 @@ const Message: React.FC<Props> = ({message}) => {
     );
 };
 
-export default Message;
+export default CategoryIcon;

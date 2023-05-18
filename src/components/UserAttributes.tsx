@@ -1,6 +1,6 @@
 import {IonButton, IonInput, IonItem, IonLabel, IonList, IonSelect, IonSelectOption, IonText} from "@ionic/react";
 import Categories from "./Categories";
-import {Gender, Page} from "../data/enums";
+import {Gender, Page} from "../data/category";
 import React from "react";
 import {User} from "../data/models";
 

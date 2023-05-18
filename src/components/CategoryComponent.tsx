@@ -1,28 +1,31 @@
 import {
+    IonButton, IonIcon,
     IonItem,
     IonLabel,
 } from '@ionic/react';
 import './MessageListItem.css';
-import {Enums} from "../data/enums";
+import {Category} from "../data/category";
 import {useState} from "react";
+import {addCircle, addOutline} from "ionicons/icons";
 
-interface MessageListItemProps {
-    category: Enums;
+interface Props {
+    category: Category;
     isSelected: boolean;
-    togglSelected: (category: Enums) => void;
+    togglSelected: (category: Category) => void;
 }
 
-const CategoryComponent: React.FC<MessageListItemProps> = ({category, isSelected, togglSelected}) => {
+const CategoryComponent: React.FC<Props> = ({category, isSelected, togglSelected}) => {
 
 
     return (
         <IonItem onClick={() => {
             togglSelected(category)
-        }} detail={false}>
-            <IonLabel className="ion-text-wrap ion-padding"
-                      style={{backgroundColor: isSelected ? "#437738" : "#777"}}>
-                <h2>{category}</h2>
-            </IonLabel>
+        }} color={isSelected ? "primary" : "light"} detail={false}>
+            <IonIcon slot="start" icon={addOutline}/>
+            <IonLabel>{category}</IonLabel>
+            <IonButton slot="end" fill="clear" size="small">
+                <IonIcon icon={addOutline}/>
+            </IonButton>
         </IonItem>
     );
 };

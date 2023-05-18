@@ -11,17 +11,17 @@ import {
     IonSelectOption,
     IonButton, IonRow, IonCol, useIonRouter, IonToast, IonButtons, IonBackButton, IonMenuButton
 } from '@ionic/react';
-import {Page} from "../data/enums";
+import {Page} from "../data/category";
 import {useDispatch, useSelector} from "react-redux";
 import {setToast} from "../redux/reducers";
 import {register} from "../utils/firebaseConfig";
-import {BackArrowHeader} from "../components/BackArrowHeader";
+import {HeaderWithArrows} from "../components/HeaderWithArrows";
 
 const Policy = () => {
 
     return (
         <>
-            <BackArrowHeader header="Richtlinien"/>
+            <HeaderWithArrows header="Richtlinien"/>
             <IonContent>
                 <h2>1. Datenschutzerklärung</h2>
                 <p>

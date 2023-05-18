@@ -1,6 +1,6 @@
 import CategoryComponent from '../components/CategoryComponent';
 import {useEffect, useMemo, useState} from 'react';
-import {Enums, getCategories, Page} from '../data/enums';
+import {Category, getCategories, Page} from '../data/category';
 import {
     IonButton,
     IonCardSubtitle,
@@ -20,13 +20,14 @@ import {setUser} from "../redux/reducers";
 import {addOrRemove} from "../utils/functions";
 import {IRootState} from "../data/models";
 import {chevronForwardOutline} from "ionicons/icons";
+import {HeaderWithArrows} from "../components/HeaderWithArrows";
 
 const CategorySelection: React.FC = () => {
 
     const dispatch = useDispatch();
     const userCategories = useSelector((state: IRootState) => state.datasetSlice.user?.categories);
-    const [categories, setCategories] = useState<Enums[]>([]);
-    const [selectedCategories, setSelectedCategories] = useState<Enums[]>(userCategories ?? []);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<Category[]>(userCategories ?? []);
 
 
     useEffect(() => {
@@ -46,18 +47,7 @@ const CategorySelection: React.FC = () => {
 
     return (
         <div id="home-page">
-            <IonHeader collapse="fade">
-                <IonToolbar>
-                    <IonRow>
-                        <IonCol itemType="a">
-                            <IonTitle class="ion-text-center">Kategorien</IonTitle>
-                        </IonCol>
-                        <IonButton disabled={disabled} onClick={onSubmit}>
-                            <IonIcon icon={chevronForwardOutline}/>
-                        </IonButton>
-                    </IonRow>
-                </IonToolbar>
-            </IonHeader>
+            <HeaderWithArrows hasBackArrow={false} header="Kategorien" onForwardButton={onSubmit}/>
             <IonContent fullscreen>
 
                 <IonHeader collapse="condense">

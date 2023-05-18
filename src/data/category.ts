@@ -1,4 +1,4 @@
-export enum Enums {
+export enum Category {
     dance = 'Tanzen',
     club = 'Golf',
     running = 'Laufen',
@@ -22,7 +22,7 @@ export enum Enums {
     soccer = 'Fußball',
 }
 
-export const getCategories = () => Object.values(Enums);
+export const getCategories = () => Object.values(Category);
 
 export enum Page {
     login = "/login",

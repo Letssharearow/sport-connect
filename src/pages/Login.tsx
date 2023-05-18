@@ -11,7 +11,7 @@ import React, {useEffect, useState} from "react";
 import {getDocument, getDocuments, login, saveDoc, setSingleDoc} from "../utils/firebaseConfig";
 import {useDispatch, useSelector} from "react-redux";
 import {setToast} from "../redux/reducers";
-import {Enums, Gender, Page} from "../data/enums";
+import {Category, Gender, Page} from "../data/category";
 import {loginAction} from "../redux/asyncActions";
 import {AppDispatch} from "../index";
 import {IRootState} from "../data/models";

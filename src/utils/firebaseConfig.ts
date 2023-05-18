@@ -7,7 +7,7 @@ import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import {addDoc, collection, doc, getDoc, getDocs, getFirestore, setDoc} from "firebase/firestore";
-import {Endpoint} from "../data/enums";
+import {Endpoint} from "../data/category";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 

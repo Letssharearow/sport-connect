@@ -12,7 +12,7 @@ import {
     IonSelectOption,
     IonButton, useIonRouter, InputChangeEventDetail, SelectChangeEventDetail, IonText, IonRow, IonCol
 } from '@ionic/react';
-import {Gender, Page} from "../data/enums";
+import {Gender, Page} from "../data/category";
 import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../redux/reducers";
 import Categories from "../components/Categories";

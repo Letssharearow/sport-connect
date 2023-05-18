@@ -1,3 +1,5 @@
+import {Category} from "../data/category";
+
 export function addOrRemove<T>(array: Array<T>, value: T) {
     var index = array.indexOf(value);
 
