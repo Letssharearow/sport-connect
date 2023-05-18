@@ -5,6 +5,7 @@ export enum Category {
     walking = 'Spazieren Gehen',
     cycling = 'Radfahren',
     workOut = 'Work out',
+    gym = 'Gym',
     tennis = 'Tennis',
     paddle = 'Paddeln',
     hiking = 'Wandern',

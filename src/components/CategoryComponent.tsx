@@ -1,12 +1,13 @@
 import {
-    IonButton, IonIcon,
+    IonButton, IonCol, IonGrid, IonIcon,
     IonItem,
-    IonLabel,
+    IonLabel, IonRow,
 } from '@ionic/react';
 import './MessageListItem.css';
 import {Category} from "../data/category";
 import {useState} from "react";
-import {addCircle, addOutline} from "ionicons/icons";
+import {add, addCircle, addOutline} from "ionicons/icons";
+import CategoryIcon from "./CategoryIcon";
 
 interface Props {
     category: Category;
@@ -20,12 +21,24 @@ const CategoryComponent: React.FC<Props> = ({category, isSelected, togglSelected
     return (
         <IonItem onClick={() => {
             togglSelected(category)
-        }} color={isSelected ? "primary" : "light"} detail={false}>
-            <IonIcon slot="start" icon={addOutline}/>
-            <IonLabel>{category}</IonLabel>
-            <IonButton slot="end" fill="clear" size="small">
-                <IonIcon icon={addOutline}/>
-            </IonButton>
+        }} color={isSelected ? "dark" : "light"} detail={false}>
+
+            <IonGrid>
+                <IonRow>
+                    <IonCol size="auto">
+                        <CategoryIcon isOutline={!isSelected} category={category}/>
+                    </IonCol>
+                    <IonCol>
+                        <IonLabel>{category}</IonLabel>
+                    </IonCol>
+                </IonRow>
+            </IonGrid>
+            {
+                !isSelected &&
+                <IonButton slot="end" fill="clear" size="small">
+                    <IonIcon slot="end" size="large" icon={isSelected ? add : addOutline}/>
+                </IonButton>
+            }
         </IonItem>
     );
 };
