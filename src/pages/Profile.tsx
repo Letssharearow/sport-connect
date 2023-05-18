@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     IonHeader,
     IonToolbar,
@@ -25,6 +25,7 @@ import UserAttributes from "../components/UserAttributes";
 import {writeUser} from "../redux/asyncActions";
 import {AppDispatch} from "../index";
 import {isDispatchFulfilled} from "../utils/functions";
+import {athletes} from "../data/data";
 
 const Profile = () => {
     const userState = useSelector((state: IRootState) => state.datasetSlice.user)
@@ -32,7 +33,17 @@ const Profile = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
-
+    useEffect(() => {
+        if (userState && !userState.name && user && !user.name) {
+            setLocalUser((user) => {
+                return {
+                    ...user,
+                    name: athletes[Math.floor(Math.random() * athletes.length)]
+                };
+            })
+            handleSubmit();
+        }
+    }, [])
     const handleNameChange = (event: IonInputCustomEvent<InputChangeEventDetail>) => {
         setLocalUser((user) => {
             return user && event.target.value && typeof event.target.value === "string" ? {
@@ -61,6 +72,7 @@ const Profile = () => {
     };
 
     const handleSubmit = () => {
+        console.log('user', user);
         if (user) {
             dispatch(writeUser(user)).then(e => {
                 if (isDispatchFulfilled(e)) {

@@ -15,6 +15,7 @@ import {Page} from "../data/enums";
 import {useDispatch, useSelector} from "react-redux";
 import {setToast} from "../redux/reducers";
 import {register} from "../utils/firebaseConfig";
+import {BackArrowHeader} from "../components/BackArrowHeader";
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
@@ -38,11 +39,7 @@ const SignUp = () => {
 
     return (
         <>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle class="ion-text-center">Registration</IonTitle>
-                </IonToolbar>
-            </IonHeader>
+            <BackArrowHeader header="Registration"/>
             <IonContent>
                 <IonRow>
                     <IonCol>

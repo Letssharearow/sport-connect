@@ -45,6 +45,7 @@ import {dismissToast} from "./redux/reducers";
 import ToastComponent from './components/ToastComponent';
 import {useLoading} from "./hooks/useLoading";
 import Contacts from "./pages/Contacts";
+import Policy from "./pages/Policy";
 
 setupIonicReact();
 
@@ -69,6 +70,7 @@ const App: React.FC = () => {
                         <Redirect exact path="/" to={Page.login}/>
                         <Route path={Page.login} render={() => <Login/>} exact={true}/>
                         <Route path={Page.signup} render={() => <SignUp/>} exact={true}/>
+                        <Route path={Page.policy} render={() => <Policy/>} exact={true}/>
                         <Route path={Page.categories} render={() => <CategorySelection/>} exact={true}/>
                         <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
                         <Route path={Page.users} render={() => <Users/>} exact={true}/>

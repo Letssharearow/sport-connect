@@ -9,7 +9,9 @@ const Users: React.FC = () => {
     const usersState = useSelector((state: IRootState) => state.datasetSlice.users);
     const userState = useSelector((state: IRootState) => state.datasetSlice.user);
 
-    const filteredUsers = usersState.filter(u => u.categories?.find(cat => userState?.categories?.includes(cat)));
+    const filteredUsers = usersState.filter(u => {
+        return u.categories?.find(cat => userState?.categories?.includes(cat)) && u.uid !== userState?.uid
+    });
 
     const dispatch = useDispatch<AppDispatch>();
 

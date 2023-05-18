@@ -18,8 +18,8 @@ import {IRootState} from "../data/models";
 import {isDispatchFulfilled} from "../utils/functions";
 
 function Login() {
-    const [email, setEmail] = useState("testuser3@gamil.com");
-    const [password, setPassword] = useState("test123");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((state: IRootState) => state.datasetSlice.user);
 
@@ -91,7 +91,10 @@ function Login() {
         <IonRow>
             <IonCol>
                 <p style={{fontSize: "small"}}>
-                    By clicking LOGIN you agree to our <a href="#">Policy</a>
+                    Indem Sie auf LOGIN klicken, stimmen Sie unseren <IonRouterLink
+                    routerLink={Page.policy}>
+                    <a href="">Richtlinien</a>
+                </IonRouterLink> zu!
                 </p>
                 <IonButton expand="block" onClick={handleLogin}>
                     Login
@@ -99,14 +102,14 @@ function Login() {
 
                 <p style={{fontSize: "medium"}}>
                     Don't have an account? <> </>
-                    <IonRouterLink routerLink="/signup">
+                    <IonRouterLink routerLink={Page.signup}>
                         <a href="">Sign up!</a>
                     </IonRouterLink>
                 </p>
 
                 <p style={{fontSize: "medium"}}>
                     Don't want to sign u? <> </>
-                    <IonRouterLink routerLink="/categories">
+                    <IonRouterLink routerLink={Page.categories}>
                         <a href="">Skip Sign up!</a>
                     </IonRouterLink>
                 </p>

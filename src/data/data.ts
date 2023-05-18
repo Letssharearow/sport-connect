@@ -1,0 +1,1 @@
+export const athletes = ["Usain Bolt", "lionel Messi", "Kobe Bryant", "Mike Tyson", "Taylor Crabb", "Eddy Merckx", "Tiger Woods", "Sascha Huber", "Angelique Kerber",]

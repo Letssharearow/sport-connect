@@ -60,7 +60,7 @@ export const loginAction = createAsyncThunk('user/login', async ({
 
     console.debug('user/login');
     try {
-        return await login(email, password);
+        return await login(email + "", password + "");
     } catch (e) {
         throw(e);
     }
