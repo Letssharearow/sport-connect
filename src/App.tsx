@@ -79,22 +79,23 @@ const App: React.FC = () => {
 
 
                     {
-                        isProfileSetup ? <IonTabBar slot="bottom">
-                            <IonTabButton tab="profile" href={Page.profile}>
+                        <IonTabBar slot="bottom">
+                            <IonTabButton disabled={!isProfileSetup} tab="profile" href={Page.profile}>
                                 <IonIcon icon={accessibilityOutline}/>
                                 <IonLabel>Profil</IonLabel>
                             </IonTabButton>
 
-                            <IonTabButton tab="users" href={Page.users}>
+                            <IonTabButton disabled={!isProfileSetup} tab="users" href={Page.users}>
                                 <IonIcon icon={globe}/>
                                 <IonLabel>Entdecke</IonLabel>
                             </IonTabButton>
 
-                            <IonTabButton tab="contacts" href={isLoggedIn ? Page.contacts : Page.login}>
+                            <IonTabButton disabled={!isProfileSetup} tab="contacts"
+                                          href={isLoggedIn ? Page.contacts : Page.login}>
                                 <IonIcon icon={chatbubbles}/>
                                 <IonLabel>Chats</IonLabel>
                             </IonTabButton>
-                        </IonTabBar> : <IonTabBar></IonTabBar>
+                        </IonTabBar>
                     }
 
                 </IonTabs>

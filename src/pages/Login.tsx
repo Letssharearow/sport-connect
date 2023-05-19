@@ -102,14 +102,14 @@ function Login() {
                         </IonButton>
 
                         <p style={{fontSize: "medium"}}>
-                            Don't have an account? <> </>
+                            Noch keinen Account? <> </>
                             <IonRouterLink routerLink={Page.signup}>
                                 <a href="">Sign up!</a>
                             </IonRouterLink>
                         </p>
 
                         <p style={{fontSize: "medium"}}>
-                            Don't want to sign u? <> </>
+                            Du möchtest erstmal nur stöbern? <> </>
                             <IonRouterLink routerLink={Page.categories}>
                                 <a href="">Skip Sign up!</a>
                             </IonRouterLink>

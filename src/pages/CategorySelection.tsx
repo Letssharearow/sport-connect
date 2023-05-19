@@ -1,12 +1,12 @@
 import CategoryComponent from '../components/CategoryComponent';
-import {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Category, getCategories, Page} from '../data/category';
 import {
     IonButton,
     IonCardSubtitle,
     IonCol,
     IonContent,
-    IonHeader, IonIcon,
+    IonHeader, IonIcon, IonItem,
     IonList,
     IonRefresher,
     IonRefresherContent,
@@ -47,9 +47,15 @@ const CategorySelection: React.FC = () => {
 
     return (
         <>
-            <HeaderWithArrows hasBackArrow={false} header="Kategorien" onForwardButton={onSubmit} page={Page.profile}/>
+            <HeaderWithArrows
+                hasBackArrow={false} header="Aktivitäten" onForwardButton={onSubmit} page={Page.profile}/>
             <IonContent>
+                {
+                }
                 <IonList>
+                    <IonItem class="ion-text-center" style={{fontSize: '14px', wordBreak: 'break-word'}}>
+                        Wähle die Aktivitäten, die du gerne gemeinsam machen würdest
+                    </IonItem>
                     {categories.map(cat => {
                         return (<CategoryComponent isSelected={selectedCategories.includes(cat)}
                                                    togglSelected={(cat) => {
@@ -59,6 +65,7 @@ const CategorySelection: React.FC = () => {
                                                    key={cat}
                                                    category={cat}/>);
                     })}
+                    <div style={{height: 100}}/>
                 </IonList>
             </IonContent>
         </>

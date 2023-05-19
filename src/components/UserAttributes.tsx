@@ -1,10 +1,11 @@
 import {
-    IonButton,
+    IonAvatar,
+    IonButton, IonCol, IonGrid,
     IonInput,
     IonItem,
     IonLabel,
     IonList,
-    IonRouterLink,
+    IonRouterLink, IonRow,
     IonSelect,
     IonSelectOption,
     IonText
@@ -30,8 +31,20 @@ const UserAttributes: React.FC<Props> = ({
                                              handleNameChange,
                                              handleAgeChange
                                          }) => {
+
     return <>
         <IonList>
+            {
+                false && <IonGrid>
+                    <IonRow className="ion-align-items-center">
+                        <IonCol className="ion-text-center">
+                            <IonAvatar onClick={() => void 0}>
+                                <img src="/path/to/profile-picture.png" alt="Profile Picture"/>
+                            </IonAvatar>
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
+            }
             <IonItem>
                 <IonInput labelPlacement="floating" label="Name" readonly={!isThisUser} type="text" value={user?.name}
                           onIonChange={handleNameChange}/>
