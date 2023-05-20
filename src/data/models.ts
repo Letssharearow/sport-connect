@@ -8,17 +8,12 @@ export interface User {
     description?: string;
     uid?: string;
     gender?: Gender;
-    chats?: Chat[];
+    chats?: Map<string, Message[]>;
 }
 
 export interface UserData {
     email: string,
     password: string,
-}
-
-export interface Chat {
-    userId: string;
-    messages: Message[];
 }
 
 export interface State {

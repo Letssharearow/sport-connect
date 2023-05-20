@@ -1,7 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {getDocument, getDocuments, login, setSingleDoc} from "../utils/firebaseConfig";
-import {Chat, Message, User} from "../data/models";
-import {updateArray} from "../utils/functions";
+import {Message, User} from "../data/models";
 import {Endpoint} from "../data/category";
 import {debug} from "../data/constantValues";
 
@@ -31,7 +30,7 @@ export const fetchChatsFromUser = createAsyncThunk('user/chats', async (uid: str
     if (debug) console.debug('fetchChatsFromUser',);
     let document = await getDocument(Endpoint.chats, uid);
     if (debug) console.debug('documents', document);
-    return document as { chats: Chat[] };
+    return document as Map<string, Message[]>;
 });
 
 export const sendMessage = createAsyncThunk('user/message', async ({
@@ -42,11 +41,16 @@ export const sendMessage = createAsyncThunk('user/message', async ({
 
     if (debug) console.debug('user/message');
     if (from && to && from.uid && to.uid && messages && messages.length > 0) {
+        if (debug) console.debug('sending message', messages, from, to);
         try {
-            const chatFrom = {userId: to.uid, messages};
-            await setSingleDoc(Endpoint.chats, from.uid, {chats: from.chats ? updateArray(from.chats, chatFrom, 'userId') : [chatFrom]})
-            const chatTo = {userId: from.uid, messages};
-            await setSingleDoc(Endpoint.chats, to.uid, {chats: to.chats ? updateArray(to.chats, chatTo, 'userId') : [chatTo]})
+            const map = new Map();
+            map.set(to.uid, messages);
+            const mapTo = new Map();
+            mapTo.set(from.uid, messages);
+            const chats = Object.fromEntries(map);
+            console.log('chats', chats);
+            await setSingleDoc(Endpoint.chats, from.uid, {chats: chats}, true)
+            await setSingleDoc(Endpoint.chats, to.uid, {chats: Object.fromEntries(mapTo)}, true)
         } catch (e) {
             throw(e);
         }

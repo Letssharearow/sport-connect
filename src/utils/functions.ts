@@ -1,6 +1,3 @@
-import {Category} from "../data/category";
-import {barbellOutline} from "ionicons/icons";
-
 export function addOrRemove<T>(array: Array<T>, value: T) {
     var index = array.indexOf(value);
 

@@ -47,6 +47,7 @@ const User = () => {
 
 
     const sendAnyMessage = useCallback((message: string) => {
+        console.log('message', message, user, userState, userState?.uid, messages, message);
         if (user && userState && userState.uid && messages && message) {
             dispatch(sendMessage({
                 to: user,
@@ -74,7 +75,9 @@ const User = () => {
         if (users && userState?.uid) {
             let id = params.id;
             setUser(users.find(u => u.uid === id))
-            setMessages(userState.chats?.find(m => m.userId === id)?.messages ?? []);
+            if (userState.chats && user?.uid) {
+                setMessages(userState.chats.get(user.uid) ?? []);
+            }
         }
     }, [users, userState])
 

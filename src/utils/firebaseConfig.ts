@@ -77,9 +77,9 @@ export async function saveDoc(endpoint: Endpoint, data: any) {
     }
 }
 
-export async function setSingleDoc(endpoint: Endpoint, id: string, data: any) {
+export async function setSingleDoc(endpoint: Endpoint, id: string, data: any, merge: boolean = false) {
     try {
-        const docRef = await setDoc(doc(db, endpoint + "/" + id), data);
+        const docRef = await setDoc(doc(db, endpoint + "/" + id), data, {merge});
         if (debug) console.debug("Document written with ID: ", docRef);
     } catch (e) {
         if (debug) console.error("Error adding document: ", e);
@@ -100,7 +100,7 @@ export async function getDocuments(endpoint: Endpoint, searchQuery?: QueryFieldF
                 .map((doc) => ({...doc.data(), uid: doc.id}))
         );
     } catch (e) {
-        console.error("Error adding document: ", e);
+        if (debug) console.error("Error adding document: ", e);
         throw(e);
     }
 }
@@ -115,12 +115,12 @@ export async function getDocument(endpoint: Endpoint, id: string) {
 }
 
 export async function subscribe(endpoint: Endpoint, id: string, onNext: any = (doc: any) => {
-    console.log("Current data: ", doc.data());
+    if (debug) console.log("Current data: ", doc.data());
 }) {
     try {
         return onSnapshot(doc(db, endpoint + '/' + id), onNext)
     } catch (e) {
-        console.error("Error adding document: ", e);
+        if (debug) console.error("Error adding document: ", e);
         throw(e);
     }
 }
