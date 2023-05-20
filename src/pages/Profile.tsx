@@ -80,13 +80,19 @@ const Profile = () => {
 
     const handleSubmit = () => {
         if (user) {
-            dispatch(writeUser(user)).then(e => {
-                if (isDispatchFulfilled(e)) {
-                    dispatch(setUser(
-                        user
-                    ))
-                }
-            })
+            if (user.uid) {
+                dispatch(writeUser(user)).then(e => {
+                    if (isDispatchFulfilled(e)) {
+                        dispatch(setUser(
+                            user
+                        ))
+                    }
+                })
+            } else {
+                dispatch(setUser(
+                    user
+                ))
+            }
         }
     };
 

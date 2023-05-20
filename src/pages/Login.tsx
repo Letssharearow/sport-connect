@@ -33,9 +33,10 @@ function Login() {
         dispatch(loginAction({email, password})).then((e) => {
             if (isDispatchFulfilled(e)) {
                 if (user?.categories && user?.categories.length > 0) {
-                    goToPage(Page.profile);
+                    goToPage(Page.users);
                 } else {
-                    goToPage(Page.categories);
+                    goToPage(Page.users);
+                    //TODO: find a better condition?
                 }
             }
         })

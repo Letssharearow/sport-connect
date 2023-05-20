@@ -69,7 +69,7 @@ export const datasetSlice = createSlice({
                 if (payload && state.user) {
                     let find = state.users.find(u => u.uid === payload);
                     state.user = find ?? {uid: payload};
-                    state.toast = getDefaultToast('logged in', "success");
+                    // state.toast = getDefaultToast('logged in', "success");
                 }
             })
             .addCase(loginAction.rejected, (state, {error}) => {

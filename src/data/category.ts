@@ -1,17 +1,16 @@
 export enum Category {
-    dance = 'Tanzen',
     club = 'Golf',
-    running = 'Laufen',
-    walking = 'Spazieren Gehen',
-    cycling = 'Radfahren',
-    workOut = 'Work out',
     gym = 'Gym',
-    tennis = 'Tennis',
-    paddle = 'Paddeln',
-    hiking = 'Wandern',
     climbing = 'Klettern',
+    cycling = 'Radfahren',
+    paddle = 'Paddeln',
+    dance = 'Tanzen',
+    hiking = 'Wandern',
+    running = 'Laufen',
+    tennis = 'Tennis',
+    walking = 'Spazieren Gehen',
+    workOut = 'Work out',
     sailing = 'Segeln',
-    fishing = 'Angeln',
     squashing = 'Squash',
     swimming = 'Schwimmen',
     sakting = 'Skaten',
@@ -21,9 +20,19 @@ export enum Category {
     skiing = 'Skifahren',
     volleyball = 'Volleyball',
     soccer = 'Fußball',
+    other = 'Sontiges',
 }
 
-export const getCategories = () => Object.values(Category);
+
+export const getCategories = () => Object.values(Category).sort(function (a, b) {
+    if (a < b) {
+        return -1;
+    }
+    if (a > b) {
+        return 1;
+    }
+    return 0;
+});
 
 export enum Page {
     login = "/login",

@@ -33,7 +33,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import {Page} from "./data/category";
+import {getCategories, Page} from "./data/category";
 import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {IRootState} from "./data/models";
@@ -54,7 +54,7 @@ const App: React.FC = () => {
     const isProfileSetup = user?.categories && user?.categories.length > 0;
     const isLoggedIn = user?.uid;
     useLoading();
-
+    
     return (
         <IonApp>
             <IonReactRouter>

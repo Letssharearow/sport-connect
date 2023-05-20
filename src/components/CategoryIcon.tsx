@@ -87,8 +87,6 @@ const CategoryIcon: React.FC<Props> = ({isOutline, category, ...props}: Props) =
                 return isOutline ? trendingUpOutline : trendingUp;
             case Category.sailing:
                 return isOutline ? boatOutline : boat;
-            case Category.fishing:
-                return isOutline ? fishOutline : fish;
             case Category.squashing:
                 return isOutline ? ellipseOutline : ellipse;
             case Category.swimming:

@@ -47,11 +47,11 @@ const UserAttributes: React.FC<Props> = ({
             }
             <IonItem>
                 <IonInput labelPlacement="floating" label="Name" readonly={!isThisUser} type="text" value={user?.name}
-                          onIonChange={handleNameChange}/>
+                          onIonInput={handleNameChange}/>
             </IonItem>
             <IonItem>
                 <IonInput labelPlacement="floating" label="Age" readonly={!isThisUser} type="number" value={user?.age}
-                          onIonChange={handleAgeChange}/>
+                          onIonInput={handleAgeChange}/>
             </IonItem>
             <IonItem>
                 <IonSelect disabled={!isThisUser} label="Gender" value={user?.gender}
@@ -64,7 +64,7 @@ const UserAttributes: React.FC<Props> = ({
         </IonList>
         <div className="ion-text-center">
             {
-                isThisUser && <IonText color="dark">Deine Sportarten</IonText>
+                isThisUser && <IonText color="dark">Deine Aktivitäten</IonText>
             }
             {/*TODO: Fix styling*/}
             <Categories showAddIcon={false} categories={user?.categories ?? []}/>
