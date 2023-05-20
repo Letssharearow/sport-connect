@@ -1,6 +1,8 @@
 import {IRootState} from "../data/models";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {UsersPreview} from "../components/UsersPreview";
+import {fetchUsers} from "../redux/asyncActions";
+import {AppDispatch} from "../index";
 
 const Contacts: React.FC = () => {
 
@@ -8,11 +10,10 @@ const Contacts: React.FC = () => {
     const userState = useSelector((state: IRootState) => state.datasetSlice.user);
 
     const filteredUsers = usersId.filter(u => userState?.chats?.[u.uid ?? '']);
+    const dispatch = useDispatch<AppDispatch>();
 
     const refresh = (e: CustomEvent) => {
-        setTimeout(() => {
-            e.detail.complete();
-        }, 3000);
+        dispatch(fetchUsers()).then(() => e.detail.complete());
     };
 
     return (

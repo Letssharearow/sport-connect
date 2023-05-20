@@ -1,7 +1,7 @@
 import {ChatApp, ChatFirebase, Message, Position, State, Toast, User} from "../../data/models";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {fetchChatsFromUser, fetchUser, fetchUsers, loginAction} from '../asyncActions'
+import {fetchChatsFromUser, fetchUser, fetchUsers, loginAction, writeUser} from '../asyncActions'
 import {updateArray} from "../../utils/functions";
 import {Color} from "@ionic/core";
 import {athletes} from "../../data/data";
@@ -32,7 +32,7 @@ export const datasetSlice = createSlice({
             };
         },
         setChats: (state: State, action: PayloadAction<ChatFirebase>) => {
-            if (state.user) {
+            if (state.user && action.payload) {
                 state.user.chats = (action.payload);
             }
         },
@@ -63,6 +63,9 @@ export const datasetSlice = createSlice({
                     state.users = newUsers;
                 }
             }
+        }).addCase(writeUser.rejected, (state, action) => {
+            if (debug) console.debug('fetchUser', action);
+            state.toast = getDefaultToast(action.error.message ?? 'Failed to write data into the cloud', "danger");
         }).addCase(fetchChatsFromUser.fulfilled, (state, action) => {
             if (debug) console.debug('fetchChatsFromUser', action);
             if (action.payload && state.user) {
