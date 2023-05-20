@@ -45,22 +45,33 @@ const UserAttributes: React.FC<Props> = ({
                     </IonRow>
                 </IonGrid>
             }
-            <IonItem>
-                <IonInput labelPlacement="floating" label="Name" readonly={!isThisUser} type="text" value={user?.name}
-                          onIonInput={handleNameChange}/>
-            </IonItem>
-            <IonItem>
-                <IonInput labelPlacement="floating" label="Age" readonly={!isThisUser} type="number" value={user?.age}
-                          onIonInput={handleAgeChange}/>
-            </IonItem>
-            <IonItem>
-                <IonSelect disabled={!isThisUser} label="Gender" value={user?.gender}
-                           onIonChange={handleGenderChange}>
-                    <IonSelectOption value={Gender.male}>Male</IonSelectOption>
-                    <IonSelectOption value={Gender.female}>Female</IonSelectOption>
-                    <IonSelectOption value={Gender.divers}>Other</IonSelectOption>
-                </IonSelect>
-            </IonItem>
+            {
+                isThisUser ?
+                    <>
+                        <IonItem>
+                            <IonInput labelPlacement="floating" label="Name" readonly={!isThisUser} type="text"
+                                      value={user?.name}
+                                      onIonInput={handleNameChange}/>
+                        </IonItem>
+                        <IonItem>
+                            <IonInput labelPlacement="floating" label="Age" readonly={!isThisUser} type="number"
+                                      value={user?.age}
+                                      onIonInput={handleAgeChange}/>
+                        </IonItem>
+                        <IonItem>
+                            <IonSelect disabled={!isThisUser} label="Gender" value={user?.gender}
+                                       onIonChange={handleGenderChange}>
+                                <IonSelectOption value={Gender.male}>Male</IonSelectOption>
+                                <IonSelectOption value={Gender.female}>Female</IonSelectOption>
+                                <IonSelectOption value={Gender.divers}>Other</IonSelectOption>
+                            </IonSelect>
+                        </IonItem>
+                    </> : <div className="ion-text-center">
+                        <IonText>Alter: {user?.age}</IonText>
+                        <br/>
+                        <IonText>Geschlecht: {user?.gender}</IonText>
+                    </div>
+            }
         </IonList>
         <div className="ion-text-center">
             {

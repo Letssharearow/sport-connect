@@ -26,6 +26,7 @@ export interface State {
     users: User[];
     userData?: UserData;
     toast?: Toast;
+    isProfileSetup: boolean;
 }
 
 export interface IRootState {

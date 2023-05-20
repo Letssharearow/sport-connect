@@ -1,12 +1,12 @@
 import {Redirect, Route} from 'react-router-dom';
 import {
-    IonApp, IonHeader,
+    IonApp,
     IonIcon,
     IonLabel,
     IonRouterOutlet,
     IonTabBar,
     IonTabButton,
-    IonTabs, IonTitle, IonToast, IonToolbar,
+    IonTabs,
     setupIonicReact
 } from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
@@ -33,28 +33,59 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import {getCategories, Page} from "./data/category";
-import {accessibilityOutline, chatbubbles, globe, library, playCircle, radio, search} from "ionicons/icons";
+import {Endpoint, Page} from "./data/category";
+import {accessibilityOutline, chatbubbles, globe} from "ionicons/icons";
 import {useDispatch, useSelector} from "react-redux";
-import {IRootState} from "./data/models";
+import {Chat, IRootState} from "./data/models";
 import Profile from "./pages/Profile";
 import './App.css'
 import User from "./pages/User";
-import React, {useState} from "react";
-import {dismissToast} from "./redux/reducers";
+import React, {useEffect, useMemo, useRef} from "react";
 import ToastComponent from './components/ToastComponent';
 import {useLoading} from "./hooks/useLoading";
 import Contacts from "./pages/Contacts";
 import Policy from "./pages/Policy";
+import {subscribe} from "./utils/firebaseConfig";
+import {setChats, setIsProfileSetup} from "./redux/reducers";
+import {AppDispatch} from "./index";
+import {fetchChatsFromUser, fetchUsers} from "./redux/asyncActions";
 
 setupIonicReact();
 
 const App: React.FC = () => {
     const user = useSelector((state: IRootState) => state.datasetSlice.user);
-    const isProfileSetup = user?.categories && user?.categories.length > 0;
+    const isProfileSetup = useSelector((state: IRootState) => state.datasetSlice.isProfileSetup);
     const isLoggedIn = user?.uid;
-    useLoading();
-    
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(fetchUsers());
+    }, []);
+
+
+    const unsub = useRef<any | null>(null);
+
+    useEffect(() => {
+        if (user?.uid && unsub.current === null) {
+            dispatch(fetchChatsFromUser(user.uid));
+            unsub.current = subscribe(Endpoint.chats, user.uid, (chats: any) => {
+                console.debug('subscribe', chats.data()?.chats);
+                dispatch(setChats(chats.data()?.chats ?? []))
+            });
+        }
+        if (user?.categories && user?.categories.length > 0 && user.name && user.age && user.gender) {
+            dispatch(setIsProfileSetup(true));
+        } else {
+            dispatch(setIsProfileSetup(false));
+        }
+    }, [user, dispatch]);
+
+    const state = useSelector((state: IRootState) => state.datasetSlice)
+    useEffect(() => {
+        console.debug('state', state);
+    }, [state]);
+
     return (
         <IonApp>
             <IonReactRouter>

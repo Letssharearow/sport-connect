@@ -8,7 +8,7 @@ import {
     IonFooter,
     IonGrid,
     IonIcon,
-    IonList,
+    IonList, IonRouterLink,
     IonRow,
     IonTextarea,
     IonToolbar
@@ -47,30 +47,21 @@ const User = () => {
 
 
     const sendAnyMessage = useCallback((message: string) => {
-        if (user && userState && userState.uid && messages) {
+        if (user && userState && userState.uid && messages && message) {
             dispatch(sendMessage({
                 to: user,
                 from: userState,
                 messages: [...messages, {uid: userState.uid, value: message}]
-            })).then((e) => {
-                if (isDispatchFulfilled(e)) {
-                    setMessages((oldMessages) => {
-                        return userState && userState.uid ? ([...oldMessages, {
-                            uid: userState.uid,
-                            value: message
-                        }]) : oldMessages;
-                    })
-                }
-            })
+            }))
         }
     }, [dispatch, user, userState, messages])
 
 
     const refreshMessages = useCallback(() => {
-        if (user?.uid) {
-            dispatch(fetchChatsFromUser(user.uid));
+        if (userState?.uid) {
+            dispatch(fetchChatsFromUser(userState.uid));
         }
-    }, [dispatch, user])
+    }, [dispatch, userState])
 
     const handleSendMessage = () => {
         sendAnyMessage(message);
@@ -80,18 +71,19 @@ const User = () => {
     const hasMessages = messages.length > 0;
     const params = useParams<{ id: string }>();
     useEffect(() => {
-        let id = params.id;
-        setUser(users.find(u => u.uid === id))
-        setMessages(userState?.chats?.find(m => m.userId === userState?.uid)?.messages ?? []);
+        if (users && userState?.uid) {
+            let id = params.id;
+            setUser(users.find(u => u.uid === id))
+            setMessages(userState.chats?.find(m => m.userId === id)?.messages ?? []);
+        }
     }, [users, userState])
 
-    console.log('messages', messages);
     return (
         <IonContent>
             <IonGrid fixed style={{height: '100%'}}>
                 <IonRow>
                     <IonCol>
-                        <HeaderWithArrows header={'User'} page={Page.users}/>
+                        <HeaderWithArrows header={user?.name ?? ''} page={Page.users}/>
                     </IonCol>
                 </IonRow>
                 <IonRow style={{overflow: 'scroll', height: '40%'}}>
@@ -110,16 +102,29 @@ const User = () => {
                 </IonRow>
                 <IonRow>
                     <IonCol>
-                        <div></div>
-                        {!hasMessages ? <IonFooter><IonToolbar>
-                                <IonButtons slot="start">
-                                    <IonFabButton onClick={refreshMessages} size="small"><IonIcon
-                                        icon={refreshOutline}/>
-                                    </IonFabButton>
-                                </IonButtons>
-                                <IonButton fill="outline" class="" expand="block"
-                                           onClick={sendWelcomeMessage}>{defaultMessage}</IonButton>
-                            </IonToolbar></IonFooter> :
+                        {!hasMessages ?
+                            <IonFooter>
+                                <IonToolbar>
+                                    <IonButtons slot="start">
+                                        <IonFabButton onClick={refreshMessages} size="small"><IonIcon
+                                            icon={refreshOutline}/>
+                                        </IonFabButton>
+                                    </IonButtons>
+                                    {
+                                        userState?.uid ?
+                                            <IonButton fill="outline" class="" expand="block"
+                                                       onClick={sendWelcomeMessage}>{defaultMessage}
+                                            </IonButton> :
+                                            <IonRouterLink routerLink={Page.login}>
+                                                <IonButton fill="outline" class="" expand="block"
+                                                           onClick={sendWelcomeMessage}>{defaultMessage}
+                                                </IonButton>
+                                            </IonRouterLink>
+
+
+                                    }
+                                </IonToolbar>
+                            </IonFooter> :
 
                             <IonFooter>
                                 <IonToolbar>

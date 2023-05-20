@@ -6,7 +6,19 @@ import "firebase/database"
 import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth";
-import {addDoc, collection, doc, getDoc, getDocs, getFirestore, setDoc} from "firebase/firestore";
+import {
+    addDoc,
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    getFirestore,
+    setDoc,
+    query,
+    where,
+    onSnapshot,
+    QueryFieldFilterConstraint
+} from "firebase/firestore";
 import {Endpoint} from "../data/category";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -74,9 +86,15 @@ export async function setSingleDoc(endpoint: Endpoint, id: string, data: any) {
     }
 }
 
-export async function getDocuments(endpoint: Endpoint) {
+export async function getDocuments(endpoint: Endpoint, searchQuery?: QueryFieldFilterConstraint) {
+
     try {
-        return await getDocs(collection(db, endpoint)).then((querySnapshot) =>
+        const ref = collection(db, endpoint);
+        if (searchQuery) {
+            const documentDataQuery = query(ref, searchQuery);
+        }
+
+        return await getDocs(ref).then((querySnapshot) =>
             querySnapshot.docs
                 .map((doc) => ({...doc.data(), uid: doc.id}))
         );
@@ -89,6 +107,17 @@ export async function getDocuments(endpoint: Endpoint) {
 export async function getDocument(endpoint: Endpoint, id: string) {
     try {
         return getDoc(doc(db, endpoint + '/' + id)).then((querySnapshot) => querySnapshot.data())
+    } catch (e) {
+        console.error("Error adding document: ", e);
+        throw(e);
+    }
+}
+
+export async function subscribe(endpoint: Endpoint, id: string, onNext: any = (doc: any) => {
+    console.log("Current data: ", doc.data());
+}) {
+    try {
+        return onSnapshot(doc(db, endpoint + '/' + id), onNext)
     } catch (e) {
         console.error("Error adding document: ", e);
         throw(e);

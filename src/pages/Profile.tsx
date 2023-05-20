@@ -41,13 +41,7 @@ const Profile = () => {
 
 
     useEffect(() => {
-        if (userState && !userState.name && user && !user.name) {
-            setLocalUser((user) => {
-                return {
-                    ...user,
-                    name: athletes[Math.floor(Math.random() * athletes.length)]
-                };
-            })
+        if (user?.uid) {
             handleSubmit();
         }
     }, [])

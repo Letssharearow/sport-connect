@@ -18,28 +18,30 @@ import {IRootState} from "../data/models";
 import {isDispatchFulfilled} from "../utils/functions";
 
 function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("testuser3@gamil.com");
+    const [password, setPassword] = useState("test123");
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((state: IRootState) => state.datasetSlice.user);
+    const isProfileSetup = useSelector((state: IRootState) => state.datasetSlice.isProfileSetup);
 
     const router = useIonRouter();
     const goToPage = (route: Page) => {
         router.push(route, 'root', 'replace');
     };
 
+    useEffect(() => {
+        if (user?.uid) {
+            if (isProfileSetup) {
+                goToPage(Page.users);
+            } else {
+                goToPage(Page.categories);
+            }
+        }
+    }, [user, isProfileSetup])
+
 
     const handleLogin = async () => {
-        dispatch(loginAction({email, password})).then((e) => {
-            if (isDispatchFulfilled(e)) {
-                if (user?.categories && user?.categories.length > 0) {
-                    goToPage(Page.users);
-                } else {
-                    goToPage(Page.users);
-                    //TODO: find a better condition?
-                }
-            }
-        })
+        dispatch(loginAction({email, password}));
     };
 
     return (

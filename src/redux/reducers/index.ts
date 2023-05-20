@@ -1,14 +1,16 @@
-import {Position, State, Toast, User, UserData} from "../../data/models";
+import {Chat, Position, State, Toast, User, UserData} from "../../data/models";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {fetchChatsFromUser, fetchUser, fetchUsers, loginAction} from '../asyncActions'
 import {updateArray} from "../../utils/functions";
 import {Color} from "@ionic/core";
+import {athletes} from "../../data/data";
 
 export const initialState: State = {
-    user: {},
+    user: {name: athletes[Math.floor(Math.random() * athletes.length)]},
     users: [],
     userData: undefined,
+    isProfileSetup: false,
 }
 const getDefaultToast = (message: string, color?: Color) => ({
     duration: 5000,
@@ -22,14 +24,19 @@ export const datasetSlice = createSlice({
     name: 'datasets',
     initialState: initialState,
     reducers: {
-        setSomething: (state: State, action: PayloadAction<UserData>) => {
-            state.userData = action.payload;
-        },
         setUser: (state: State, action: PayloadAction<Partial<User>>) => {
             state.user = {
                 ...state.user
                 , ...action.payload
             };
+        },
+        setChats: (state: State, action: PayloadAction<Chat[]>) => {
+            if (state.user) {
+                state.user.chats = action.payload;
+            }
+        },
+        setIsProfileSetup: (state: State, action: PayloadAction<boolean>) => {
+            state.isProfileSetup = action.payload;
         },
         setToast: (state: State, action: PayloadAction<Toast>) => {
             state.toast = getDefaultToast(action.payload.message, action.payload.color);
@@ -55,10 +62,10 @@ export const datasetSlice = createSlice({
                     state.users = newUsers;
                 }
             }
-        }).addCase(fetchChatsFromUser.fulfilled, (state, {payload}) => {
-            console.debug('fetchChatsFromUser', payload);
-            if (payload && state.user) {
-                state.user.chats = payload.chats;
+        }).addCase(fetchChatsFromUser.fulfilled, (state, action) => {
+            console.debug('fetchChatsFromUser', action);
+            if (action.payload && state.user) {
+                state.user.chats = action.payload.chats;
             }
         }).addCase(fetchChatsFromUser.rejected, (state, {error}) => {
             console.debug('fetchChatsFromUserError', error);
@@ -80,7 +87,7 @@ export const datasetSlice = createSlice({
 
 })
 
-export const {setSomething, setUser, setToast, dismissToast} = datasetSlice.actions
+export const {setUser, setToast, dismissToast, setChats, setIsProfileSetup} = datasetSlice.actions
 
 export default datasetSlice.reducer
 
