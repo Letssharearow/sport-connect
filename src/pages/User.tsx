@@ -72,7 +72,7 @@ const User = () => {
     const hasMessages = messages.length > 0;
     const params = useParams<{ id: string }>();
     useEffect(() => {
-        if (users && userState?.uid) {
+        if (users) {
             let id = params.id;
             setUser(users.find(u => u.uid === id))
         }
