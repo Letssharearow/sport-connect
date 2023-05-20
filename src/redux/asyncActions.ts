@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {getDocument, getDocuments, login, setSingleDoc} from "../utils/firebaseConfig";
-import {Message, User} from "../data/models";
+import {ChatFirebase, Message, User} from "../data/models";
 import {Endpoint} from "../data/category";
 import {debug} from "../data/constantValues";
 
@@ -30,7 +30,7 @@ export const fetchChatsFromUser = createAsyncThunk('user/chats', async (uid: str
     if (debug) console.debug('fetchChatsFromUser',);
     let document = await getDocument(Endpoint.chats, uid);
     if (debug) console.debug('documents', document);
-    return document as Map<string, Message[]>;
+    return document?.chats as ChatFirebase;
 });
 
 export const sendMessage = createAsyncThunk('user/message', async ({

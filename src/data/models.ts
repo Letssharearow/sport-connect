@@ -8,13 +8,19 @@ export interface User {
     description?: string;
     uid?: string;
     gender?: Gender;
-    chats?: Map<string, Message[]>;
+    chats?: ChatFirebase;
 }
 
 export interface UserData {
     email: string,
     password: string,
 }
+
+export interface ChatFirebase {
+    [key: string]: Message[];
+}
+
+export type ChatApp = Map<string, Message[]>;
 
 export interface State {
     user?: User;

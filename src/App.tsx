@@ -36,7 +36,7 @@ import './theme/variables.css';
 import {Endpoint, Page} from "./data/category";
 import {accessibilityOutline, chatbubbles, globe} from "ionicons/icons";
 import {useDispatch, useSelector} from "react-redux";
-import {IRootState} from "./data/models";
+import {ChatFirebase, IRootState, Message} from "./data/models";
 import Profile from "./pages/Profile";
 import './App.css'
 import User from "./pages/User";
@@ -70,8 +70,10 @@ const App: React.FC = () => {
         if (user?.uid && unsub.current === null) {
             dispatch(fetchChatsFromUser(user.uid));
             unsub.current = subscribe(Endpoint.chats, user.uid, (chats: any) => {
-                if (debug) console.debug('subscribe', chats.data()?.chats);
-                dispatch(setChats(chats.data()?.chats ?? []))
+                console.log('chats', chats);
+                const map = chats.data()?.chats;
+                if (debug) console.debug('subscribe map', map);
+                dispatch(setChats(map as ChatFirebase))
             });
         }
         if (user?.categories && user?.categories.length > 0 && user.name && user.age && user.gender) {

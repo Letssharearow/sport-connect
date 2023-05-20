@@ -7,7 +7,7 @@ const Contacts: React.FC = () => {
     const usersId = useSelector((state: IRootState) => state.datasetSlice.users);
     const userState = useSelector((state: IRootState) => state.datasetSlice.user);
 
-    const filteredUsers = usersId.filter(u => userState?.chats?.has(u.uid ?? ''));
+    const filteredUsers = usersId.filter(u => userState?.chats?.[u.uid ?? '']);
 
     const refresh = (e: CustomEvent) => {
         setTimeout(() => {

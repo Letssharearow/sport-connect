@@ -1,4 +1,4 @@
-import {Message, Position, State, Toast, User} from "../../data/models";
+import {ChatApp, ChatFirebase, Message, Position, State, Toast, User} from "../../data/models";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {fetchChatsFromUser, fetchUser, fetchUsers, loginAction} from '../asyncActions'
@@ -31,9 +31,9 @@ export const datasetSlice = createSlice({
                 , ...action.payload
             };
         },
-        setChats: (state: State, action: PayloadAction<Map<string, Message[]>>) => {
+        setChats: (state: State, action: PayloadAction<ChatFirebase>) => {
             if (state.user) {
-                state.user.chats = action.payload;
+                state.user.chats = (action.payload);
             }
         },
         setIsProfileSetup: (state: State, action: PayloadAction<boolean>) => {
@@ -66,7 +66,7 @@ export const datasetSlice = createSlice({
         }).addCase(fetchChatsFromUser.fulfilled, (state, action) => {
             if (debug) console.debug('fetchChatsFromUser', action);
             if (action.payload && state.user) {
-                state.user.chats = action.payload;
+                state.user.chats = (action.payload);
             }
         }).addCase(fetchChatsFromUser.rejected, (state, {error}) => {
             if (debug) console.debug('fetchChatsFromUserError', error);
