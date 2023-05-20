@@ -1,30 +1,30 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
-    IonToolbar,
-    IonList,
     IonButton,
-    IonFooter,
-    IonTextarea,
     IonButtons,
-    IonFabButton,
-    IonIcon,
-    IonRouterLink,
+    IonCol,
     IonContent,
-    IonItem,
-    IonText,
-    IonInput, IonGrid, IonRow, IonCol
+    IonFabButton,
+    IonFooter,
+    IonGrid,
+    IonIcon,
+    IonList,
+    IonRow,
+    IonTextarea,
+    IonToolbar
 } from '@ionic/react';
 import {useParams} from "react-router";
 
-import {User as UserInterface, Message as MessageInterface, IRootState} from "../data/models"
+import {IRootState, Message as MessageInterface, User as UserInterface} from "../data/models"
 import Message from "../components/Message";
 import UserAttributes from "../components/UserAttributes";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchChatsFromUser, fetchUser, sendMessage} from "../redux/asyncActions";
+import {fetchChatsFromUser, sendMessage} from "../redux/asyncActions";
 import {AppDispatch} from "../index";
 import {refreshOutline, sendOutline} from "ionicons/icons";
 import {isDispatchFulfilled} from "../utils/functions";
 import {Page} from "../data/category";
+import {HeaderWithArrows} from "../components/HeaderWithArrows";
 
 const defaultMessage = "Hey, lust zusammen Sport zu machen?";
 const User = () => {
@@ -88,54 +88,63 @@ const User = () => {
     console.log('messages', messages);
     return (
         <IonContent>
-            <div style={{height: '100%'}}>
-                <IonGrid style={{height: '100%'}}>
-                    <IonRow style={{height: '40%', overflow: 'auto'}}>
-                        <IonCol>
-                            <UserAttributes isThisUser={false} user={user}/>
-                        </IonCol>
-                    </IonRow>
-                    <IonRow style={{height: '50%', overflow: 'auto'}}>
-                        <IonCol>
-                            <IonList>
-                                {/* Render messages here */}
-                                {messagesComponents}
-                            </IonList>
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
-                {!hasMessages ? <IonFooter><IonToolbar>
-                        <IonButtons slot="start">
-                            <IonFabButton onClick={refreshMessages} size="small"><IonIcon
-                                icon={refreshOutline}/>
-                            </IonFabButton>
-                        </IonButtons>
-                        <IonButton fill="outline" class="" expand="block"
-                                   onClick={sendWelcomeMessage}>{defaultMessage}</IonButton>
-                    </IonToolbar></IonFooter> :
+            <IonGrid fixed style={{height: '100%'}}>
+                <IonRow>
+                    <IonCol>
+                        <HeaderWithArrows header={'User'} page={Page.users}/>
+                    </IonCol>
+                </IonRow>
+                <IonRow style={{overflow: 'scroll', height: '40%'}}>
+                    <IonCol>
+                        < UserAttributes isThisUser={false}
+                                         user={user}/>
+                    </IonCol>
+                </IonRow>
+                <IonRow style={{overflow: 'scroll', height: '40%'}}>
+                    <IonCol>
+                        <IonList>
+                            {/* Render messages here */}
+                            {messagesComponents}
+                        </IonList>
+                    </IonCol>
+                </IonRow>
+                <IonRow>
+                    <IonCol>
+                        <div></div>
+                        {!hasMessages ? <IonFooter><IonToolbar>
+                                <IonButtons slot="start">
+                                    <IonFabButton onClick={refreshMessages} size="small"><IonIcon
+                                        icon={refreshOutline}/>
+                                    </IonFabButton>
+                                </IonButtons>
+                                <IonButton fill="outline" class="" expand="block"
+                                           onClick={sendWelcomeMessage}>{defaultMessage}</IonButton>
+                            </IonToolbar></IonFooter> :
 
-                    <IonFooter>
-                        <IonToolbar>
-                            <IonButtons slot="start">
-                                <IonFabButton onClick={refreshMessages} size="small"><IonIcon
-                                    icon={refreshOutline}/>
-                                </IonFabButton>
-                            </IonButtons>
-                            <IonTextarea value={message} inputmode="text"
-                                         onIonInput={(e) => setMessage(e.target.value ?? '')}
-                                         autoGrow
-                                         rows={1} placeholder="Senden" class="ion-text-center">
-                            </IonTextarea>
-                            <IonButtons slot="end">
-                                <IonFabButton onClick={handleSendMessage} size="small"><IonIcon
-                                    icon={sendOutline}/>
-                                </IonFabButton>
-                            </IonButtons>
-                        </IonToolbar>
-                    </IonFooter>
+                            <IonFooter>
+                                <IonToolbar>
+                                    <IonButtons slot="start">
+                                        <IonFabButton onClick={refreshMessages} size="small"><IonIcon
+                                            icon={refreshOutline}/>
+                                        </IonFabButton>
+                                    </IonButtons>
+                                    <IonTextarea value={message} inputmode="text"
+                                                 onIonInput={(e) => setMessage(e.target.value ?? '')}
+                                                 autoGrow
+                                                 rows={1} placeholder="Senden" class="ion-text-center">
+                                    </IonTextarea>
+                                    <IonButtons slot="end">
+                                        <IonFabButton onClick={handleSendMessage} size="small"><IonIcon
+                                            icon={sendOutline}/>
+                                        </IonFabButton>
+                                    </IonButtons>
+                                </IonToolbar>
+                            </IonFooter>
 
-                }
-            </div>
+                        }
+                    </IonCol>
+                </IonRow>
+            </IonGrid>
         </IonContent>
     );
 };
