@@ -72,12 +72,9 @@ const User = () => {
     const hasMessages = messages.length > 0;
     const params = useParams<{ id: string }>();
     useEffect(() => {
-        if (users && userState?.uid && userState.chats) {
+        if (users && userState?.uid) {
             let id = params.id;
             setUser(users.find(u => u.uid === id))
-            if (userState.chats && user?.uid) {
-                setMessages(userState.chats[user.uid] ?? []);
-            }
         }
     }, [users, userState, params])
 
