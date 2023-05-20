@@ -8,7 +8,7 @@ import {
     IonGrid,
     IonIcon,
     IonItem,
-    IonRow
+    IonRow, IonText
 } from '@ionic/react';
 import {personCircleOutline} from 'ionicons/icons';
 import {User} from "../data/models";
@@ -24,15 +24,21 @@ const UserItem: React.FC<Props> = ({user}) => {
                 <IonCardContent>
                     <div style={styles.cardContainer}>
                         <IonIcon icon={personCircleOutline} style={styles.icon}/>
-                        <div>
+                        <div style={styles.attributes}>
                             <IonRow>
-                                <IonCol>
-                                    <IonRow><IonCardTitle>{user.name}</IonCardTitle></IonRow>
+                                <IonCol style={styles.col}>
+                                    <IonRow>
+                                        <IonCardTitle>
+                                            <IonText style={styles.name}>{user.name}</IonText>
+                                        </IonCardTitle>
+                                    </IonRow>
                                     <IonRow>Alter:</IonRow>
                                     <IonRow>Geschlecht:</IonRow>
                                 </IonCol>
                                 <IonCol>
-                                    <IonRow style={{opacity: 0}}><IonCardTitle>{"M"}</IonCardTitle></IonRow>
+                                    <IonRow style={{opacity: 0}}>
+                                        <IonCardTitle>{"M"}</IonCardTitle>
+                                    </IonRow>
                                     <IonRow>{user.age}</IonRow>
                                     <IonRow>{user.gender}</IonRow>
                                 </IonCol>
@@ -60,6 +66,17 @@ const styles = {
         fontSize: '3rem',
         marginRight: '1rem',
     },
+    attributes: {
+        flex: 1,
+        overflow: 'hidden',
+    },
+    name: {
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+    },
+    col: {
+        maxWidth: '40%'
+    },
 };
-
 export default UserItem;
