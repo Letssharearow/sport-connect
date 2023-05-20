@@ -20,6 +20,7 @@ import {
     QueryFieldFilterConstraint
 } from "firebase/firestore";
 import {Endpoint} from "../data/category";
+import {debug} from "../data/constantValues";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -45,12 +46,12 @@ const db = getFirestore(app);
 
 export async function login(username: string, password: string) {
     try {
-        console.debug('username password', username, password)
+        if (debug) console.debug('username password', username, password)
         const res = await signInWithEmailAndPassword(auth, username, password);
-        console.debug('res', res);
+        if (debug) console.debug('res', res);
         return res.user.uid;
     } catch (err) {
-        console.error('err', err);
+        if (debug) console.error('err', err);
         throw(err);
     }
 }
@@ -58,10 +59,10 @@ export async function login(username: string, password: string) {
 export async function register(username: string, password: string) {
     try {
         const res = await createUserWithEmailAndPassword(auth, username, password);
-        console.debug('res', res);
+        if (debug) console.debug('res', res);
         return true;
     } catch (err) {
-        console.error('err', err);
+        if (debug) console.error('err', err);
         throw(err);
     }
 }
@@ -69,9 +70,9 @@ export async function register(username: string, password: string) {
 export async function saveDoc(endpoint: Endpoint, data: any) {
     try {
         const docRef = await addDoc(collection(db, endpoint), data);
-        console.debug("Document written with ID: ", docRef.id);
+        if (debug) console.debug("Document written with ID: ", docRef.id);
     } catch (e) {
-        console.error("Error adding document: ", e);
+        if (debug) console.error("Error adding document: ", e);
         throw(e);
     }
 }
@@ -79,9 +80,9 @@ export async function saveDoc(endpoint: Endpoint, data: any) {
 export async function setSingleDoc(endpoint: Endpoint, id: string, data: any) {
     try {
         const docRef = await setDoc(doc(db, endpoint + "/" + id), data);
-        console.debug("Document written with ID: ", docRef);
+        if (debug) console.debug("Document written with ID: ", docRef);
     } catch (e) {
-        console.error("Error adding document: ", e);
+        if (debug) console.error("Error adding document: ", e);
         throw(e);
     }
 }

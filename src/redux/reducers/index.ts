@@ -1,10 +1,11 @@
-import {Chat, Position, State, Toast, User, UserData} from "../../data/models";
+import {Chat, Position, State, Toast, User} from "../../data/models";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {fetchChatsFromUser, fetchUser, fetchUsers, loginAction} from '../asyncActions'
 import {updateArray} from "../../utils/functions";
 import {Color} from "@ionic/core";
 import {athletes} from "../../data/data";
+import {debug} from "../../data/constantValues";
 
 export const initialState: State = {
     user: {name: athletes[Math.floor(Math.random() * athletes.length)]},
@@ -50,12 +51,12 @@ export const datasetSlice = createSlice({
     },
     extraReducers: (builder => {
         builder.addCase(fetchUsers.fulfilled, (state, {payload}) => {
-            console.debug('fetchUsers', payload);
+            if (debug) console.debug('fetchUsers', payload);
             if (payload) {
                 state.users = (payload as User[]);
             }
         }).addCase(fetchUser.fulfilled, (state, {payload}) => {
-            console.debug('fetchUser', payload);
+            if (debug) console.debug('fetchUser', payload);
             if (payload) {
                 let newUsers = updateArray(state.users, payload, 'uid');
                 if (newUsers) {
@@ -63,16 +64,16 @@ export const datasetSlice = createSlice({
                 }
             }
         }).addCase(fetchChatsFromUser.fulfilled, (state, action) => {
-            console.debug('fetchChatsFromUser', action);
+            if (debug) console.debug('fetchChatsFromUser', action);
             if (action.payload && state.user) {
                 state.user.chats = action.payload.chats;
             }
         }).addCase(fetchChatsFromUser.rejected, (state, {error}) => {
-            console.debug('fetchChatsFromUserError', error);
+            if (debug) console.debug('fetchChatsFromUserError', error);
             state.toast = getDefaultToast(error.message ?? 'Error', "danger");
         })
             .addCase(loginAction.fulfilled, (state, {payload}) => {
-                console.debug('loginAction', payload);
+                if (debug) console.debug('loginAction', payload);
                 if (payload && state.user) {
                     let find = state.users.find(u => u.uid === payload);
                     state.user = find ?? {uid: payload};
@@ -80,7 +81,7 @@ export const datasetSlice = createSlice({
                 }
             })
             .addCase(loginAction.rejected, (state, {error}) => {
-                console.debug('loginAction', error);
+                if (debug) console.debug('loginAction', error);
                 state.toast = getDefaultToast(error.message ?? 'Error', "danger");
             })
     })

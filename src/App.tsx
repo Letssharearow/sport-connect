@@ -36,19 +36,19 @@ import './theme/variables.css';
 import {Endpoint, Page} from "./data/category";
 import {accessibilityOutline, chatbubbles, globe} from "ionicons/icons";
 import {useDispatch, useSelector} from "react-redux";
-import {Chat, IRootState} from "./data/models";
+import {IRootState} from "./data/models";
 import Profile from "./pages/Profile";
 import './App.css'
 import User from "./pages/User";
-import React, {useEffect, useMemo, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import ToastComponent from './components/ToastComponent';
-import {useLoading} from "./hooks/useLoading";
 import Contacts from "./pages/Contacts";
 import Policy from "./pages/Policy";
 import {subscribe} from "./utils/firebaseConfig";
 import {setChats, setIsProfileSetup} from "./redux/reducers";
 import {AppDispatch} from "./index";
 import {fetchChatsFromUser, fetchUsers} from "./redux/asyncActions";
+import {debug} from "./data/constantValues";
 
 setupIonicReact();
 
@@ -70,7 +70,7 @@ const App: React.FC = () => {
         if (user?.uid && unsub.current === null) {
             dispatch(fetchChatsFromUser(user.uid));
             unsub.current = subscribe(Endpoint.chats, user.uid, (chats: any) => {
-                console.debug('subscribe', chats.data()?.chats);
+                if (debug) console.debug('subscribe', chats.data()?.chats);
                 dispatch(setChats(chats.data()?.chats ?? []))
             });
         }
@@ -83,7 +83,7 @@ const App: React.FC = () => {
 
     const state = useSelector((state: IRootState) => state.datasetSlice)
     useEffect(() => {
-        console.debug('state', state);
+        if (debug) console.debug('state', state);
     }, [state]);
 
     return (
