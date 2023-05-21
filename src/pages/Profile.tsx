@@ -4,21 +4,9 @@ import {
     IonToolbar,
     IonTitle,
     IonContent,
-    IonList,
-    IonItem,
-    IonLabel,
-    IonInput,
-    IonSelect,
-    IonSelectOption,
     IonButton,
-    useIonRouter,
     InputChangeEventDetail,
     SelectChangeEventDetail,
-    IonText,
-    IonRow,
-    IonCol,
-    IonGrid,
-    IonAvatar
 } from '@ionic/react';
 import {Gender, Page} from "../data/category";
 import {useDispatch, useSelector} from "react-redux";
