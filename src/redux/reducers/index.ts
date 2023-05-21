@@ -66,6 +66,9 @@ export const datasetSlice = createSlice({
         }).addCase(writeUser.rejected, (state, action) => {
             if (debug) console.debug('fetchUser', action);
             state.toast = getDefaultToast(action.error.message ?? 'Failed to write data into the cloud', "danger");
+        }).addCase(writeUser.fulfilled, (state, action) => {
+            if (debug) console.debug('fetchUser', action);
+            state.toast = getDefaultToast('Profl gespeichert', "success");
         }).addCase(fetchChatsFromUser.fulfilled, (state, action) => {
             if (debug) console.debug('fetchChatsFromUser', action);
             if (action.payload && state.user) {

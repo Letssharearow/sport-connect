@@ -45,31 +45,32 @@ const Profile = () => {
             handleSubmit();
         }
     }, [])
+
+    useEffect(() => {
+        setLocalUser(userState)
+    }, [userState])
+
     const handleNameChange = (event: IonInputCustomEvent<InputChangeEventDetail>) => {
-        setLocalUser((user) => {
-            return user && event.target.value && typeof event.target.value === "string" ? {
+        dispatch(setUser(user && event.target.value && typeof event.target.value === "string" ? {
                 ...user,
                 name: event.target.value
-            } : undefined;
-        });
+            } : {}
+        ));
     };
 
     const handleAgeChange = (event: IonInputCustomEvent<InputChangeEventDetail>) => {
-        setLocalUser((user) => {
-            return user && event.target.value && typeof event.target.value === "string" ? {
+        dispatch(setUser(user && event.target.value && typeof event.target.value === "string" ? {
                 ...user,
                 age: +event.target.value
-            } : undefined;
-        });
+            } : {}
+        ));
     };
-
     const handleGenderChange = (event: IonSelectCustomEvent<SelectChangeEventDetail<any>>) => {
-        setLocalUser((user) => {
-            return user && event.target.value && typeof event.target.value === "string" ? {
+        dispatch(setUser(user && event.target.value && typeof event.target.value === "string" ? {
                 ...user,
                 gender: event.target.value as Gender
-            } : undefined;
-        });
+            } : {}
+        ));
     };
 
     const handleSubmit = () => {

@@ -22,7 +22,6 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
 
-
     const handleSubmit = () => {
         register(email, password).then(r => {
             dispatch(setToast({message: "registered", color: "success"}))
@@ -49,7 +48,7 @@ const SignUp = () => {
                                 label="Email"
                                 type="email"
                                 value={email}
-                                onIonChange={(e) => setEmail(e.detail.value!)}
+                                onIonInput={(e) => setEmail(e.detail.value!)}
                             >
                             </IonInput>
                         </IonItem>
@@ -63,7 +62,7 @@ const SignUp = () => {
                                 label="Password"
                                 type="password"
                                 value={password}
-                                onIonChange={(e) => setPassword(e.detail.value!)}
+                                onIonInput={(e) => setPassword(e.detail.value!)}
                             >
                             </IonInput>
                         </IonItem>

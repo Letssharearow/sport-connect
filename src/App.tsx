@@ -76,8 +76,12 @@ const App: React.FC = () => {
                 dispatch(setChats(map as ChatFirebase))
             });
         }
-        if (user?.categories && user?.categories.length > 0 && user.name && user.age && user.gender) {
-            dispatch(setIsProfileSetup(true));
+        if (user?.categories && user?.categories.length > 0) {
+            if (user.name && user.age && user.gender || (user && !user.uid)) {
+                dispatch(setIsProfileSetup(true));
+            } else {
+                dispatch(setIsProfileSetup(false));
+            }
         } else {
             dispatch(setIsProfileSetup(false));
         }
