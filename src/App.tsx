@@ -49,6 +49,7 @@ import {setChats, setIsProfileSetup} from "./redux/reducers";
 import {AppDispatch} from "./index";
 import {fetchChatsFromUser, fetchUsers} from "./redux/asyncActions";
 import {debug} from "./data/constantValues";
+import ExploreContainer from "./components/ExploreContainer";
 
 setupIonicReact();
 
@@ -105,6 +106,7 @@ const App: React.FC = () => {
                             <User/>
                         </Route>
                         <Redirect exact path="/" to={Page.login}/>
+                        <Route path="/location" render={() => <ExploreContainer/>} exact={true}/>
                         <Route path={Page.login} render={() => <Login/>} exact={true}/>
                         <Route path={Page.signup} render={() => <SignUp/>} exact={true}/>
                         <Route path={Page.policy} render={() => <Policy/>} exact={true}/>
