@@ -19,7 +19,6 @@ import UserAttributes from "../components/UserAttributes";
 import {writeUser} from "../redux/asyncActions";
 import {AppDispatch} from "../index";
 import {isDispatchFulfilled} from "../utils/functions";
-import {athletes} from "../data/data";
 
 const Profile = () => {
     const userState = useSelector((state: IRootState) => state.datasetSlice.user)
@@ -27,19 +26,12 @@ const Profile = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
-
-    useEffect(() => {
-        if (user?.uid) {
-            handleSubmit();
-        }
-    }, [])
-
     useEffect(() => {
         setLocalUser(userState)
     }, [userState])
 
     const handleNameChange = (event: IonInputCustomEvent<InputChangeEventDetail>) => {
-        dispatch(setUser(user && event.target.value && typeof event.target.value === "string" ? {
+        dispatch(setUser(user && typeof event.target.value === "string" ? {
                 ...user,
                 name: event.target.value
             } : {}
@@ -47,7 +39,7 @@ const Profile = () => {
     };
 
     const handleAgeChange = (event: IonInputCustomEvent<InputChangeEventDetail>) => {
-        dispatch(setUser(user && event.target.value && typeof event.target.value === "string" ? {
+        dispatch(setUser(user && typeof event.target.value === "string" ? {
                 ...user,
                 age: +event.target.value
             } : {}
