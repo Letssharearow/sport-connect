@@ -2,24 +2,21 @@ import {
     IonButton,
     IonCol,
     IonContent,
-    IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonRouterLink, IonRow,
-    IonTitle, IonToast,
-    IonToolbar, useIonRouter, useIonToast
+    IonHeader, IonIcon, IonInput, IonItem, IonRouterLink, IonRow,
+    IonTitle,
+    IonToolbar, useIonRouter
 } from "@ionic/react";
 import {personCircle} from "ionicons/icons";
 import React, {useEffect, useState} from "react";
-import {getDocument, getDocuments, login, saveDoc, setSingleDoc} from "../utils/firebaseConfig";
 import {useDispatch, useSelector} from "react-redux";
-import {setToast} from "../redux/reducers";
-import {Category, Gender, Page} from "../data/category";
+import {Page} from "../data/category";
 import {loginAction} from "../redux/asyncActions";
 import {AppDispatch} from "../index";
 import {IRootState} from "../data/models";
-import {isDispatchFulfilled} from "../utils/functions";
 
 function Login() {
-    const [email, setEmail] = useState("testuser3@gamil.com");
-    const [password, setPassword] = useState("test123");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((state: IRootState) => state.datasetSlice.user);
     const isProfileSetup = useSelector((state: IRootState) => state.datasetSlice.isProfileSetup);
@@ -95,10 +92,10 @@ function Login() {
                 <IonRow>
                     <IonCol>
                         <p style={{fontSize: "small"}}>
-                            Indem Sie auf LOGIN klicken, stimmen Sie unseren <IonRouterLink
-                            routerLink={Page.policy}>
-                            <a href="">Richtlinien</a>
-                        </IonRouterLink> zu!
+                            Indem Sie auf LOGIN klicken, stimmen Sie unseren
+                            <IonRouterLink routerLink={Page.policy}>
+                                <a href="">Richtlinien</a>
+                            </IonRouterLink> zu!
                         </p>
                         <IonButton expand="block" onClick={handleLogin}>
                             Login

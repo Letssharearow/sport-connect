@@ -19,7 +19,7 @@ const Categories: React.FC<Props> = ({categories, showAddIcon}) => {
                                            togglSelected={(cat) => void 0}
                                            key={index}
                                            category={cat}
-                                           showAddIcon={showAddIcon}/>);
+                                           icon={showAddIcon ? "addOutline" : undefined}/>);
             })}
         </IonList>
     );

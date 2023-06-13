@@ -5,10 +5,15 @@ export interface User {
     categories?: Category[];
     name?: string;
     age?: number;
-    description?: string;
     uid?: string;
     gender?: Gender;
     chats?: ChatFirebase;
+    location?: Location
+}
+
+export interface Location {
+    longitude: number;
+    latitude: number;
 }
 
 export interface UserData {
@@ -39,12 +44,12 @@ export interface Message {
     value: string;
 }
 
-export type Position = "bottom" | "middle" | "top";
+export type ToastPosition = "bottom" | "middle" | "top";
 
 export interface Toast {
     message: string;
     duration?: number;
-    position?: Position;
+    position?: ToastPosition;
     color?: Color;
     isOpen?: boolean;
 }

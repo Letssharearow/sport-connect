@@ -6,17 +6,17 @@ import {
 import './MessageListItem.css';
 import {Category} from "../data/category";
 import {useState} from "react";
-import {add, addCircle, addOutline} from "ionicons/icons";
+import {add, addCircle, addOutline, removeOutline} from "ionicons/icons";
 import CategoryIcon from "./CategoryIcon";
 
 interface Props {
     category: Category;
     isSelected: boolean;
-    showAddIcon?: boolean;
+    icon?: undefined | "addOutline" | "removeOutline";
     togglSelected: (category: Category) => void;
 }
 
-const CategoryComponent: React.FC<Props> = ({category, isSelected, togglSelected, showAddIcon = true}) => {
+const CategoryComponent: React.FC<Props> = ({category, isSelected, togglSelected, icon}) => {
 
 
     return (
@@ -38,9 +38,9 @@ const CategoryComponent: React.FC<Props> = ({category, isSelected, togglSelected
                 </IonRow>
             </IonGrid>
             {
-                !isSelected && showAddIcon &&
+                !isSelected && icon &&
                 <IonButton slot="end" fill="clear" size="small">
-                    <IonIcon slot="end" size="large" icon={isSelected ? add : addOutline}/>
+                    <IonIcon slot="end" size="large" icon={icon === "addOutline" ? addOutline : removeOutline}/>
                 </IonButton>
             }
         </IonItem>

@@ -65,6 +65,14 @@ const Policy = () => {
                     Änderungen werden wir dich informieren, indem wir eine deutliche Benachrichtigung auf
                     unserer Website veröffentlichen oder dir eine E-Mail senden.
                 </p>
+
+                <h2>7. Wer kann deine Daten sehen</h2>
+                <p>
+                    Die Daten werden sicher in einem Firebase datastore gespeichert. Als Entwickler hat man zugriff auf
+                    die Daten und kann
+                    dementsprechend alles theoretisch einsehen.
+                </p>
+                <p style={{height: 400}}/>
             </IonContent>
         </>
     );

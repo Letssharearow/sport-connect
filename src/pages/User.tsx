@@ -42,10 +42,11 @@ const User = () => {
     }, [messages])
 
     const sendWelcomeMessage = useCallback(() => {
+        console.log('user', user);
         sendAnyMessage(defaultMessage);
-    }, [messagesComponents])
+    }, [user])
 
-
+    console.log('user', user);
     const sendAnyMessage = useCallback((message: string) => {
         console.log('message', message, user, userState, userState?.uid, messages, message);
         if (user && userState && userState.uid && messages && message) {

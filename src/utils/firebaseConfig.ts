@@ -57,6 +57,7 @@ export async function login(username: string, password: string) {
 }
 
 export async function register(username: string, password: string) {
+    console.log('username password', username, password);
     try {
         const res = await createUserWithEmailAndPassword(auth, username, password);
         if (debug) console.debug('res', res);

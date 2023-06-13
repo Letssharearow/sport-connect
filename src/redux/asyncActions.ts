@@ -19,9 +19,12 @@ export const fetchUser = createAsyncThunk('user', async (uid: string, {getState}
 });
 
 export const writeUser = createAsyncThunk('user/write', async (user: User, {getState}) => {
-    if (debug) console.debug('user/write',);
+    if (debug) console.debug('user/write', user);
     if (user.uid) {
-        let document = await setSingleDoc(Endpoint.users, user.uid, user);
+        const deleted = {...user}
+        delete deleted['chats'];
+        console.log('deleted', deleted);
+        let document = await setSingleDoc(Endpoint.users, user.uid, deleted);
         if (debug) console.debug('documents', document);
     }
 });
@@ -39,7 +42,7 @@ export const sendMessage = createAsyncThunk('user/message', async ({
                                                                        to
                                                                    }: { messages: Message[], from: User, to: User }, {getState}) => {
 
-    if (debug) console.debug('user/message');
+    if (debug) console.debug('user/message', messages);
     if (from && to && from.uid && to.uid && messages && messages.length > 0) {
         if (debug) console.debug('sending message', messages, from, to);
         try {

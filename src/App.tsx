@@ -102,18 +102,16 @@ const App: React.FC = () => {
                         <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
                         <Route path={Page.users} render={() => <Users/>} exact={true}/>
                         <Route path={Page.contacts} render={() => <Contacts/>} exact={true}/>
-                        <Route path="/users/:id">
+                        <Route path={Page.users + "/:id"}>
                             <User/>
                         </Route>
                         <Redirect exact path="/" to={Page.login}/>
-                        <Route path="/location" render={() => <ExploreContainer/>} exact={true}/>
                         <Route path={Page.login} render={() => <Login/>} exact={true}/>
                         <Route path={Page.signup} render={() => <SignUp/>} exact={true}/>
                         <Route path={Page.policy} render={() => <Policy/>} exact={true}/>
                         <Route path={Page.categories} render={() => <CategorySelection/>} exact={true}/>
                         <Route path={Page.profile} render={() => <Profile/>} exact={true}/>
                         <Route path={Page.users} render={() => <Users/>} exact={true}/>
-                        {/*{isProfileSetup ? <Redirect to={Page.profile} path={Page.login} exact/> : null}*/}
                     </IonRouterOutlet>
 
 

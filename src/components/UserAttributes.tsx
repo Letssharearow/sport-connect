@@ -2,7 +2,7 @@ import {
     IonAvatar,
     IonButton, IonCol, IonGrid,
     IonInput,
-    IonItem,
+    IonItem, IonItemDivider,
     IonLabel,
     IonList,
     IonRouterLink, IonRow,
@@ -11,9 +11,14 @@ import {
     IonText
 } from "@ionic/react";
 import Categories from "./Categories";
-import {Gender, Page} from "../data/category";
-import React from "react";
+import {Category, Gender, getCategories, Page} from "../data/category";
+import React, {useMemo, useState} from "react";
 import {User} from "../data/models";
+import CategoryComponent from "./CategoryComponent";
+import {addOrRemove} from "../utils/functions";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../index";
+import {setUser} from "../redux/reducers";
 
 interface Props {
     isThisUser: boolean;
@@ -23,6 +28,7 @@ interface Props {
     handleGenderChange?: (event: any) => void;
 }
 
+const allCategories = getCategories()
 
 const UserAttributes: React.FC<Props> = ({
                                              isThisUser = false,
@@ -31,6 +37,12 @@ const UserAttributes: React.FC<Props> = ({
                                              handleNameChange,
                                              handleAgeChange
                                          }) => {
+    const dispatch = useDispatch<AppDispatch>();
+
+    const remainingCategories = useMemo(() => {
+            return allCategories.filter(cat => !user?.categories?.includes(cat))
+        }, [user?.categories]
+    )
 
     return <>
         <IonList>
@@ -74,17 +86,35 @@ const UserAttributes: React.FC<Props> = ({
             }
         </IonList>
         <div className="ion-text-center">
-            {
-                isThisUser && <IonText color="dark">Deine Aktivitäten</IonText>
-            }
-            {/*TODO: Fix styling*/}
-            <Categories showAddIcon={false} categories={user?.categories ?? []}/>
-            {
-                isThisUser &&
-                <IonRouterLink routerLink={Page.categories}>
-                    <IonButton fill="outline">Anpassen</IonButton>
-                </IonRouterLink>
-            }
+            <IonList>
+                {user?.categories?.map((cat, index) => {
+                    return (<CategoryComponent isSelected={false}
+                                               togglSelected={(cat) => {
+                                                   dispatch(setUser({
+                                                       ...user,
+                                                       categories: addOrRemove([...user?.categories ?? []], cat)
+                                                   }))
+                                               }}
+                                               key={index}
+                                               category={cat}
+                                               icon="removeOutline"/>);
+                })}
+            </IonList>
+            <IonItemDivider></IonItemDivider>
+            <IonList>
+                {remainingCategories.map((cat, index) => {
+                    return (<CategoryComponent isSelected={false}
+                                               togglSelected={(cat) => {
+                                                   dispatch(setUser({
+                                                       ...user,
+                                                       categories: addOrRemove([...user?.categories ?? []], cat)
+                                                   }))
+                                               }}
+                                               key={index}
+                                               category={cat}
+                                               icon="addOutline"/>);
+                })}
+            </IonList>
         </div>
     </>;
 };

@@ -1,4 +1,4 @@
-import {ChatApp, ChatFirebase, Message, Position, State, Toast, User} from "../../data/models";
+import {ChatApp, ChatFirebase, Message, ToastPosition, State, Toast, User} from "../../data/models";
 
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {fetchChatsFromUser, fetchUser, fetchUsers, loginAction, writeUser} from '../asyncActions'
@@ -15,7 +15,7 @@ export const initialState: State = {
 }
 const getDefaultToast = (message: string, color?: Color) => ({
     duration: 5000,
-    position: "bottom" as Position,
+    position: "bottom" as ToastPosition,
     isOpen: true,
     message,
     color,
@@ -68,7 +68,7 @@ export const datasetSlice = createSlice({
             state.toast = getDefaultToast(action.error.message ?? 'Failed to write data into the cloud', "danger");
         }).addCase(writeUser.fulfilled, (state, action) => {
             if (debug) console.debug('fetchUser', action);
-            state.toast = getDefaultToast('Profl gespeichert', "success");
+            // state.toast = getDefaultToast('Profil gespeichert', "success");
         }).addCase(fetchChatsFromUser.fulfilled, (state, action) => {
             if (debug) console.debug('fetchChatsFromUser', action);
             if (action.payload && state.user) {

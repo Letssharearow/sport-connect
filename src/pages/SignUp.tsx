@@ -1,23 +1,17 @@
 import React, {useState} from 'react';
 import {
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonList,
     IonItem,
     IonInput,
-    IonSelect,
-    IonSelectOption,
     IonButton,
     IonRow,
     IonCol,
     IonIcon,
     useIonRouter,
-    IonToast,
 } from '@ionic/react';
 import {Page} from '../data/category';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setToast} from '../redux/reducers';
 import {register} from '../utils/firebaseConfig';
 import {HeaderWithArrows} from '../components/HeaderWithArrows';
@@ -47,15 +41,15 @@ const SignUp = () => {
     return (
         <>
             <HeaderWithArrows header="Registration"/>
-            <IonContent>
+            <IonContent class="ion-padding">
                 <IonList>
-                    <IonItem>
+                    <IonItem style={{marginBottom: 5}}>
                         <IonIcon icon={person} slot="start"/>
                         <IonInput
                             type="email"
                             value={email}
                             placeholder="Email"
-                            onIonChange={(e) => setEmail(e.detail.value!)}
+                            onIonInput={(e) => setEmail(e.detail.value!)}
                         />
                     </IonItem>
                     <IonItem>
@@ -64,7 +58,7 @@ const SignUp = () => {
                             type="password"
                             value={password}
                             placeholder="Password"
-                            onIonChange={(e) => setPassword(e.detail.value!)}
+                            onIonInput={(e) => setPassword(e.detail.value!)}
                         />
                     </IonItem>
                 </IonList>
