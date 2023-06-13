@@ -33,6 +33,7 @@ export interface State {
     userData?: UserData;
     toast?: Toast;
     isProfileSetup: boolean;
+    distance: number;
 }
 
 export interface IRootState {

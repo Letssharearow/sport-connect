@@ -5,19 +5,28 @@ import {AppDispatch} from "../index";
 import {fetchUsers, writeUser} from "../redux/asyncActions";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {Geolocation, Position} from "@capacitor/geolocation";
-import {isDispatchFulfilled} from "../utils/functions";
+import {distance, isDispatchFulfilled} from "../utils/functions";
 import {setUser} from "../redux/reducers";
 
 const Users: React.FC = () => {
 
     const usersState = useSelector((state: IRootState) => state.datasetSlice.users);
     const userState = useSelector((state: IRootState) => state.datasetSlice.user);
+    const distanceState = useSelector((state: IRootState) => state.datasetSlice.distance);
 
     const filteredUsers = useMemo(() => {
-        return usersState.filter(u => {
+        let filterdUsers = usersState.filter(u => {
             return u.categories?.find(cat => userState?.categories?.includes(cat)) && u.uid !== userState?.uid
         });
-    }, [userState])
+        if (userState?.location) {
+            return filterdUsers.filter(u => {
+                let distanceMeters = distance(u?.location, userState?.location);
+                console.log('distanceMeters', distanceMeters, u);
+                return distanceMeters <= distanceState;
+            })
+        }
+        return filterdUsers;
+    }, [userState, usersState, distanceState])
 
     const dispatch = useDispatch<AppDispatch>();
 

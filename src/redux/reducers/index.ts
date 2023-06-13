@@ -12,6 +12,7 @@ export const initialState: State = {
     users: [],
     userData: undefined,
     isProfileSetup: false,
+    distance: 100,
 }
 const getDefaultToast = (message: string, color?: Color) => ({
     duration: 5000,
@@ -46,6 +47,9 @@ export const datasetSlice = createSlice({
             if (state.toast) {
                 state.toast.isOpen = false;
             }
+        },
+        setDistance: (state: State, action: PayloadAction<number>) => {
+            state.distance = action.payload;
         }
 
     },
@@ -94,7 +98,7 @@ export const datasetSlice = createSlice({
 
 })
 
-export const {setUser, setToast, dismissToast, setChats, setIsProfileSetup} = datasetSlice.actions
+export const {setUser, setToast, dismissToast, setChats, setIsProfileSetup, setDistance} = datasetSlice.actions
 
 export default datasetSlice.reducer
 
