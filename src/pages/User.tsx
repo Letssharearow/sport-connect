@@ -102,7 +102,6 @@ const User = () => {
                 <IonRow style={{overflow: 'scroll', height: '40%'}}>
                     <IonCol>
                         <IonList>
-                            {/* Render messages here */}
                             {messagesComponents}
                         </IonList>
                     </IonCol>

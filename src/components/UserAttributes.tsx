@@ -47,17 +47,6 @@ const UserAttributes: React.FC<Props> = ({
     return <>
         <IonList>
             {
-                false && <IonGrid>
-                    <IonRow className="ion-align-items-center">
-                        <IonCol className="ion-text-center">
-                            <IonAvatar onClick={() => void 0}>
-                                <img src="/path/to/profile-picture.png" alt="Profile Picture"/>
-                            </IonAvatar>
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
-            }
-            {
                 isThisUser ?
                     <>
                         <IonItem>
@@ -89,32 +78,34 @@ const UserAttributes: React.FC<Props> = ({
             <IonList>
                 {user?.categories?.map((cat, index) => {
                     return (<CategoryComponent isSelected={false}
-                                               togglSelected={(cat) => {
+                                               togglSelected={isThisUser ? (cat) => {
                                                    dispatch(setUser({
                                                        ...user,
                                                        categories: addOrRemove([...user?.categories ?? []], cat)
                                                    }))
-                                               }}
+                                               } : () => void 0}
                                                key={index}
                                                category={cat}
-                                               icon="removeOutline"/>);
+                                               icon={isThisUser ? "removeOutline" : undefined}/>);
                 })}
             </IonList>
-            <IonItemDivider></IonItemDivider>
-            <IonList>
-                {remainingCategories.map((cat, index) => {
-                    return (<CategoryComponent isSelected={false}
-                                               togglSelected={(cat) => {
-                                                   dispatch(setUser({
-                                                       ...user,
-                                                       categories: addOrRemove([...user?.categories ?? []], cat)
-                                                   }))
-                                               }}
-                                               key={index}
-                                               category={cat}
-                                               icon="addOutline"/>);
-                })}
-            </IonList>
+            {isThisUser && <IonItemDivider/>}
+            {
+                isThisUser && <IonList>
+                    {remainingCategories.map((cat, index) => {
+                        return (<CategoryComponent isSelected={false}
+                                                   togglSelected={(cat) => {
+                                                       dispatch(setUser({
+                                                           ...user,
+                                                           categories: addOrRemove([...user?.categories ?? []], cat)
+                                                       }))
+                                                   }}
+                                                   key={index}
+                                                   category={cat}
+                                                   icon="addOutline"/>);
+                    })}
+                </IonList>
+            }
         </div>
     </>;
 };

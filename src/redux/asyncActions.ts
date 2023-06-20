@@ -30,7 +30,7 @@ export const writeUser = createAsyncThunk('user/write', async (user: User, {getS
 });
 
 export const fetchChatsFromUser = createAsyncThunk('user/chats', async (uid: string, {getState}) => {
-    if (debug) console.debug('fetchChatsFromUser',);
+    if (debug) console.debug('fetchChatsFromUser', uid);
     let document = await getDocument(Endpoint.chats, uid);
     if (debug) console.debug('documents', document);
     return document?.chats as ChatFirebase;
@@ -66,7 +66,7 @@ export const loginAction = createAsyncThunk('user/login', async ({
                                                                      password, email
                                                                  }: { email: string, password: string }, {getState}) => {
 
-    if (debug) console.debug('user/login');
+    if (debug) console.debug('user/login', password, email);
     try {
         return await login(email + "", password + "");
     } catch (e) {
