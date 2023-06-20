@@ -30,7 +30,6 @@ export type ChatApp = Map<string, Message[]>;
 export interface State {
     user?: User;
     users: User[];
-    userData?: UserData;
     toast?: Toast;
     isProfileSetup: boolean;
     distance: number;

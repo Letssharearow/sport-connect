@@ -10,7 +10,6 @@ import {debug} from "../../data/constantValues";
 export const initialState: State = {
     user: {name: athletes[Math.floor(Math.random() * athletes.length)]},
     users: [],
-    userData: undefined,
     isProfileSetup: false,
     distance: 100,
 }
@@ -55,10 +54,12 @@ export const datasetSlice = createSlice({
     },
     extraReducers: (builder => {
         builder.addCase(fetchUsers.fulfilled, (state, {payload}) => {
-            if (debug) console.debug('fetchUsers', payload);
             if (payload) {
                 state.users = (payload as User[]);
             }
+        }).addCase(fetchUsers.rejected, (state: State, action) => {
+            if (debug) console.debug('fetchUser', action);
+            state.toast = getDefaultToast(action.error.message ?? 'Failed to fetch data from the cloud', "danger");
         }).addCase(fetchUser.fulfilled, (state, {payload}) => {
             if (debug) console.debug('fetchUser', payload);
             if (payload) {

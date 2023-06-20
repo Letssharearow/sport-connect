@@ -36,6 +36,7 @@ export const fetchChatsFromUser = createAsyncThunk('user/chats', async (uid: str
     return document?.chats as ChatFirebase;
 });
 
+const maximumMessageAmount = -20;
 export const sendMessage = createAsyncThunk('user/message', async ({
                                                                        messages,
                                                                        from,
@@ -46,13 +47,12 @@ export const sendMessage = createAsyncThunk('user/message', async ({
     if (from && to && from.uid && to.uid && messages && messages.length > 0) {
         if (debug) console.debug('sending message', messages, from, to);
         try {
+            const lastXMessages = messages.slice(maximumMessageAmount);
             const map = new Map();
-            map.set(to.uid, messages);
+            map.set(to.uid, lastXMessages);
             const mapTo = new Map();
-            mapTo.set(from.uid, messages);
-            const chats = Object.fromEntries(map);
-            console.log('chats', chats);
-            await setSingleDoc(Endpoint.chats, from.uid, {chats: chats}, true)
+            mapTo.set(from.uid, lastXMessages);
+            await setSingleDoc(Endpoint.chats, from.uid, {chats: Object.fromEntries(map)}, true)
             await setSingleDoc(Endpoint.chats, to.uid, {chats: Object.fromEntries(mapTo)}, true)
         } catch (e) {
             throw(e);

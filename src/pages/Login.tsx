@@ -49,7 +49,6 @@ function Login() {
                 </IonToolbar>
             </IonHeader>
             <IonContent style={{height: '100vh'}}>
-
                 <IonRow class="ion-text-center">
                     <IonCol>
                         <IonIcon
@@ -58,8 +57,6 @@ function Login() {
                         />
                     </IonCol>
                 </IonRow>
-
-
                 <IonRow>
                     <IonCol>
                         <IonItem>
@@ -88,7 +85,6 @@ function Login() {
                         </IonItem>
                     </IonCol>
                 </IonRow>
-
                 <IonRow>
                     <IonCol>
                         <p style={{fontSize: "small"}}>
@@ -116,7 +112,6 @@ function Login() {
                         </p>
                     </IonCol>
                 </IonRow>
-
             </IonContent>
         </>)
 }

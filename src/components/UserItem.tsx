@@ -14,6 +14,7 @@ import {personCircleOutline} from 'ionicons/icons';
 import {IRootState, User} from "../data/models";
 import {useSelector} from "react-redux";
 import {distance} from "../utils/functions";
+import {Page} from "../data/category";
 
 interface Props {
     user: User;
@@ -24,7 +25,7 @@ const UserItem: React.FC<Props> = ({user}) => {
     const userState = useSelector((state: IRootState) => state.datasetSlice.user);
 
     return (
-        <IonItem routerLink={`/users/${user.uid}`} detail={false}>
+        <IonItem routerLink={`${Page.users}/${user.uid}`} detail={false}>
             <IonCard style={styles.card}>
                 <IonCardContent>
                     <div style={styles.cardContainer}>
