@@ -45,7 +45,7 @@ import ToastComponent from './components/ToastComponent';
 import Contacts from "./pages/Contacts";
 import Policy from "./pages/Policy";
 import {subscribe} from "./utils/firebaseConfig";
-import {setChats, setIsProfileSetup} from "./redux/reducers";
+import {setChats, setIsProfileSetup, setToast} from "./redux/reducers";
 import {AppDispatch} from "./index";
 import {fetchChatsFromUser, fetchUsers} from "./redux/asyncActions";
 import {debug} from "./data/constantValues";
@@ -116,7 +116,9 @@ const App: React.FC = () => {
 
 
                     {
-                        <IonTabBar slot="bottom">
+                        <IonTabBar slot="bottom" onClick={!isProfileSetup ? (() => {
+                            dispatch(setToast({message: "Bitte verfolständige dein Profil", color: "medium"}))
+                        }) : void 0}>
                             <IonTabButton disabled={!isProfileSetup} tab="profile" href={Page.profile}>
                                 <IonIcon icon={accessibilityOutline}/>
                                 <IonLabel>Profil</IonLabel>

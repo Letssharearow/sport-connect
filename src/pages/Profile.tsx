@@ -87,7 +87,7 @@ const Profile = () => {
                         handleNameChange={handleNameChange}
                         isThisUser
                     /></div>
-                <IonButton expand="block" onClick={handleSubmit}>Aktualisieren</IonButton>
+                <IonButton expand="block" onClick={handleSubmit}>Speichern</IonButton>
             </IonContent>
         </>
     );

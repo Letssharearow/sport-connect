@@ -47,9 +47,12 @@ export const datasetSlice = createSlice({
                 state.toast.isOpen = false;
             }
         },
+
+
         setDistance: (state: State, action: PayloadAction<number>) => {
             state.distance = action.payload;
         }
+
 
     },
     extraReducers: (builder => {

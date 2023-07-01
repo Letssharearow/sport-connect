@@ -113,7 +113,8 @@ function Login() {
                     </IonCol>
                 </IonRow>
             </IonContent>
-        </>)
+        </>
+    )
 }
 
 export default Login

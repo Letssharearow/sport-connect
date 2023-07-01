@@ -7,7 +7,10 @@ import {AppDispatch} from "../index";
 const Contacts: React.FC = () => {
 
     const usersId = useSelector((state: IRootState) => state.datasetSlice.users);
+
+
     const userState = useSelector((state: IRootState) => state.datasetSlice.user);
+
 
     const filteredUsers = usersId.filter(u => userState?.chats?.[u.uid ?? '']);
     const dispatch = useDispatch<AppDispatch>();
@@ -17,7 +20,7 @@ const Contacts: React.FC = () => {
     };
 
     return (
-        <UsersPreview heading="Deine Leute" users={filteredUsers} refresh={refresh}/>
+        <UsersPreview heading="Nachrichten" users={filteredUsers} refresh={refresh}/>
     );
 };
 

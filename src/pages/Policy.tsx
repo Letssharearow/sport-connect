@@ -1,20 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
-    IonList,
-    IonItem,
-    IonInput,
-    IonSelect,
-    IonSelectOption,
-    IonButton, IonRow, IonCol, useIonRouter, IonToast, IonButtons, IonBackButton, IonMenuButton
 } from '@ionic/react';
-import {Page} from "../data/category";
-import {useDispatch, useSelector} from "react-redux";
-import {setToast} from "../redux/reducers";
-import {register} from "../utils/firebaseConfig";
 import {HeaderWithArrows} from "../components/HeaderWithArrows";
 
 const Policy = () => {

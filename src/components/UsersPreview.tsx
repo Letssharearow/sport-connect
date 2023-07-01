@@ -49,7 +49,7 @@ export const UsersPreview = ({users, refresh, heading}: Props) => {
                 <IonList>
                     <IonItem>
                         <div style={{padding: "16px", width: "100%"}}>
-                            <IonLabel>Distance: {distance}</IonLabel>
+                            <IonLabel>Entfernung: {distance}</IonLabel>
                             <IonRange aria-label="Custom range" min={3} max={100} value={distance} step={1} pin={true}
                                       ticks={true}
                                       onIonChange={handleSliderChange}

@@ -13,10 +13,10 @@ import {
 import Categories from "./Categories";
 import {Category, Gender, getCategories, Page} from "../data/category";
 import React, {useMemo, useState} from "react";
-import {User} from "../data/models";
+import {IRootState, User} from "../data/models";
 import CategoryComponent from "./CategoryComponent";
 import {addOrRemove} from "../utils/functions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../index";
 import {setUser} from "../redux/reducers";
 
@@ -38,6 +38,7 @@ const UserAttributes: React.FC<Props> = ({
                                              handleAgeChange
                                          }) => {
     const dispatch = useDispatch<AppDispatch>();
+    const userState = useSelector((state: IRootState) => state.datasetSlice.user)
 
     const remainingCategories = useMemo(() => {
             return allCategories.filter(cat => !user?.categories?.includes(cat))
@@ -77,7 +78,7 @@ const UserAttributes: React.FC<Props> = ({
         <div className="ion-text-center">
             <IonList>
                 {user?.categories?.map((cat, index) => {
-                    return (<CategoryComponent isSelected={false}
+                    return (<CategoryComponent isSelected={userState?.categories?.includes(cat) ?? false}
                                                togglSelected={isThisUser ? (cat) => {
                                                    dispatch(setUser({
                                                        ...user,
