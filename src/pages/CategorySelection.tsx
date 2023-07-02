@@ -1,22 +1,15 @@
 import CategoryComponent from '../components/CategoryComponent';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Category, getCategories, Page} from '../data/category';
 import {
-    IonButton,
-    IonCardSubtitle,
-    IonCol,
+
     IonContent,
-    IonHeader, IonIcon, IonItem,
+    IonItem,
     IonList,
-    IonRefresher,
-    IonRefresherContent,
-    IonRouterLink,
-    IonRow,
-    IonTitle,
-    IonToolbar, useIonRouter
+    useIonRouter
 } from '@ionic/react';
 import {useDispatch, useSelector} from "react-redux";
-import {setUser} from "../redux/reducers";
+import {setToast, setUser} from "../redux/reducers";
 import {addOrRemove} from "../utils/functions";
 import {IRootState} from "../data/models";
 import {chevronForwardOutline} from "ionicons/icons";
@@ -41,14 +34,18 @@ const CategorySelection: React.FC = () => {
         router.push(route, 'root', 'replace');
     };
     const onSubmit = () => {
-        dispatch(setUser({categories: selectedCategories}));
-        goToPage(Page.profile);
+        if (selectedCategories.length > 0) {
+            dispatch(setUser({categories: selectedCategories}));
+            goToPage(Page.profile);
+        } else {
+            dispatch((setToast({message: "Bitte mindestens eine Aktivität auswählen", color: "medium"})))
+        }
     };
 
     return (
         <>
             <HeaderWithArrows
-                hasBackArrow={false} header="Aktivitäten" onForwardButton={onSubmit} page={Page.profile}/>
+                hasBackArrow={false} header="Aktivitäten" onForwardButton={onSubmit}/>
             <IonContent>
                 {
                 }

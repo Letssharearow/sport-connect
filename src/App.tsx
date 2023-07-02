@@ -117,7 +117,10 @@ const App: React.FC = () => {
 
                     {
                         <IonTabBar slot="bottom" onClick={!isProfileSetup ? (() => {
-                            dispatch(setToast({message: "Bitte verfolständige dein Profil", color: "medium"}))
+                            dispatch(setToast({
+                                message: "Bitte verfolständige dein Profil oder Logge dich ein",
+                                color: "medium"
+                            }))
                         }) : void 0}>
                             <IonTabButton disabled={!isProfileSetup} tab="profile" href={Page.profile}>
                                 <IonIcon icon={accessibilityOutline}/>

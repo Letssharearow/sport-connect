@@ -14,18 +14,14 @@ import {Page} from "../data/category";
 
 interface Props {
     header: string;
-    subTitle?: string;
     onForwardButton?: () => void;
-    page?: Page;
     hasBackArrow?: boolean;
 }
 
 export const HeaderWithArrows: React.FC<Props> = ({
                                                       header,
                                                       onForwardButton,
-                                                      hasBackArrow = true,
-                                                      page,
-                                                      subTitle
+                                                      hasBackArrow = true
                                                   }: Props) => {
     return (<IonHeader>
         <IonToolbar>
@@ -35,11 +31,9 @@ export const HeaderWithArrows: React.FC<Props> = ({
             <IonTitle class="ion-text-center">{header}
             </IonTitle>
             <IonButtons onClick={onForwardButton} style={{opacity: onForwardButton ? 100 : 0}} slot="end">
-                <IonRouterLink routerLink={page}>
-                    <IonButton>
-                        <IonIcon color="dark" style={{fontSize: 24}} icon={arrowForwardOutline}/>
-                    </IonButton>
-                </IonRouterLink>
+                <IonButton>
+                    <IonIcon color="dark" style={{fontSize: 24}} icon={arrowForwardOutline}/>
+                </IonButton>
             </IonButtons>
         </IonToolbar>
     </IonHeader>)

@@ -90,7 +90,7 @@ const User = () => {
             <IonGrid fixed style={{height: '100%'}}>
                 <IonRow>
                     <IonCol>
-                        <HeaderWithArrows header={user?.name ?? ''} page={Page.users}/>
+                        <HeaderWithArrows header={user?.name ?? ''}/>
                     </IonCol>
                 </IonRow>
                 <IonRow style={{overflow: 'scroll', height: '40%'}}>

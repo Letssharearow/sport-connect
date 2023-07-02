@@ -1,24 +1,19 @@
 import {
-    IonAvatar,
-    IonButton, IonCol, IonGrid,
     IonInput,
     IonItem, IonItemDivider,
-    IonLabel,
     IonList,
-    IonRouterLink, IonRow,
     IonSelect,
     IonSelectOption,
     IonText
 } from "@ionic/react";
-import Categories from "./Categories";
-import {Category, Gender, getCategories, Page} from "../data/category";
-import React, {useMemo, useState} from "react";
+import {Gender, getCategories,} from "../data/category";
+import React, {useMemo,} from "react";
 import {IRootState, User} from "../data/models";
 import CategoryComponent from "./CategoryComponent";
-import {addOrRemove} from "../utils/functions";
+import {addOrRemove, distance} from "../utils/functions";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../index";
-import {setUser} from "../redux/reducers";
+import {setToast, setUser} from "../redux/reducers";
 
 interface Props {
     isThisUser: boolean;
@@ -72,6 +67,8 @@ const UserAttributes: React.FC<Props> = ({
                         <IonText>Alter: {user?.age}</IonText>
                         <br/>
                         <IonText>Geschlecht: {user?.gender}</IonText>
+                        <br/>
+                        <IonText>{distance(userState?.location, user?.location).toFixed() + " km"}</IonText>
                     </div>
             }
         </IonList>
@@ -80,10 +77,18 @@ const UserAttributes: React.FC<Props> = ({
                 {user?.categories?.map((cat, index) => {
                     return (<CategoryComponent isSelected={userState?.categories?.includes(cat) ?? false}
                                                togglSelected={isThisUser ? (cat) => {
-                                                   dispatch(setUser({
-                                                       ...user,
-                                                       categories: addOrRemove([...user?.categories ?? []], cat)
-                                                   }))
+                                                   console.log('cat', cat);
+                                                   if (user?.categories && user.categories.length > 1) {
+                                                       dispatch(setUser({
+                                                           ...user,
+                                                           categories: addOrRemove([...user?.categories ?? []], cat)
+                                                       }))
+                                                   } else {
+                                                       dispatch((setToast({
+                                                           message: "Es muss mindestens eine Aktivität ausgewählt sein",
+                                                           color: "medium"
+                                                       })))
+                                                   }
                                                } : () => void 0}
                                                key={index}
                                                category={cat}
