@@ -20,9 +20,10 @@ export interface Props {
     users: User[];
     refresh: (e: CustomEvent) => void;
     heading: string;
+    showDistance?: boolean;
 }
 
-export const UsersPreview = ({users, refresh, heading}: Props) => {
+export const UsersPreview = ({users, refresh, heading, showDistance = true}: Props) => {
     const distance = useSelector((state: IRootState) => state.datasetSlice.distance);
     const dispatch = useDispatch()
     const handleSliderChange = (e: CustomEvent) => {
@@ -47,15 +48,17 @@ export const UsersPreview = ({users, refresh, heading}: Props) => {
                     <IonRefresherContent/>
                 </IonRefresher>
                 <IonList>
-                    <IonItem>
-                        <div style={{padding: "16px", width: "100%"}}>
-                            <IonLabel>Entfernung: {distance}</IonLabel>
-                            <IonRange aria-label="Custom range" min={3} max={100} value={distance} step={1} pin={true}
-                                      ticks={true}
-                                      onIonChange={handleSliderChange}
-                            ></IonRange>
-                        </div>
-                    </IonItem>
+                    {
+                        showDistance && <IonItem>
+                            <div style={{padding: "16px", width: "100%"}}>
+                                <IonLabel>Entfernung: {distance}</IonLabel>
+                                <IonRange aria-label="Custom range" min={3} max={100} value={distance} step={1} pin={true}
+                                          ticks={true}
+                                          onIonChange={handleSliderChange}
+                                />
+                            </div>
+                        </IonItem>
+                    }
                     {users.map((m) => (
                         <UserItem key={m.uid} user={m}/>
                     ))}

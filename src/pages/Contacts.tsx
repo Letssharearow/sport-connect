@@ -20,7 +20,7 @@ const Contacts: React.FC = () => {
     };
 
     return (
-        <UsersPreview heading="Nachrichten" users={filteredUsers} refresh={refresh}/>
+        <UsersPreview showDistance={false} heading="Nachrichten" users={filteredUsers} refresh={refresh}/>
     );
 };
 
